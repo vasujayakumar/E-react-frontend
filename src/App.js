@@ -1,22 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Home from './screens/Home';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './screens/LandingPage';
+import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
-import About from './screens/About';
-import Navheader from './components/Navigation';
-
+import Header from './components/Header';
 
 function App() {
   return (
     <BrowserRouter>
-      <Navheader/>
+      <Header />
       <Routes>
-          <Route index element={<Home />} />
-          <Route path="About" element={<About />} />
-          <Route path="contact" element={<Contact />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/DBConnection" element={<DBConnection />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+
+
