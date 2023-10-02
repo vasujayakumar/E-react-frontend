@@ -12,10 +12,9 @@ function Header() {
     <label class="logo">E-hospital</label>
     <ul>
       <li><a href="/">Home</a></li>
-      
-      <li><a href="#About">About Us</a></li>
       <li><a href="#services">Services</a></li>
-      <li><a href="/contact">Contact</a></li>
+      <li><a href="#About">About Us</a></li>
+      <li><a href="/contact">Contact US</a></li>
       <li><a href="#Login">Login</a></li>
       <li><a href="/DBConnection">DB Connection</a></li>
     </ul>
