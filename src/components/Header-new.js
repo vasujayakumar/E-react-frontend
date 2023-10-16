@@ -9,7 +9,7 @@ function Header() {
     <label for="check" class="checkbtn">
       <i class="fa fa-bars"></i>
     </label>
-    <label class="logo">eHospital</label>
+    <label class="logo"><span>e</span>Hospital</label>
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="#services">Services</a></li>

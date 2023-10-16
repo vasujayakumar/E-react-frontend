@@ -54,14 +54,20 @@ header {
     line-height: 60px;
 
   }
+
   label.logo{
    
     color: white;
-    font-size: 25px;
+    font-size: 2em;
     line-height: 60px;
     padding: 0 100px;
-    font-weight: bold;
+    font-weight: 0;
   }
+  
+  label.logo span{
+  color:  lightseagreen;
+  }
+  
   nav ul{
     float: right;
     margin-right: 100px;
