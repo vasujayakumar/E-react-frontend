@@ -7,7 +7,8 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
        
-       <img src={reactLogo} alt="React Image" />
+       <img src={reactLogo} alt="React Image" /><br></br><br></br><br></br>
+       <a href="/searchpatient">Shortcut to Search</a>
       {/*<h1>Welcome to Smart Digital Medicine</h1>
         <p>Your Health, Our Priority</p>*/} 
 

@@ -27,7 +27,8 @@
 // src/redux/actions/userActions.js
 import axios from 'axios';
 
-const BASE_URL = 'https://e-react-node-backend-22ed6864d5f3.herokuapp.com'; // Update with your Heroku app URL
+const BASE_URL = 'https://e-react-node-backend-22ed6864d5f3.herokuapp.com'; // Update with your node backend app URL
+//const BASE_URL = 'http://localhost:8080'; // Update with your node backend app URL
 
 export const fetchUsers = () => async (dispatch) => {
   try {
