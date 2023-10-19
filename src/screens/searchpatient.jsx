@@ -21,6 +21,7 @@ const Searchpatient = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      //local backend api link (http://localhost:8080/searchpatient)
     await axios.post("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/searchpatient", phone).then(function (response) {
         variable = response.data 
         console.log(variable); 

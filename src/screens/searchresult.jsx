@@ -1,10 +1,16 @@
 import {useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {useNavigate } from "react-router-dom";
 import '../styles/screens/Search.css';
 
 function Searchresult() {
 
+    const navigate = useNavigate();
     const location = useLocation();
-   
+    let dataskin = {};
+     dataskin=location.state;
+     console.log(dataskin);
+    const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
         
     
     
@@ -94,7 +100,9 @@ function Searchresult() {
         <i class="ri-macbook-line"></i>
         <h3>Skin Cancer Dignostic </h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <button class="button button5">Go</button>
+        <button class="button button5" onClick={goToskinml}> go
+        </button>
+       
       </div>
       <div class="service">
         <i class="ri-store-3-line"></i>
