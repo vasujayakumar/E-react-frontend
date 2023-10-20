@@ -50,6 +50,7 @@ To get started with this project, follow these steps:
 ## Folder Structure
   The project folder structure is organized as follows:
 
+```
 E-react-frontend/
   ├── node_modules/           # Contains project dependencies (created when you run npm install)
   ├── public/                 # Publicly accessible files
@@ -68,7 +69,7 @@ E-react-frontend/
   ├── package-lock.json      # locks dependency versions for consistent installations
   ├── package.json           # Project metadata and dependencies
   └── README.md              # Documentation for your project
-
+```
 
   You can find the main application code in the src/ directory, and Redux-related code in   
   src/redux/.

@@ -45,42 +45,74 @@ header {
   }
   nav{
     /*background: #0082e6;*/
-    background: #565d62;
+    /*background: #565d62;
     height: 80px;
-    width: 100%;
+    width: 100%;*/
+    background: rgb(44, 44, 44);
+    color: rgb(255, 255, 255);
+    height: 60px;
+    line-height: 60px;
+
   }
+
   label.logo{
+   
     color: white;
-    font-size: 35px;
-    line-height: 80px;
+    font-size: 2em;
+    line-height: 60px;
     padding: 0 100px;
-    font-weight: bold;
+    font-weight: 0;
   }
+  
+  label.logo span{
+  color:  lightseagreen;
+  }
+  
   nav ul{
     float: right;
-    margin-right: 20px;
+    margin-right: 100px;
+    display: inline-block;
+  
 
   }
   nav ul li{
     display: inline-block;
-    line-height: 80px;
-    margin: 0 5px;
+    line-height: 60px;
+    margin: 0 0px;
 
 
   }
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
   nav ul li a{
-    color: white;
-    border: 0.5px solid white;
-    font-size: 18px;
+    color: rgb(252, 252, 252);
+    
+    /*border: 0.5px solid white;
+      border-radius: 3px;
+      font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
     padding: 7px 13px;
-    border-radius: 3px;
+    margin: 2px;
+    height: 50px;*/
+    display: block;
+    font-family: 'Poppins', sans-serif!important; ;
+    /*font-family:Verdana, Geneva, Tahoma, sans-serif; font-weight: bold*/
+    
+    font-size: 0.9em;
+    height: 50px;
+    letter-spacing: 1px;
+    margin: 0 20px;
+    padding: 0 4px;
     text-transform: uppercase;
     
   }
   a.active,a:hover{
-   /* background: #1b9bff;*/
-   background: #3a3b3c;
+   /*background: #1b9bff;
+   background: #3a3b3c;*/
+   color: rgb(182, 182, 182);
     transition: .5s;
+    
+    
   }
   .checkbtn{
     font-size: 30px;
@@ -111,7 +143,8 @@ header {
       position: fixed;
       width: 100%;
       height: 100vh;
-      background: #2c3e50;
+      background: rgb(44, 44, 44);
+      /*background: #2c3e50;*/
       top: 80px;
       left: -100%;
       text-align: center;
@@ -127,14 +160,15 @@ header {
     }
     a:hover,a.active{
       background: none;
-      color: #0082e6;
+      /*color: #0082e6;*/
+      color: rgb(182, 182, 182);
     }
     #check:checked ~ ul{
       left: 0;
     }
   }
   section{
-    background: url(bg1.PNG) no-repeat;
+    /*background: url(bg1.PNG) no-repeat;*/
     background-size: cover;
     height: calc(100vh - 80px);
   }
