@@ -10,28 +10,11 @@ function Searchresult() {
     let dataskin = {};
      dataskin=location.state;
      console.log(dataskin);
+    //let datastone = {};
+
     const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
+    const goToCKDML = () => navigate('/cdkml',{state:dataskin});
     return (
 
             <>
@@ -79,8 +62,6 @@ function Searchresult() {
             </center>
         </div>
 
-
-
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -109,14 +90,24 @@ function Searchresult() {
         <h3>Brain Dignostic</h3>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         <button class="button button5">Go</button>
-        
+      </div>
+    </div>
+    <div class="row">
+      <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Kidney Stone Diagnosis</h3>
+        <p>94% accuracy ~ Convolutional Neural Networks</p>
+        <button class="button button5" onClick={goTokidneystoneml}>Go</button>
+      </div>
+      <div class="service">
+        <i class="ri-store-3-line"></i>
+        <h3>Chronic Kidney Disease Diagnosis</h3>
+        <p>93% accuracy~ Decision Tree</p>
+        <button class="button button5" onClick={goToCKDML}>Go</button>
       </div>
     </div>
   </section>
-
-
-
-
+  
             </>
         )
     }
