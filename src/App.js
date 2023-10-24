@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
+import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
 import Skincancerml from './screens/skincancerml';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Searchresult" element={<Searchresult />} />
         <Route path="/DBConnection" element={<DBConnection />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
       </Routes>
       <Footer />
     </BrowserRouter>
