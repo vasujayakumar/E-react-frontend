@@ -9,6 +9,8 @@ import Searchresult from './screens/searchresult';
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
+import Kidney_stone_ml from './screens/eir_kidney_stone_checker';
+import Ckdml from './screens/eir_kidney_cdk_checker';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/DBConnection" element={<DBConnection />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/kidneystoneml" element={<Kidney_stone_ml/>} />
+        <Route path="/chronickidneyml" element={ <Ckdml />}/>
       </Routes>
       <Footer />
     </BrowserRouter>
