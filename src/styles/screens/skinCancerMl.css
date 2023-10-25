@@ -1,0 +1,13 @@
+.skin-cancer-container {
+  width: 50vw;
+  height: 50vh;
+  margin: 100px auto;
+}
+
+td {
+  text-align: center;
+}
+
+.predictButton {
+  background-color: #ef5350 !important;
+}
