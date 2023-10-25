@@ -99,7 +99,7 @@ class LogIn extends React.Component{
               <button className='grow login-button' type='button'  onClick={() => this.onSubmitLogIn()}>Log In</button>
             </form>
             <br></br>
-            <a className='test noHoverEffect' href="#">Forgot Your Password?</a>
+            {/* <a className='test noHoverEffect' href="#">Forgot Your Password?</a> */}
           </div>
         </div>
 
