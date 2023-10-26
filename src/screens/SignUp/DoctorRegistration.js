@@ -102,7 +102,7 @@ class DoctorRegistration extends Component {
       if(this.state.emailID !== this.state.cEmailID){
         return alert("Emails do not match");
       }
-      fetch('http://localhost:8080/api/users/DoctorRegistration',{
+      fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/DoctorRegistration',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({

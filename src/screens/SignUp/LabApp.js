@@ -87,7 +87,7 @@ class LabApp extends Component {
     }
 
     onSubmitRegister = () =>{
-      fetch('http://localhost:8080/api/users/LabApp',{
+      fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/LabApp',{
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({
