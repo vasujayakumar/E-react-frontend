@@ -15,7 +15,8 @@ function Header() {
       <li><a href="#services">Services</a></li>
       <li><a href="/AboutUs">About Us</a></li>
       <li><a href="/contact">Contact US</a></li>
-      <li><a href="#Login">Login</a></li>
+      <li><a href="/LogIn">LogIn</a></li>
+      <li><a href="/signUp">SignUp</a></li>
       <li><a href="/DBConnection">DB Connection</a></li>
     </ul>
   </nav>
