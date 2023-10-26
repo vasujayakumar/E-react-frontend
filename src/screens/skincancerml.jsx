@@ -5,6 +5,8 @@ import axios from "axios";
 
 import { BASE_URL } from "../constants";
 import { Button, CircularProgress } from "@material-ui/core";
+
+
 function SkinCancerMl() {
   const patientInfo = useSelector((state) => state.patientInfo);
   const [skinCancerData, setSkinCancerData] = useState(null);
@@ -15,9 +17,7 @@ function SkinCancerMl() {
     async function getSkinCancerData() {
       try {
         const { id } = patientInfo;
-        const { data } = await axios.get(
-          `http://localhost:8080/skinCancerData/${id}`
-        );
+        const { data } = await axios.get(`${BASE_URL}/${id}`);
         setSkinCancerData(data);
       } catch (err) {
         console.error(err);
@@ -38,7 +38,6 @@ function SkinCancerMl() {
         uint8Array[i] = binaryData.charCodeAt(i);
       }
 
-      // Create a Blob with the binary data
       const blob = new Blob([uint8Array], { type: "image/jpeg" });
 
       formData.append("file", blob);
@@ -77,30 +76,54 @@ function SkinCancerMl() {
     }
   }
 
+  async function savePrediction() {
+    const url = `${BASE_URL}/${patientInfo.id}`;
+    const requestData = {
+      prediction: prediction,
+    };
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const response = await axios.post(url, requestData, config);
+  }
+
   return (
-    <table className="skin-cancer-container">
-      <tr>
-        <th>Patient Information</th>
-        <th>Skin Cancer Image</th>
-        <th>Prediction</th>
-      </tr>
-      <tr className="table-contents">
-        <td>
-          {patientInfo.FName} {patientInfo.MName} {patientInfo.LName}
-        </td>
-        <td>
-          {skinCancerData && (
-            <img
-              src={`data:image/jpeg;base64,${skinCancerData.file.buffer}`}
-              alt="Skin Image"
-              width="150"
-              height="150"
-            />
-          )}
-        </td>
-        <td>{renderPredictionCell()}</td>
-      </tr>
-    </table>
+    <div className="skin-page">
+      <table className="skin-cancer-container">
+        <tr>
+          <th>Patient Information</th>
+          <th>Skin Cancer Image</th>
+          <th>Previous Prediction</th>
+          <th>Prediction</th>
+        </tr>
+        <tr className="table-contents">
+          <td>
+            {patientInfo.FName} {patientInfo.MName} {patientInfo.LName}
+          </td>
+          <td>
+            {skinCancerData && (
+              <img
+                src={`data:image/jpeg;base64,${skinCancerData.file.buffer}`}
+                alt="Skin Image"
+                width="150"
+                height="150"
+              />
+            )}
+          </td>
+          <td>{skinCancerData ? skinCancerData.prediction : null}</td>
+          <td>{renderPredictionCell()}</td>
+        </tr>
+      </table>
+      {prediction.length ? (
+        <Button className="saveButton" onClick={() => savePrediction()}>
+          Save
+        </Button>
+      ) : null}
+    </div>
   );
 }
 
