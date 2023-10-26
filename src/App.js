@@ -10,7 +10,7 @@ import Header from "./components/Header-new";
 import Footer from "./components/footer-new";
 import Kidney_stone_ml from "./screens/eir_kidney_stone_checker";
 import Ckdml from "./screens/eir_kidney_cdk_checker";
-import SkinCancerMl from "./screens/skinCancerMl";
+import SkinCancerMl from "./screens/skincancerml";
 
 function App() {
   return (
