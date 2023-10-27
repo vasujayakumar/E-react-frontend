@@ -26,7 +26,7 @@ function BreastCancerML() {
           delete data.id;
           delete data.patient_id;
           console.log(data)
-          const responsePrediction = await axios.post(`https://breast-cancer-predict-d684e0e97baa.herokuapp.com/predict`, data, {
+          const responsePrediction = await axios.post(`https://breastcancerml-717ef42b90b4.herokuapp.com/predict`, data, {
             headers: {
               'Content-Type': 'multipart/form-data', // Important: Set the content type to form data
             },
