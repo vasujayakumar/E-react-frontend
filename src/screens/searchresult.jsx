@@ -12,7 +12,8 @@ function Searchresult() {
      console.log(dataskin);
     const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
-    const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin});    
+    const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin}); 
+    const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
     
     
     
@@ -125,6 +126,14 @@ function Searchresult() {
         <h3>Chronic Kidney Disease Diagnosis</h3>
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Breast Cancer Diagnosis</h3>
+        <p>97% accuracy ~ Linear Logistic Regression</p>
+        <button class="button button5" onClick={goToBreastCancerML}>Go</button>
       </div>
     </div>
   </section>
