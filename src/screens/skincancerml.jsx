@@ -1,130 +1,146 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import "../styles/screens/skinCancerMl.css";
-import axios from "axios";
+import {useLocation} from 'react-router-dom';
+import {Helmet} from "react-helmet";
+import '../styles/screens/diagonostic.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import { BASE_URL } from "../constants";
-import { Button, CircularProgress } from "@material-ui/core";
+function Skincancerml() {
 
-
-function SkinCancerMl() {
-  const patientInfo = useSelector((state) => state.patientInfo);
-  const [skinCancerData, setSkinCancerData] = useState(null);
-  const [prediction, setPrediction] = useState("");
-  const [predictionLoader, setPredictionLoader] = useState(false);
+    const location = useLocation();
+  //console.log(location.state.MobileNumber);
+  const [recordList, setRecordList] = useState([]);
+  const [diagnosis, setDiagnosis] = useState('');
 
   useEffect(() => {
-    async function getSkinCancerData() {
+    // Function to retrieve patient records
+    const getPatientRecords = async () => {
       try {
-        const { id } = patientInfo;
-        const { data } = await axios.get(`${BASE_URL}/${id}`);
-        setSkinCancerData(data);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    getSkinCancerData();
-  }, [patientInfo]);
+       // const searchParams = new URLSearchParams(window.location.search);
+        //const phoneNumber = searchParams.get('phoneNumber');
 
-  async function predict(base64Image) {
-    setPredictionLoader(true);
-    try {
-      const formData = new FormData();
-      const binaryData = atob(base64Image);
-      const arrayBuffer = new ArrayBuffer(binaryData.length);
-      const uint8Array = new Uint8Array(arrayBuffer);
+        const phoneNumber =location.state.MobileNumber;
+        console.log("parm found ",phoneNumber);
+      //local backend api link (http://localhost:8080/imageRetrieveByPhoneNumber)
+        const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/imageRetrieveByPhoneNumber', {
+          phoneNumber,
+          recordType: 'Skin_Images',
+        });
 
-      for (let i = 0; i < binaryData.length; i++) {
-        uint8Array[i] = binaryData.charCodeAt(i);
-      }
-
-      const blob = new Blob([uint8Array], { type: "image/jpeg" });
-
-      formData.append("file", blob);
-      const { data } = await axios.post(
-        "https://skin-cancer-predict-8ffaf5441a72.herokuapp.com/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+        const { data } = response;
+        if (data.error) {
+          alert(JSON.stringify(data.error));
+        } else {
+          setRecordList(data.success);
         }
+      } catch (error) {
+        alert(`Error: ${error.message}`);
+      }
+    };
+
+    getPatientRecords();
+  }, []);
+
+  // Function to send the image for prediction
+  const predict = async (index) => {
+    const record = recordList[index];
+    try {
+      const imageBlob = await fetch(`data:image/jpeg;base64,${record.file.buffer}`).then((response) =>
+        response.blob()
       );
-      setPrediction(data.class);
-      setPredictionLoader(false);
+      const formData = new FormData();
+      formData.append('file', imageBlob, record.file.originalname);
+      //skincancer ml model api link deployed on heroku via git
+      const response = await axios.post('https://skincancerml-1f755bd41b5d.herokuapp.com/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      const { data } = response;
+      if (data.error) {
+        alert(JSON.stringify(data.error));
+      } else {
+        storePrediction(data, record._id);
+        const diagnosisMessage = data.message || 'No diagnosis available';
+        setDiagnosis(diagnosisMessage);
+      }
     } catch (error) {
-      console.error("Error:", error);
+      alert(`Error: ${error.message}`);
     }
-  }
+  };
 
-  function renderPredictionCell() {
-    if (predictionLoader) {
-      return <CircularProgress />;
+  // Function to store the prediction result
+  const storePrediction = async (result, id) => {
+    try {
+     // const searchParams = new URLSearchParams(window.location.search);
+     // const phoneNumber = searchParams.get('phoneNumber');
+     const phoneNumber =location.state.MobileNumber;
+      const today = new Date().toISOString();
+      const offset = new Date().getTimezoneOffset();
+
+      const variable = result.message === 'Cancer' ? 1 : 0;
+      //local backend api link (http://localhost:8080/updateDisease)
+      const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/updateDisease', {
+        phoneNumber,
+        disease: 'cancers',
+        date: today,
+        prediction: variable,
+        description: 'Skin Cancer',
+        accuracy: result.accuracy || null,
+        recordType: 'Skin_Images',
+        recordId: id || null,
+      });
+
+      const { data } = response;
+      if (data.error) {
+        alert(JSON.stringify(data.error));
+      } else {
+        alert(data.success);
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`);
     }
-    if (!prediction.length && skinCancerData) {
-      return (
-        <Button
-          className="predictButton"
-          onClick={() => predict(skinCancerData.file.buffer)}
-        >
-          Predict
-        </Button>
-      );
-    }
-    if (prediction.length) {
-      return prediction;
-    }
-  }
+  };
+       
+    
+    
+    
+    return (
 
-  async function savePrediction() {
-    const url = `${BASE_URL}/${patientInfo.id}`;
-    const requestData = {
-      prediction: prediction,
-    };
+           
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const response = await axios.post(url, requestData, config);
-  }
-
-  return (
-    <div className="skin-page">
-      <table className="skin-cancer-container">
-        <tr>
-          <th>Patient Information</th>
-          <th>Skin Cancer Image</th>
-          <th>Previous Prediction</th>
-          <th>Prediction</th>
-        </tr>
-        <tr className="table-contents">
-          <td>
-            {patientInfo.FName} {patientInfo.MName} {patientInfo.LName}
-          </td>
-          <td>
-            {skinCancerData && (
-              <img
-                src={`data:image/jpeg;base64,${skinCancerData.file.buffer}`}
-                alt="Skin Image"
-                width="150"
-                height="150"
-              />
-            )}
-          </td>
-          <td>{skinCancerData ? skinCancerData.prediction : null}</td>
-          <td>{renderPredictionCell()}</td>
-        </tr>
+            <>
+            <br/>   <br/>   <br/>   <br/>
+   <center> <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Record Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {recordList.map((record, index) => (
+            <tr key={record._id}>
+              <td>
+                <img src={`data:image/jpeg;base64,${record.file.buffer}`} alt="Skin Image" width="150" height="150" />
+              </td>
+              <td>{record.RecordDate}</td>
+              <td>
+                <button onClick={() => predict(index)}>Diagnose</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
-      {prediction.length ? (
-        <Button className="saveButton" onClick={() => savePrediction()}>
-          Save
-        </Button>
-      ) : null}
-    </div>
-  );
-}
+      <br/>
+      <br/>
+      <div>
+        <strong>Diagnosis:</strong> {diagnosis}
+      </div>
+    </div></center>   <br/>   <br/>   <br/>   <br/>   <br/>
 
-export default SkinCancerMl;
+            </>
+        )
+    }
+
+    export default Skincancerml;

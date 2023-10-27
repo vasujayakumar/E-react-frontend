@@ -1,7 +1,6 @@
 .skin-cancer-container {
   width: 50vw;
   height: 50vh;
-  margin: 100px auto;
 }
 
 td {
@@ -10,4 +9,17 @@ td {
 
 .predictButton {
   background-color: #ef5350 !important;
+}
+
+.saveButton {
+  background-color: #42a5f5 !important;
+  width: fit-content;
+}
+
+.skin-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  row-gap: 20px;
 }
