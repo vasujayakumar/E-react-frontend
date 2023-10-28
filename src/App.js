@@ -56,7 +56,8 @@ class App extends Component {
           <Route path="/LogIn" element={<LogIn loadUser ={this.loadUser} />} />
           <Route path="/SignUp" element={<SignUp loadUser ={this.loadUser}/>} />
           <Route path="/searchpatient" element={<Searchpatient />} />
-          <Route path="/skincancerml" element={<SkinCancerMlPage/>} />
+          <Route path="/skincancerml" element={<Skincancerml />} />
+          <Route path="/skinCancerMLPage" element={<SkinCancerMlPage/>} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/contact" element={<Contact />} />
