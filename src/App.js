@@ -21,6 +21,7 @@ import LabAdminRegistration from './screens/SignUp/LabAdminRegistration'
 import LabApp from './screens/SignUp/LabApp'
 import 'tachyons' ;
 import SkinCancerMlPage from './screens/skinCancerMlPage';
+import BreastCancerML from './screens/eir_breast_cancer_checker'
 
 
 const initialState ={
@@ -64,6 +65,7 @@ class App extends Component {
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/kidneystoneml" element={<Kidney_stone_ml/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
+          <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
