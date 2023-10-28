@@ -14,7 +14,8 @@ function Searchresult() {
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
     const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin}); 
     const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
-    
+    const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
+
     
     
     
@@ -134,6 +135,12 @@ function Searchresult() {
         <h3>Breast Cancer Diagnosis</h3>
         <p>97% accuracy ~ Linear Logistic Regression</p>
         <button class="button button5" onClick={goToBreastCancerML}>Go</button>
+      </div>
+      <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Thyroid Disease Detection</h3>
+        <p>96% accuracy ~ Random Forest Model</p>
+        <button class="button button5" onClick={goToThyroid_Disease_ML}>Go</button>
       </div>
     </div>
   </section>
