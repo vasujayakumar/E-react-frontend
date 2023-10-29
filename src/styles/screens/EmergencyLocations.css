@@ -1,0 +1,51 @@
+.emergency-locations__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .emergency-locations__title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .emergency-locations__description {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .emergency-locations__search-container {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .emergency-locations__input {
+    width: 500px;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .emergency-locations__button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+  
+  .emergency-locations__map {
+    width: 100%;
+    height: 700px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .emergency-locations__input, .emergency-locations__button {
+      font-size: 0.9em;
+    }
+  }
+  
