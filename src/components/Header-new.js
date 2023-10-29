@@ -19,7 +19,6 @@ function Header() {
       <li><a href="/LogIn">LogIn</a></li>
       <li><a href="/signUp">SignUp</a></li>
       <li><a href="/DBConnection">DB Connection</a></li>
-      <li><a href="/doctor">Dashboard</a></li>
     </ul>
   </nav>
   </header>
