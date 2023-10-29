@@ -23,7 +23,8 @@ import Specialities from './screens/Specialities';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons' ;
 import BreastCancerML from './screens/eir_breast_cancer_checker'
-
+import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
+import ThyroidML from './screens/eir_thyroid_disease_checker';
 
 const initialState ={
   user:{
@@ -66,6 +67,8 @@ class App extends Component {
           <Route path="/kidneystoneml" element={<Kidney_stone_ml/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
+          <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
+
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
