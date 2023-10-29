@@ -29,6 +29,8 @@ import { DoctorPatients } from './screens/DoctorPatients';
 import { DocProfile } from './screens/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
+import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
+import ThyroidML from './screens/eir_thyroid_disease_checker';
 
 const initialState ={
   user:{
@@ -73,6 +75,8 @@ class App extends Component {
           <Route path="/kidneystoneml" element={<KidneyStoneML />} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
+          <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
+
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
