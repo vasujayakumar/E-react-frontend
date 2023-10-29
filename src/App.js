@@ -19,6 +19,8 @@ import DoctorRegistration from './screens/SignUp/DoctorRegistration';
 import HospitalAdminRegistration from './screens/SignUp/HospitalAdminRegistration'
 import LabAdminRegistration from './screens/SignUp/LabAdminRegistration'
 import LabApp from './screens/SignUp/LabApp'
+import Specialities from './screens/Specialities';
+import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons' ;
 import BreastCancerML from './screens/eir_breast_cancer_checker'
 
@@ -69,6 +71,8 @@ class App extends Component {
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
           <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser ={this.loadUser}/>} />
           <Route path="/LabApp" element={<LabApp />} /> 
+          <Route path="/specialities" element={<Specialities />} />
+          <Route path="/emergencyLocations" element={<EmergencyLocations />} />
         </Routes>
         <Footer />
       </BrowserRouter>
