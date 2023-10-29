@@ -10,7 +10,7 @@ import Searchresult from './screens/searchresult';
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
-import Kidney_stone_ml from './screens/eir_kidney_stone_checker';
+import KidneyStoneML from './screens/eir_kidney_stone_checker';
 import Ckdml from './screens/eir_kidney_cdk_checker';
 import LogIn from './screens/LogIn/LogIn';
 import SignUp from './screens/SignUp/SignUp';
@@ -21,7 +21,12 @@ import LabAdminRegistration from './screens/SignUp/LabAdminRegistration'
 import LabApp from './screens/SignUp/LabApp'
 import 'tachyons' ;
 import BreastCancerML from './screens/eir_breast_cancer_checker'
-
+import Dashboard from './screens/DoctorDashboard';
+import DoctorLayout from './layout/DoctorLayout';
+import { DoctorPatients } from './screens/DoctorPatients';
+import { DocProfile } from './screens/DoctorProfile';
+import { DoctorMessages } from './screens/DoctorMessages';
+import { DoctorServices } from './screens/DoctorServices';
 
 const initialState ={
   user:{
@@ -47,6 +52,8 @@ class App extends Component {
       }
     })
   }
+
+
   render(){
     return (
       <BrowserRouter>
@@ -61,7 +68,7 @@ class App extends Component {
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/kidneystoneml" element={<Kidney_stone_ml/>} />
+          <Route path="/kidneystoneml" element={<KidneyStoneML />} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
@@ -69,6 +76,14 @@ class App extends Component {
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
           <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser ={this.loadUser}/>} />
           <Route path="/LabApp" element={<LabApp />} /> 
+          <Route path="/doctor" element={<DoctorLayout doctorInfo={{id:58}} />}>
+            <Route index element={<Dashboard />} />
+            <Route path="/doctor/dashboard" element={<Dashboard />} />
+            <Route path="/doctor/patients" element={<DoctorPatients />} />
+            <Route path="/doctor/profile" element={<DocProfile />} />
+            <Route path="/doctor/messages" element={<DoctorMessages />} />
+            <Route path="/doctor/services" element={<DoctorServices />} />
+          </Route>
         </Routes>
         <Footer />
       </BrowserRouter>
