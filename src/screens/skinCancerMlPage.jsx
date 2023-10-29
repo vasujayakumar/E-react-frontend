@@ -4,7 +4,6 @@ import "../styles/screens/skinCancerMl.css";
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
-import { Button, CircularProgress } from "@material-ui/core";
 
 function SkinCancerMlPage() {
   const patientInfo = useSelector((state) => state.patientInfo);
@@ -60,16 +59,16 @@ function SkinCancerMlPage() {
 
   function renderPredictionCell() {
     if (predictionLoader) {
-      return <CircularProgress />;
+      return <div>Loading...</div>;
     }
     if (!prediction.length && skinCancerData) {
       return (
-        <Button
+        <button
           className="predictButton"
           onClick={() => predict(skinCancerData.file.buffer)}
         >
           Predict
-        </Button>
+        </button>
       );
     }
     if (prediction.length) {
@@ -120,9 +119,9 @@ function SkinCancerMlPage() {
         </tr>
       </table>
       {prediction.length ? (
-        <Button className="saveButton" onClick={() => savePrediction()}>
+        <button className="saveButton" onClick={() => savePrediction()}>
           Save
-        </Button>
+        </button>
       ) : null}
     </div>
   );
