@@ -12,7 +12,9 @@ function Searchresult() {
      console.log(dataskin);
     const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
-    const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin});    
+    const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin});  
+    const goToPneumoniaml = () => navigate('/Pneumoniaml',{state:dataskin});   
+    const goToadeeb = () => navigate('/adeeb',{state:dataskin});  
     
     
     
@@ -126,6 +128,18 @@ function Searchresult() {
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
       </div>
+      <div class="service">
+        <i class="ri-store-3-line"></i>
+        <h3>Pneumonia Disease Diagnosis</h3>
+        <p>94% accuracy~ Decision Tree</p>
+        <button class="button button5" onClick={goToPneumoniaml}>Go</button>
+      </div>
+      <div class="service">
+        <i class="ri-store-3-line"></i>
+        <h3>Pre Disease Diagnosis</h3>
+        <p>33% accuracy~ Decision Tree</p>
+        <button class="button button5" onClick={goToadeeb}>Go</button>
+      </div>
     </div>
   </section>
 
@@ -137,3 +151,4 @@ function Searchresult() {
     }
 
     export default Searchresult;
+    

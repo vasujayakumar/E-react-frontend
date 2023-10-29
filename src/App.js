@@ -11,6 +11,12 @@ import Header from './components/Header-new';
 import Footer from './components/footer-new';
 import Kidney_stone_ml from './screens/eir_kidney_stone_checker';
 import Ckdml from './screens/eir_kidney_cdk_checker';
+import Pneumoniaml from './screens/Pneumoniaml';
+import adeeb from './screens/adeeb';
+import test from './screens/test';
+
+
+
 
 function App() {
   return (
@@ -26,6 +32,9 @@ function App() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/kidneystoneml" element={<Kidney_stone_ml/>} />
         <Route path="/chronickidneyml" element={ <Ckdml />}/>
+        <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+        <Route path="/adeeb" element={ <adeeb />}/>
+        <Route path="/test" element={<test />} />
       </Routes>
       <Footer />
     </BrowserRouter>
