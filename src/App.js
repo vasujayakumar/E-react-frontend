@@ -25,6 +25,7 @@ import 'tachyons' ;
 import BreastCancerML from './screens/eir_breast_cancer_checker'
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
+import Liver_disease_ML from './screens/liver_prediction_model';
 
 const initialState ={
   user:{
@@ -76,13 +77,13 @@ class App extends Component {
           <Route path="/LabApp" element={<LabApp />} /> 
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
+          <Route path="/liverdiseaseML" element={ <Liver_disease_ML />}/>
         </Routes>
         <Footer />
       </BrowserRouter>
     );
   }
 }
-
 export default App;
 
 
