@@ -5,38 +5,20 @@ import axios from 'axios';
 
 
 function Liver_disease_ML() {
-  const [formData, setFormData] = useState({
-    Age: 0.633896, 
-    Total_Bilirubin: 0.402760, 
-    Direct_Bilirubin: -0.458327, 
-    Alkaline_Phosphotase: -0.270162, 
-    Alamine_Aminotransferase: -0.365626, 
-    Aspartate_Aminotransferase: -0.301073, 
-    Total_Protiens: -0.353327, 
-    Albumin: 0.198969, 
-    Albumin_and_Globulin_Ratio: 0.791727, 
-    Gender_Female: 1.000000, 
-    Gender_Male: 0.000000
-  });
   const [prediction, setPrediction] = useState(null);
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: parseFloat(value) });
-  };
-
   const location = useLocation();
   const phoneNumber =location.state.MobileNumber;
   const [latestRecord, setLatestRecord] = useState();
   const [tableOfData, setTableOfData] = useState([]);
-  const [diagnosis, setDiagnosis] = useState('');
   const patientId =location.state.id;
+
   useEffect(() => {
     // Function to retrieve patient records
     const getPatientLatestRecord= async () => {
       try {
         console.log("parm found ",phoneNumber);
-        //http://localhost:8080/getPhysicaltestCK -- https://e-react-node-backend-22ed6864d5f3.herokuapp.com/getPhysicaltestCK
-        const response = await axios.post('http://localhost:8080/liver_disease', {
+        //http://localhost:8080/liver_disease -- get liver disease related data/parameters
+        const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/liver_disease', {
           patientId
         });
 
@@ -64,9 +46,6 @@ function Liver_disease_ML() {
     console.log("latestRecord", latestRecord)
     console.log("Here I am supposed to get record")
     console.log(record.data)
-    const { test } = record.data;
-    const test_obj = JSON.stringify(test);
-    console.log("test_obj: ", record.data[0], record.data[1]);
 
     //convert the data in array to dict. in order for ML api to read it.
     const dict_data = {
@@ -103,28 +82,6 @@ function Liver_disease_ML() {
     }
   };
 
-  // Function handlePredict allows to provide the ML result on the provided data
-  /*const handlePredict = async (recordTest) => {
-    const record = recordTest.latestRecord;
-    //const { test } = record.data;
-    //const test_obj = JSON.stringify(test);
-    //console.log(test_obj);
-    console.log("let's see", record.data)
-    axios
-      .post('https://livermodelpk1-6b1f7b50410e.herokuapp.com/predict', record, {
-        headers: {'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': '*'
-                  },
-      })
-      .then((response) => {
-        console.log(response.data.prediction)
-        setPrediction(response.data.prediction === 1 ? 'Liver Disease' : 'No Liver Disease');
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };*/
-
   // Function calls NodeJS api to update the ML prediction result in the database
   const storePrediction = async (result, id) => {
     try {
@@ -132,8 +89,8 @@ function Liver_disease_ML() {
       const prediction = result.prediction
       const variable = prediction === 1 ? 1 : 0;
 
-      //local backend api link (https://e-react-node-backend-22ed6864d5f3.herokuapp.com/updateDisease)
-      const response = await axios.post('http://localhost:8080/updateDisease', {
+      //local backend api link (http://localhost:8080/updateDisease )
+      const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/updateDisease', {
         phoneNumber,
         disease: 'liver_diseases',
         date: today,
@@ -161,20 +118,13 @@ function Liver_disease_ML() {
     fontFamily: 'Arial, sans-serif',
   };
 
-  const alertStyle = {
-    padding: '20px',
-    backgroundColor: '#f44336',
-    color: 'white',
-  };
-
   const formStyle = {
     padding: '20px',
-    border: '1px solid #ccc',
     borderRadius: '5px',
     margin: '20px',
-    backgroundColor: "#cacaca", //'#f0f0f0',
+    backgroundColor: "#cacaca",
     display: 'inline-block',
-    border: '3px solid #2c2e30',  // Add an outline with a blue color
+    border: '3px solid #2c2e30',
   };
 
   const inputStyle = {
@@ -202,43 +152,43 @@ function Liver_disease_ML() {
       <div style={formStyle}>
         <div style={inputStyle}>
           <label>Age: </label>
-          <input type="number" name="Age" onChange={handleInputChange} value={tableOfData[0]} />
+          <input type="text" name="Age" value={tableOfData[0]} />
         </div>
         <div style={inputStyle}>
-          <label>Total_Bilirubin: </label>
-          <input type="number" name="Total_Bilirubin" onChange={handleInputChange} value={tableOfData[1]} />
-        </div>
-        <div>
-          <label>Direct_Bilirubine: </label>
-          <input type="number" name="Direct_Bilirubin" onChange={handleInputChange} value={tableOfData[2]} />
+          <label>Total Bilirubin: </label>
+          <input type="text" name="Total_Bilirubin" value={tableOfData[1]} />
         </div>
         <div style={inputStyle}>
-          <label>Alkaline_Phosphotase: </label>
-          <input type="number" name="Alkaline_Phosphotase" onChange={handleInputChange} value={tableOfData[3]} />
+          <label>Direct Bilirubine: </label>
+          <input type="text" name="Direct_Bilirubin" value={tableOfData[2]} />
         </div>
         <div style={inputStyle}>
-          <label>Alamine_Aminotransferase: </label>
-          <input type="number" name="Alamine_Aminotransferase" onChange={handleInputChange} value={tableOfData[4]} />
+          <label>Alkaline Phosphotase: </label>
+          <input type="text" name="Alkaline_Phosphotase" value={tableOfData[3]} />
         </div>
         <div style={inputStyle}>
-          <label>Aspartate_Aminotransferase: </label>
-          <input type="number" name="Alamine_Aminotransferase" onChange={handleInputChange} value={tableOfData[5]} />
+          <label>Alamine Aminotransferase: </label>
+          <input type="text" name="Alamine_Aminotransferase" value={tableOfData[4]} />
         </div>
         <div style={inputStyle}>
-          <label>Total_Protiens: </label>
-          <input type="number" name="Total_Protiens" onChange={handleInputChange} value={tableOfData[6]} />
+          <label>Aspartate Aminotransferase: </label>
+          <input type="text" name="Alamine_Aminotransferase" value={tableOfData[5]} />
+        </div>
+        <div style={inputStyle}>
+          <label>Total Protiens: </label>
+          <input type="text" name="Total_Protiens" value={tableOfData[6]} />
         </div>
         <div style={inputStyle}>
           <label>Albumin: </label>
-          <input type="number" name="Albumin" onChange={handleInputChange} value={tableOfData[7]} />
+          <input type="text" name="Albumin" value={tableOfData[7]} />
         </div>
         <div style={inputStyle}>
-          <label>Albumin_and_Globulin_Ratio: </label>
-          <input type="number" name="Albumin_and_Globulin_Ratio" onChange={handleInputChange} value={tableOfData[8]} />
+          <label>Albumin and Globulin_Ratio: </label>
+          <input type="text" name="Albumin_and_Globulin_Ratio" value={tableOfData[8]} />
         </div>
         <div style={inputStyle}>
           <label>Gender: </label>
-          <select name="gender" onChange={handleInputChange} value={tableOfData[9]}>
+          <select name="gender" value={tableOfData[9]}>
             <option value="0">Male</option>
             <option value="1">Female</option>
           </select>
