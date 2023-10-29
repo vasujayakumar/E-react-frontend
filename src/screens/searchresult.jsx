@@ -12,10 +12,10 @@ function Searchresult() {
      console.log(dataskin);
     const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
-    const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin});  
-    const goToPneumoniaml = () => navigate('/Pneumoniaml',{state:dataskin});   
-    const goToadeeb = () => navigate('/adeeb',{state:dataskin});  
-    
+    const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin}); 
+    const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
+    const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
+
     
     
     
@@ -128,17 +128,19 @@ function Searchresult() {
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
       </div>
+    </div>
+    <div class="row">
       <div class="service">
-        <i class="ri-store-3-line"></i>
-        <h3>Pneumonia Disease Diagnosis</h3>
-        <p>94% accuracy~ Decision Tree</p>
-        <button class="button button5" onClick={goToPneumoniaml}>Go</button>
+        <i class="ri-macbook-line"></i>
+        <h3>Breast Cancer Diagnosis</h3>
+        <p>97% accuracy ~ Linear Logistic Regression</p>
+        <button class="button button5" onClick={goToBreastCancerML}>Go</button>
       </div>
       <div class="service">
-        <i class="ri-store-3-line"></i>
-        <h3>Pre Disease Diagnosis</h3>
-        <p>33% accuracy~ Decision Tree</p>
-        <button class="button button5" onClick={goToadeeb}>Go</button>
+        <i class="ri-macbook-line"></i>
+        <h3>Thyroid Disease Detection</h3>
+        <p>96% accuracy ~ Random Forest Model</p>
+        <button class="button button5" onClick={goToThyroid_Disease_ML}>Go</button>
       </div>
     </div>
   </section>
