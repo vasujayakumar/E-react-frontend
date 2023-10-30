@@ -2,7 +2,7 @@ import {useLocation} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {useNavigate } from "react-router-dom";
 import '../styles/screens/Search.css';
-
+import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
 function Searchresult() {
 
     const navigate = useNavigate();
@@ -118,13 +118,13 @@ function Searchresult() {
     </div>
     <div class="row">
       <div class="service">
-        <i class="ri-macbook-line"></i>
+        <MedicalServicesOutlinedIcon sx={{fontSize: 50}} />
         <h3>Kidney Stone Diagnosis</h3>
         <p>94% accuracy ~ Convolutional Neural Networks</p>
         <button class="button button5" onClick={goTokidneystoneml}>Go</button>
       </div>
       <div class="service">
-        <i class="ri-store-3-line"></i>
+        <MedicalServicesOutlinedIcon sx={{fontSize: 50}} />
         <h3>Chronic Kidney Disease Diagnosis</h3>
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
