@@ -1,0 +1,67 @@
+h1 {
+  font-size: 36px;
+  margin: 10px;  
+  color:  lightseagreen;
+  font-family: 'Poppins', sans-serif!important;
+}
+
+h4 {
+  margin: 10px;
+  color:  rgb(29, 31, 30);
+  font-family: 'Poppins', sans-serif!important;
+  text-align: left;
+}
+
+th {
+background-color: rgb(169, 216, 214);
+margin: 10px;
+border:1px solid rgb(44, 44, 44);
+color:rgb(44, 44, 44);
+}
+
+tr {
+  background-color: white;
+  color: rgb(44, 44, 44);
+  border:1px solid rgb(44, 44, 44);
+  }
+
+  table{
+    border: 0px;
+  }
+
+
+
+
+button[type=refreshContactAdmin] {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 20px;
+  border: 2px solid lightseagreen;
+  background-color: white;
+  color: lightseagreen;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* When moving the mouse over the submit button, add a darker green color */
+button[type=refreshContactAdmin]:hover {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif !important;
+  border-radius: 20px;
+  border: 2px solid lightseagreen;
+  color: white;
+  background-color: lightseagreen;
+  font-weight: bold;
+}
+
+/* Add a background color and some padding around the form */
+.container {
+  background-color: rgba(173, 201, 199, 0.306);
+  padding: 20px;
+  min-height: 400px;
+  height: fit-content;
+}
+
