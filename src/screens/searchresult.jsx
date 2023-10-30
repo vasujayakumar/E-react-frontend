@@ -16,7 +16,7 @@ function Searchresult() {
     const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
     const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
     const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
-    
+    const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
     
     
     
@@ -158,6 +158,12 @@ function Searchresult() {
       <p>Detecting skin cancer type using ML</p>
       <button class="button button5" onClick={() => navigate('/skinCancerMLPage')}>Go</button>
       </div>
+           <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Pneumonia Disease Detection</h3>
+        <p>94% using VGG19</p>
+        <button class="button button5" onClick={goToPneumoniaML}>Go</button>
+      </div> 
     </div>
   </section>
 
