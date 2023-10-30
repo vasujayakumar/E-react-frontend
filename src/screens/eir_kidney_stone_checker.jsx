@@ -3,7 +3,7 @@ import '../styles/screens/diagonostic.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function  KidneyStoneML() {
+function Kidney_stone_ml() {
   
   const location = useLocation();
   const [recordList, setRecordList] = useState([]);
@@ -128,7 +128,7 @@ function  KidneyStoneML() {
         )
     }
 
-    export default  KidneyStoneML;
+    export default Kidney_stone_ml;
 
 
 

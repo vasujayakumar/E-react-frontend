@@ -10,7 +10,7 @@ import Searchresult from './screens/searchresult';
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
-import KidneyStoneML from './screens/eir_kidney_stone_checker';
+import Kidney_stone_ml from './screens/eir_kidney_stone_checker';
 import Ckdml from './screens/eir_kidney_cdk_checker';
 import LogIn from './screens/LogIn/LogIn';
 import SignUp from './screens/SignUp/SignUp';
@@ -23,12 +23,6 @@ import Specialities from './screens/Specialities';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons' ;
 import BreastCancerML from './screens/eir_breast_cancer_checker'
-import Dashboard from './screens/DoctorDashboard';
-import DoctorLayout from './layout/DoctorLayout';
-import { DoctorPatients } from './screens/DoctorPatients';
-import { DocProfile } from './screens/DoctorProfile';
-import { DoctorMessages } from './screens/DoctorMessages';
-import { DoctorServices } from './screens/DoctorServices';
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
 
@@ -56,8 +50,6 @@ class App extends Component {
       }
     })
   }
-
-
   render(){
     return (
       <BrowserRouter>
@@ -72,7 +64,7 @@ class App extends Component {
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/kidneystoneml" element={<KidneyStoneML />} />
+          <Route path="/kidneystoneml" element={<Kidney_stone_ml/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
@@ -84,14 +76,6 @@ class App extends Component {
           <Route path="/LabApp" element={<LabApp />} /> 
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
-          <Route path="/doctor" element={<DoctorLayout doctorInfo={{id:58}} />}>
-            <Route index element={<Dashboard />} />
-            <Route path="/doctor/dashboard" element={<Dashboard />} />
-            <Route path="/doctor/patients" element={<DoctorPatients />} />
-            <Route path="/doctor/profile" element={<DocProfile />} />
-            <Route path="/doctor/messages" element={<DoctorMessages />} />
-            <Route path="/doctor/services" element={<DoctorServices />} />
-          </Route>
         </Routes>
         <Footer />
       </BrowserRouter>
