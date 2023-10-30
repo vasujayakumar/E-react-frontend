@@ -10,7 +10,7 @@ const Searchpatient = () => {
   const [phone, setPhone] = useState({
     phoneNumber: "",
   });
-  const [error,setError] = useState(false)
+  const [error, setError] = useState(false)
 
   const navigate = useNavigate();
 
@@ -23,9 +23,8 @@ const Searchpatient = () => {
     try {
       //local backend api link (http://localhost:8080/searchpatient) when you are running backend repo on your localhost
     await axios.post("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/searchpatient", phone).then(function (response) {
-        variable = response.data 
-        console.log(variable); 
-       
+      variable = response.data 
+      console.log(variable);
     })     
       navigate("/searchresult",{state:variable});
     } catch (err) {
