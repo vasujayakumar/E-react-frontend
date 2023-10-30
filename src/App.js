@@ -22,9 +22,11 @@ import LabApp from './screens/SignUp/LabApp'
 import Specialities from './screens/Specialities';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons' ;
+import SkinCancerMlPage from './screens/skinCancerMlPage';
 import BreastCancerML from './screens/eir_breast_cancer_checker'
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
+
 
 const initialState ={
   user:{
@@ -60,6 +62,7 @@ class App extends Component {
           <Route path="/SignUp" element={<SignUp loadUser ={this.loadUser}/>} />
           <Route path="/searchpatient" element={<Searchpatient />} />
           <Route path="/skincancerml" element={<Skincancerml />} />
+          <Route path="/skinCancerMLPage" element={<SkinCancerMlPage/>} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/contact" element={<Contact />} />
@@ -68,7 +71,6 @@ class App extends Component {
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
-
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
