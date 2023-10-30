@@ -144,6 +144,3 @@ function Skincancerml() {
     }
 
     export default Skincancerml;
-
-
-
