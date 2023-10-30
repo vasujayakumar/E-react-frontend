@@ -22,7 +22,6 @@ import LabApp from './screens/SignUp/LabApp'
 import Specialities from './screens/Specialities';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons' ;
-import SkinCancerMlPage from './screens/skinCancerMlPage';
 import BreastCancerML from './screens/eir_breast_cancer_checker'
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
