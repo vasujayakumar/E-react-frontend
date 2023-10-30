@@ -129,7 +129,8 @@ function Searchresult() {
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
       </div>
-    </div>
+      </div>
+    
     <div class="row">
       <div class="service">
         <i class="ri-macbook-line"></i>
@@ -151,7 +152,14 @@ function Searchresult() {
         <p>96% accuracy ~ Random Forest Model</p>
         <button class="button button5" onClick={goToThyroid_Disease_ML}>Go</button>
       </div>
-      <div class="service"></div>
+    </div>
+      <div class="row">
+        <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Skin Cancer Diagnosis</h3>
+        <p>Detecting skin cancer type using ML</p>
+        <button class="button button5" onClick={() => navigate('/skinCancerMLPage')}>Go</button>
+      </div>
     </div>
   </section>
 
@@ -163,3 +171,4 @@ function Searchresult() {
     }
 
     export default Searchresult;
+    
