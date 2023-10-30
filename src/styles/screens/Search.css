@@ -46,7 +46,7 @@ table {
   }
   .container {
     width: 100%;
-    height: fit-content;
+    height: 100vh;
     padding: 0 8%;
     margin : 40px 0;
   }

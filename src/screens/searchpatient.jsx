@@ -3,8 +3,6 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/screens/Search.css';
-import { useDispatch } from "react-redux";
-import addPatientInfoAction from "../redux/actions/addPatientInfoAction";
 
 
 const Searchpatient = () => {
@@ -13,7 +11,6 @@ const Searchpatient = () => {
     phoneNumber: "",
   });
   const [error, setError] = useState(false)
-  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -27,7 +24,7 @@ const Searchpatient = () => {
       //local backend api link (http://localhost:8080/searchpatient) when you are running backend repo on your localhost
     await axios.post("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/searchpatient", phone).then(function (response) {
       variable = response.data 
-      dispatch(addPatientInfoAction(variable));
+      console.log(variable);
     })     
       navigate("/searchresult",{state:variable});
     } catch (err) {
