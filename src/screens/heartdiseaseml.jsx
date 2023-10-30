@@ -80,7 +80,7 @@ function Heartdiseaseml() {
           <strong>Diagnosis:</strong> {diagnosis}
           <br />
           <button onClick={fetchHeartDiseasePrediction}>
-            Get Heart Disease Prediction
+            Get Heart Disease Result
           </button>
           {heartPrediction && !heartPrediction.error && (
             <div>

@@ -5,13 +5,19 @@
     overflow-x: auto;
   }
   
-  table {
+.heart-disease-container > strong:first-of-type {
+    display: block; /* Make sure the strong tag is a block-level element to apply margin */
+    margin-bottom: 10px; /* Adjust the space below the Diagnosis */
+}
+  
+table {
     width: 100%;
     margin-top: 20px; 
     margin-bottom: 20px; 
     border-collapse: collapse;
     table-layout: fixed;
   }
+  
   
   th, td {
     padding: 10px;
@@ -38,14 +44,11 @@
     transition: background-color 0.3s;
   }
   
+  
   button:hover {
     background-color: #45a049;
   }
   
-  .result-section {
-    margin-top: 50px; /* Space after the result */
-    margin-bottom: 50px; /* Additional space before the next content or button */
-}
 
   /* Responsive adjustments */
   @media screen and (max-width: 768px) {
