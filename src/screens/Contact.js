@@ -27,7 +27,7 @@ const Contact = () => {
     e.preventDefault()
     try {
       //alert("Submitted!")
-      axios.post("http://localhost:8080/contact", {
+      axios.post("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/", {
         formData
       })
     }
@@ -64,7 +64,7 @@ const Contact = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       alert("Form Submitted successfully")
-      window.location.href = 'http://localhost:3000/';
+      window.location.href = 'https://e-react-frontend-55dbf7a5897e.herokuapp.com/';
     }
 
 
@@ -74,8 +74,8 @@ const Contact = () => {
     <div className='container'>
       <div className='row'>
         <div className='col-12 text-center'>
-          <div><h1>How can we help you?</h1></div>
-          <div><h3>We’ll get back to you within 7 working days.</h3></div>
+          <div class='contact-heading-one'><h1>How can we help you?</h1></div>
+          <div class='contact-heading-three'><h3 >We’ll get back to you within 7 working days.</h3></div>
 
           <form onSubmit={handleSubmit}>
             <select name="contactTopic" class="bg-gray-2 border border-gray-1  
@@ -109,7 +109,7 @@ const Contact = () => {
                 autoComplete='off'
                 onChange={handleChange}
               />
-              {errors.contactName && <span>{errors.contactName}</span>}
+              {errors.contactName && <span class='spancolor' >{errors.contactName}</span>}
             </div>
             <div>
               <input
@@ -119,7 +119,7 @@ const Contact = () => {
                 autoComplete='off'
                 onChange={handleChange}
               />
-              {errors.contactEmail && <span>{errors.contactEmail}</span>}
+              {errors.contactEmail && <span class='spancolor'>{errors.contactEmail}</span>}
             </div>
             <div>
               <input
@@ -129,7 +129,7 @@ const Contact = () => {
                 autoComplete='off'
                 onChange={handleChange}
               />
-              {errors.contactPhone && <span>{errors.contactPhone}</span>}
+              {errors.contactPhone && <span class='spancolor'>{errors.contactPhone}</span>}
             </div>
             <div>
               <textarea
@@ -140,7 +140,7 @@ const Contact = () => {
                 rows="12"
                 onChange={handleChange}
               />
-              {errors.contactMessage && <span>{errors.contactMessage}</span>}
+              {errors.contactMessage && <span class='spancolor'>{errors.contactMessage}</span>}
             </div>
             <button className='submit-btn' type='submit'>
               Submit
