@@ -36,6 +36,9 @@ import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
 import Tasks from './screens/Tasks';
 import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
+import Terms from'./screens/terms';
+import Rights from './screens/rights';
+import Webform from './screens/webform';
 
 
 const initialState ={
@@ -78,6 +81,9 @@ class App extends Component {
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/rights" element={<Rights />} />
+          <Route path="/webform" element={<Webform />} />
           <Route path="/Tasks" element={<Tasks />} />
           <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
@@ -99,6 +105,7 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+          
            
           </Route>
         </Routes>
