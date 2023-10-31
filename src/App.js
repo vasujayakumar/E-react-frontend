@@ -41,7 +41,7 @@ import TestimonialsPage from './screens/TestimonialsPage'; // Import Testimonial
 import Terms from'./screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
-
+import HealthcareModels from './screens/ModelsHub'
 
 
 const initialState ={
@@ -110,9 +110,8 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
-          
-           
           </Route>
+          <Route path="/HealthcareModels" element={ <HealthcareModels />}/>
         </Routes>
         <Footer />
       </BrowserRouter>
