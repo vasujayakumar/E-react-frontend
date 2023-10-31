@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Table, TableHead, TableBody, TableRow, TableCell, Button, Grid, Paper } from '@mui/material/';
 import { Dialog, DialogTitle, DialogContent, DialogActions} from  '@mui/material/';
-
+import { getPatientRecords } from '../utilities/apis'; // Import the utility functions
 /** 
  * Eir Kidney Team: Yanilda and Maryam
  * Eir is the norse goddes of Health 
@@ -18,26 +18,13 @@ function KidneyStoneML() {
   const phoneNumber = location.state.MobileNumber;
 
   useEffect(() => {
-    const getPatientRecords = async () => {
-      try {
-        console.log("param found ", phoneNumber);
-        const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/imageRetrieveByPhoneNumber', {
-          phoneNumber,
-          recordType: 'CT-Scan_Abdomen',
-        });
-        const { data } = response;
-
-        if (data.error) {
-          alert(JSON.stringify(data.error));
-        } else {
-          setRecordList(data.success);
-        }
-      } catch (error) {
-        alert(`Error: ${error.message}`);
-      }
+    const fetchPatientRecords = async () => {
+      //Syed's API imageRetrieveByPhoneNumber
+      const records = await getPatientRecords(phoneNumber,'CT-Scan_Abdomen');
+      setRecordList(records);
     };
 
-    getPatientRecords();
+    fetchPatientRecords();
   }, [phoneNumber]);
 
   const predict = async (index) => {
@@ -62,6 +49,7 @@ function KidneyStoneML() {
       if (data.error) {
         console.log(JSON.stringify(data.error));
       } else {
+
         storePrediction(data, record._id);
         const diagnosisMessage = data.prediction || 'No diagnosis available';
         setDiagnosis(diagnosisMessage);
@@ -70,7 +58,6 @@ function KidneyStoneML() {
       console.log(`Error: ${error.message}`);
     }
   };
-
   const storePrediction = async (result, id) => {
     try {
       const today = new Date().toISOString();
@@ -94,7 +81,7 @@ function KidneyStoneML() {
         alert(JSON.stringify(data.error));
       } else {
         setDialogOpen(true);
-        setDialogContent(data.success+" Diagnosis has been stored: ");
+        setDialogContent(data.success+" Diagnosis has been stored");
       }
     } catch (error) {
       alert(`Error: ${error.message}`);
