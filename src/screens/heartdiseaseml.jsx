@@ -83,12 +83,14 @@ function Heartdiseaseml() {
             Get Heart Disease Result
           </button>
           {heartPrediction && !heartPrediction.error && (
-            <div>
+            <div className="response-container">
               <strong>Heart Disease Prediction:</strong> {heartPrediction} {predictionEmoji}
               <br />
+              <div className="show-details-container">
               <button onClick={togglePatientDetails}>
                 {showPatientDetails ? "Hide Patient Details" : "Show Patient Details"}
               </button>
+              </div>
             </div>
           )}
           {heartPrediction && heartPrediction.error && (

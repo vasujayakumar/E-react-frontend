@@ -6,8 +6,8 @@
   }
   
 .heart-disease-container > strong:first-of-type {
-    display: block; /* Make sure the strong tag is a block-level element to apply margin */
-    margin-bottom: 10px; /* Adjust the space below the Diagnosis */
+    display: block; 
+    margin-bottom: 10px; 
 }
   
 table {
@@ -44,7 +44,13 @@ table {
     transition: background-color 0.3s;
   }
   
-  
+  .response-container {
+    margin-top: 20px !important;
+}
+
+.show-details-container {
+  margin-top: 20px !important;
+}
   button:hover {
     background-color: #45a049;
   }
