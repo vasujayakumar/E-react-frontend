@@ -30,3 +30,25 @@
   background-image: url(main-image.jpg);
   background-color: #174ae4;
 }
+
+table {
+  width: 100%;
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  word-wrap: break-word;
+}
+
+th {
+  background-color: #f4f4f4;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

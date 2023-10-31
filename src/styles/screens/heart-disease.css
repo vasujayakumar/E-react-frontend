@@ -10,7 +10,7 @@
     margin-bottom: 10px; 
 }
   
-table {
+.heart-disease-container table {
     width: 100%;
     margin-top: 20px; 
     margin-bottom: 20px; 
@@ -19,20 +19,20 @@ table {
   }
   
   
-  th, td {
+  .heart-disease-container th, td {
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid #ddd;
     word-wrap: break-word;
   }
   
-  th {
+  .heart-disease-container th {
     background-color: #f4f4f4;
     padding-top: 15px;
     padding-bottom: 15px;
   }
   
-  button {
+  .heart-disease-container button {
     padding: 10px 20px;
     margin-top: 10px; 
     margin-bottom: 20px;
@@ -51,14 +51,14 @@ table {
 .show-details-container {
   margin-top: 20px !important;
 }
-  button:hover {
+.heart-disease-container button:hover {
     background-color: #45a049;
   }
   
 
   /* Responsive adjustments */
   @media screen and (max-width: 768px) {
-    th, td {
+    .heart-disease-container th, td {
       padding: 5px;
       font-size: 12px;
     }
@@ -68,12 +68,12 @@ table {
       margin-bottom: 50px; 
     }
   
-    table {
+    .heart-disease-container table {
       margin-top: 10px; 
       margin-bottom: 10px; 
     }
   
-    button {
+    .heart-disease-container button {
       margin-top: 10px; 
       margin-bottom: 10px; 
     }

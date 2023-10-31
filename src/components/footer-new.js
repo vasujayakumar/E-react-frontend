@@ -22,6 +22,8 @@ function Footer() {
           <a href="#">About</a>
           <a href="/testimonial">Testimonial</a>
           <a href="#">Contact</a>
+          <a href="terms">Terms and Conditions</a>
+          <a href="rights">Patient rights and responsibilities</a>
         </p>
 
         <p class="footer-company-name"><p>&copy; {new Date().getFullYear()} e-hospital React Platform</p></p>
