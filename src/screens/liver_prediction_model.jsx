@@ -63,7 +63,7 @@ function Liver_disease_ML() {
     }
 
     try {
-      const response = await axios.post('https://livermodelpk1-6b1f7b50410e.herokuapp.com/predict', dict_data, {
+      const response = await axios.post('https://livermlpk-fbdfa9329507.herokuapp.com/predict', dict_data, {
         headers: { 'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*'
                   },
