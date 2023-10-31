@@ -16,7 +16,7 @@ const tableColumn = {
     action: "Action",
 };
 
-const API_ROOT = `http://localhost:8080`;  //TODO: Need to replace with the backend server address
+const API_ROOT = `https://e-react-node-backend-22ed6864d5f3.herokuapp.com`;  //TODO: Need to replace with the backend server address
 const HEART_STROKE_API_ENDPOINT = `https://heartstroke-p37cuiqxoq-uc.a.run.app/predict`;
 
 const HeartStroke = () => {
