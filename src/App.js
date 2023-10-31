@@ -12,6 +12,7 @@ import Header from './components/Header-new';
 import Footer from './components/footer-new';
 import KidneyStoneML from './screens/eir_kidney_stone_checker';
 import Ckdml from './screens/eir_kidney_cdk_checker';
+import Heartdiseaseml from './screens/heartdiseaseml';
 import LogIn from './screens/LogIn/LogIn';
 import SignUp from './screens/SignUp/SignUp';
 import PatientRegistration from './screens/SignUp/PatientRegistration';
@@ -26,6 +27,7 @@ import SkinCancerMlPage from './screens/skinCancerMlPage';
 import BreastCancerML from './screens/eir_breast_cancer_checker'
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
+import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
 import DoctorLayout from './layout/DoctorLayout';
 import Dashboard from './screens/DoctorDashboard';
@@ -33,6 +35,10 @@ import { DoctorPatients } from './screens/DoctorPatients';
 import { DocProfile } from './screens/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
+import HeartStroke from './screens/HeartStroke';
+import Tasks from './screens/Tasks';
+import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
+
 
 
 const initialState ={
@@ -72,13 +78,17 @@ class App extends Component {
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage/>} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DBConnection" element={<DBConnection />} />
+          <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/AboutUs" element={<AboutUs />} />
+          <Route path="/Tasks" element={<Tasks />} />
           <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
           <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+          <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
+          <Route path="/heartstroke" element={ <HeartStroke /> } />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
@@ -86,6 +96,7 @@ class App extends Component {
           <Route path="/LabApp" element={<LabApp />} /> 
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
+          <Route path="/liverdiseaseML" element={ <Liver_disease_ML />}/>
           <Route path="/doctor" element={<DoctorLayout doctorInfo={{id:58}} />}>
             <Route index element={<Dashboard />} />
             <Route path="/doctor/dashboard" element={<Dashboard />} />
@@ -93,6 +104,7 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+           
           </Route>
         </Routes>
         <Footer />
@@ -100,5 +112,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
