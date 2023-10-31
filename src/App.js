@@ -35,6 +35,8 @@ import { DocProfile } from './screens/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
 import Tasks from './screens/Tasks';
+import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
+
 
 const initialState ={
   user:{
@@ -73,6 +75,7 @@ class App extends Component {
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage/>} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DBConnection" element={<DBConnection />} />
+          <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/Tasks" element={<Tasks />} />
@@ -96,6 +99,7 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+           
           </Route>
         </Routes>
         <Footer />
