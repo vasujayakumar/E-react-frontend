@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useState, useCallback } from 'react';
-import { Modal } from 'antd';
+import { Modal, Spin } from 'antd';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { patientGetCalendar } from '../../api/calendar';
@@ -84,6 +84,7 @@ const TimeSegmentsView = (props) => {
 const PatientCalendar = (props) => {
   const loginData = getLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
+  let [ loading, setLoading] = useState(true);
   let [ data, setData ] = useState([]);
   let [ currentStart, setCurrentStart ] = useState(moment().startOf('week'));
   let [ currentEnd, setCurrentEnd ] = useState(moment().endOf('week'));
@@ -94,9 +95,11 @@ const PatientCalendar = (props) => {
   }
 
   const fetchData = async () => {
+    setLoading(true);
     setData([]);
     const response = await patientGetCalendar(loginData, currentStart.toDate(), currentEnd.toDate());
     setData(response);
+    setLoading(false);
   };
 
   const handleRangeChange = useCallback((range) => {
@@ -134,9 +137,9 @@ const PatientCalendar = (props) => {
     });
   }
 
-  return <>
+  return <Spin spinning={loading}>
       <TimeSegmentsView data={data} onRangeChange={handleRangeChange} onSelectEvent={handleSelectEvent} />
-    </>;
+    </Spin>;
 }
 
 export default PatientCalendar;

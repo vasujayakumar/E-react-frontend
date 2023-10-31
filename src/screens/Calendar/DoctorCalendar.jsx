@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Spin } from 'antd';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { doctorGetCalendar } from '../../api/calendar';
@@ -75,6 +76,7 @@ const DoctorCalendar = (props) => {
 
   const loginData = getLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
+  let [ loading, setLoading] = useState(true);
   let [ data, setData ] = useState([]);
   let [ currentStart, setCurrentStart ] = useState(moment().startOf('week'));
   let [ currentEnd, setCurrentEnd ] = useState(moment().endOf('week'));
@@ -85,9 +87,11 @@ const DoctorCalendar = (props) => {
   }
 
   const fetchData = async () => {
+    setLoading(true);
     setData([]);
     const response = await doctorGetCalendar(loginData, currentStart.toDate(), currentEnd.toDate());
     setData(response);
+    setLoading(false);
   };
 
   const handleRangeChange = useCallback((range) => {
@@ -145,7 +149,9 @@ const DoctorCalendar = (props) => {
   };
 
   return <>
-      <TimeSegmentsView data={data} onRangeChange={handleRangeChange} onSelectSlot={handleSelectSlot} onSelectEvent={handleSelectEvent}/>
+      <Spin spinning={loading}>
+        <TimeSegmentsView data={data} onRangeChange={handleRangeChange} onSelectSlot={handleSelectSlot} onSelectEvent={handleSelectEvent}/>
+      </Spin>
       { open ? <CreateAvailableTimeSegments start={start} end={end} onOk={handleOk} onCancel={handleCancel}/> : null }
     </>;
 }

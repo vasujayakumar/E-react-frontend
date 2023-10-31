@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Divider, Card, Flex, Empty, Modal } from 'antd';
+import { Button, Divider, Card, Flex, Empty, Modal, Spin } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getTimeSegmentDetail, doctorApproveRequest } from '../../api/calendar';
 import getLoginData from '../../loginData';
@@ -11,7 +11,7 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const getTimeSegmentState = (status) => {
   if(status < 0){
     return 'AlreadyBooked';
-  }else if(status>0){
+  }else if(status > 0){
     return 'PendingApproval';
   }else{
     return 'NotBooked';
@@ -62,6 +62,7 @@ const TimeSegmentDetail = (props) => {
 
   const loginData = getLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
+  let [ loading, setLoading] = useState(true);
   let [ data, setData ] = useState({
     id: 0,
     doctor: {
@@ -76,10 +77,12 @@ const TimeSegmentDetail = (props) => {
   });
 
   const fetchData = async () => {
+    setLoading(true);
     console.log("id", segmentId);
     const response = await getTimeSegmentDetail(loginData, segmentId);
     console.log("response", response);
     setData(response);
+    setLoading(false);
   };
 
   if(needLoad){
@@ -105,14 +108,16 @@ const TimeSegmentDetail = (props) => {
   return <div>
       <h1>Check appointment requests</h1>
       Appointment requests from patients are listed below.<br/>
-      <p>ID: {data.id}</p>
-      <p>Doctor Name: {data.doctor.name}</p>
-      <p>Start: {moment(data.start).format(dateFormat)}</p>
-      <p>End: {moment(data.end).format(dateFormat)}</p>
-      <p>Description: {data.description}</p>
-      <Divider />
-      <h5>Status: {getTimeSegmentState(data.status)}</h5>
-      <AppointmentRequestList data={data.requests} onApprove={handleApprove}/>
+      <Spin spinning={loading}>
+        <p>ID: {data.id}</p>
+        <p>Doctor Name: {data.doctor.name}</p>
+        <p>Start: {moment(data.start).format(dateFormat)}</p>
+        <p>End: {moment(data.end).format(dateFormat)}</p>
+        <p>Description: {data.description}</p>
+        <Divider />
+        <h5>Status: {getTimeSegmentState(data.status)}</h5>
+        <AppointmentRequestList data={data.requests} onApprove={handleApprove}/>
+      </Spin>
     </div>;
 };
 

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, DatePicker, Card, Flex, Empty, Modal } from 'antd';
+import { Button, DatePicker, Card, Flex, Empty, Modal, Spin } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { patientSearchForTimeSegments, patientBookTime } from '../../api/calendar';
 import dayjs from 'dayjs';
@@ -35,6 +35,7 @@ const PatientBookTime = (props) => {
 
   const loginData = getLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
+  let [ loading, setLoading] = useState(true);
   let [ currentStart, setCurrentStart ] = useState(moment().startOf('week'));
   let [ currentEnd, setCurrentEnd ] = useState(moment().endOf('week'));
   let [ data, setData ] = useState([]);
@@ -45,9 +46,11 @@ const PatientBookTime = (props) => {
   }
 
   const fetchData = async () => {
+    setLoading(true);
     setData([]);
     const response = await patientSearchForTimeSegments(loginData, currentStart.toDate(), currentEnd.toDate());
     setData(response);
+    setLoading(false);
   };
 
   const handleChange = (date) => {
@@ -81,7 +84,9 @@ const PatientBookTime = (props) => {
       <h1>Book Time</h1>
       Please select the start and end date below.<br/>
       <DatePicker defaultValue={dayjs(currentStart.toDate())} onChange={handleChange} picker="week" />
-      <AvailableTimeSegmentList data={data} onBookTime={handleBookTime}/>
+      <Spin spinning={loading}>
+        <AvailableTimeSegmentList data={data} onBookTime={handleBookTime}/>
+      </Spin>
     </div>;
 };
 
