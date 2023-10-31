@@ -1,6 +1,6 @@
-import {useLocation} from 'react-router-dom';
-import {Link} from 'react-router-dom';
-import {useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import '../styles/screens/Search.css';
 import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
 function Searchresult() {
@@ -18,23 +18,7 @@ function Searchresult() {
     const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
     const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
     const goToHeartStroke = () => navigate("/heartstroke", {state: dataskin });
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    const goToheartdisease = () => navigate("/Heartdiseaseml", { state: dataskin });
     
     
     return (
@@ -42,7 +26,7 @@ function Searchresult() {
             <>
     <br></br>
     <h2>Pateint Basic Information details</h2>
-<       div class="center">
+    <div class="center">
             <center> 
                 <table class="my_table">
                     <tr>
@@ -83,7 +67,6 @@ function Searchresult() {
                 </table>
             </center>
         </div>
-
 
 
 <head>
@@ -168,15 +151,19 @@ function Searchresult() {
         <p>Heart stroke prediction with 93% accuracy</p>
         <button class="button button5" onClick={goToHeartStroke}> go</button>
       </div>
+        {/* Add Heart Disease Diagnostic Service */}
+          <div className="service">
+            <i className="ri-heart-line"></i>
+            <h3>Heart Diagnostic</h3>
+            <p>Get heart disease results.</p>
+            <button className="button button5" onClick={goToheartdisease}>Go</button>
+          </div>
     </div>
   </section>
 
+    </>
+  )
+}
 
+export default Searchresult;
 
-
-            </>
-        )
-    }
-
-    export default Searchresult;
-    

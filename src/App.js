@@ -12,6 +12,7 @@ import Header from './components/Header-new';
 import Footer from './components/footer-new';
 import KidneyStoneML from './screens/eir_kidney_stone_checker';
 import Ckdml from './screens/eir_kidney_cdk_checker';
+import Heartdiseaseml from './screens/heartdiseaseml';
 import LogIn from './screens/LogIn/LogIn';
 import SignUp from './screens/SignUp/SignUp';
 import PatientRegistration from './screens/SignUp/PatientRegistration';
@@ -86,6 +87,7 @@ class App extends Component {
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
           <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+          <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
           <Route path="/heartstroke" element={ <HeartStroke /> } />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
