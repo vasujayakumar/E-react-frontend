@@ -115,8 +115,6 @@ function Searchresult() {
         <button class="button button5">Go</button>
         
       </div>
-    </div>
-    <div class="row">
       <div class="service">
         <MedicalServicesOutlinedIcon sx={{fontSize: 50}} />
         <h3>Kidney Stone Diagnosis</h3>
@@ -129,8 +127,7 @@ function Searchresult() {
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
       </div>
-      </div>
-    
+    </div>  
     <div class="row">
       <div class="service">
         <i class="ri-macbook-line"></i>
@@ -144,8 +141,6 @@ function Searchresult() {
         <p>Machine learning model</p>
         <button class="button button5" onClick={goToliverdiseaseML}>Go</button>
       </div>
-    </div>
-    <div class="row">
       <div class="service">
         <i class="ri-macbook-line"></i>
         <h3>Thyroid Disease Detection</h3>
@@ -158,6 +153,8 @@ function Searchresult() {
       <p>Detecting skin cancer type using ML</p>
       <button class="button button5" onClick={() => navigate('/skinCancerMLPage')}>Go</button>
       </div>
+    </div>
+    <div class="row">
            <div class="service">
         <i class="ri-macbook-line"></i>
         <h3>Pneumonia Disease Detection</h3>
