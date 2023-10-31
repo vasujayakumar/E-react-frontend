@@ -162,8 +162,6 @@ function Searchresult() {
         <p>94% using VGG19</p>
         <button class="button button5" onClick={goToPneumoniaML}>Go</button>
       </div> 
-    </div>
-    <div className="row">
       <div class="service">
         <i class="ri-macbook-line"></i>
         <h3>Heart Stroke</h3>
