@@ -17,6 +17,7 @@ function Searchresult() {
     const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
     const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
     const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
+    const goToHeartStroke = () => navigate("/heartstroke", {state: dataskin });
     
     
     
@@ -161,6 +162,14 @@ function Searchresult() {
         <p>94% using VGG19</p>
         <button class="button button5" onClick={goToPneumoniaML}>Go</button>
       </div> 
+    </div>
+    <div className="row">
+      <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Heart Stroke</h3>
+        <p>Heart stroke prediction with 93% accuracy</p>
+        <button class="button button5" onClick={goToHeartStroke}> go</button>
+      </div>
     </div>
   </section>
 

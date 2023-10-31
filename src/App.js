@@ -34,11 +34,13 @@ import { DoctorPatients } from './screens/DoctorPatients';
 import { DocProfile } from './screens/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
+import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
 import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
 import Terms from'./screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
+
 
 
 const initialState ={
@@ -90,6 +92,7 @@ class App extends Component {
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
           <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+          <Route path="/heartstroke" element={ <HeartStroke /> } />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
           <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
           <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
