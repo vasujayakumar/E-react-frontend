@@ -16,7 +16,7 @@ function ContactAdmin() {
   const [records, setRecords] = useState([])
   useEffect(()=> {
     //axios.get("https://jsonplaceholder.typicode.com/users")
-    axios.get("http://localhost:8080/api/users/contact")
+    axios.get("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/contact")
     .then(res => {setRecords(res.data)})
     .catch(err => console.log(err))
   }, [])

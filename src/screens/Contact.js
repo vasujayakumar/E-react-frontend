@@ -71,7 +71,7 @@ const Contact = () => {
   }
 
   return (
-    <div className='container'>
+    <div className='contact-container'>
       <div className='row'>
         <div className='col-12 text-center'>
           <div class='contact-heading-one'><h1>How can we help you?</h1></div>

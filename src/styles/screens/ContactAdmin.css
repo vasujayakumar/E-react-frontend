@@ -1,38 +1,46 @@
-h1 {
+/* Add a background color and some padding around the form */
+.contact-admin-container {
+  background-color: rgba(173, 201, 199, 0.306);
+  padding: 20px;
+  min-height: 400px;
+  height: fit-content;
+}
+
+.contact-admin-container h1 {
   font-size: 36px;
   margin: 10px;  
   color:  lightseagreen;
   font-family: 'Poppins', sans-serif!important;
 }
 
-h4 {
+.contact-admin-container h4 {
   margin: 10px;
   color:  rgb(29, 31, 30);
   font-family: 'Poppins', sans-serif!important;
   text-align: left;
 }
 
-th {
+.contact-admin-container th {
 background-color: rgb(169, 216, 214);
 margin: 10px;
 border:1px solid rgb(44, 44, 44);
 color:rgb(44, 44, 44);
 }
 
-tr {
+.contact-admin-container tr {
   background-color: white;
   color: rgb(44, 44, 44);
   border:1px solid rgb(44, 44, 44);
   }
 
-  table{
+  .contact-admin-container table{
     border: 0px;
   }
 
 
 
 
-button[type=refreshContactAdmin] {
+  .contact-admin-container button[type=refreshContactAdmin] {
   margin-top: 20px;
   margin-bottom: 20px;
   font-family: 'Poppins', sans-serif !important;
@@ -46,7 +54,7 @@ button[type=refreshContactAdmin] {
 }
 
 /* When moving the mouse over the submit button, add a darker green color */
-button[type=refreshContactAdmin]:hover {
+.contact-admin-container button[type=refreshContactAdmin]:hover {
   margin-top: 20px;
   margin-bottom: 20px;
   font-family: 'Poppins', sans-serif !important;
@@ -57,11 +65,4 @@ button[type=refreshContactAdmin]:hover {
   font-weight: bold;
 }
 
-/* Add a background color and some padding around the form */
-.container {
-  background-color: rgba(173, 201, 199, 0.306);
-  padding: 20px;
-  min-height: 400px;
-  height: fit-content;
-}
 

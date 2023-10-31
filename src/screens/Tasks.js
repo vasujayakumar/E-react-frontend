@@ -24,7 +24,7 @@ class Tasks extends Component {
   findTask = () => {
     axios
     //find task by id or FName then //put the reponse data into all input fields,if response is null, set the input fields to empty
-      .get(`http://localhost:8080/api/users/tasks/${this.state.id}`)
+      .get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`)
       //put the reponse data into all input fields,if response is null, set the input fields to empty
       .then((response) => {
         if (response.data.FName != null) {
@@ -58,7 +58,7 @@ class Tasks extends Component {
   //ok
   createTask = () => {
     axios
-      .post(`http://localhost:8080/api/users/tasks/add`, {
+      .post(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/add`, {
         DoctorName: this.state.DoctorName,
         FName: this.state.FName,
         MName: this.state.MName,
@@ -88,7 +88,7 @@ class Tasks extends Component {
   //ok
   updateTask = () => {
     axios
-      .put(`http://localhost:8080/api/users/tasks/${this.state.id}`, {
+      .put(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`, {
         DoctorName: this.state.DoctorName,
         FName: this.state.FName,
         MName: this.state.MName,
@@ -115,7 +115,7 @@ class Tasks extends Component {
   //ok
   deleteTask = () => {
     axios
-      .delete(`http://localhost:8080/api/users/tasks/${this.state.id}`)
+      .delete(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`)
       .then(() => {
         this.fetchAllTasks();
         this.setState({
