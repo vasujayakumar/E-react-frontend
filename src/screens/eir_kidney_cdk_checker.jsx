@@ -1,152 +1,169 @@
-import {useLocation} from 'react-router-dom';
-import '../styles/screens/diagonostic.css';
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import {Card, Container, Button, Grid, Paper, Table, TableHead, TableBody, TableRow, TableCell, Dialog, DialogTitle, DialogContent, DialogActions, Typography, CardContent } from '@mui/material';
+
+import '../styles/screens/diagonostic.css';
+/** 
+ * Eir Kidney Team: Yanilda and Maryam
+ * Eir is the norse goddes of Health 
+**/
 
 function Ckdml() {
   const location = useLocation();
   const [latestRecord, setLatestRecord] = useState();
   const [tableOfData, setTableOfData] = useState([]);
   const [diagnosis, setDiagnosis] = useState('');
-  const patientId =location.state.id;
-  const titlesOfData = ["age", "blood_pressure", "specific_gravity", "albumin", "sugar", "red_blood_cells",
-      "pus_cell", "pus_cell_clumps","bacteria","blood_glucose_random", "blood_urea", "serum_creatinine","sodium",
-    "potassium","haemoglobin","packed_cell_volume","white_blood_cell_count","red_blood_cell_count",
-    "hypertension","diabetes_mellitus","coronary_artery_disease","appetite","peda_edema","aanemia"]
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogContent, setDialogContent] = useState('');
+  const patientId = location.state.id;
+
+  const titlesOfData = [
+    'age', 'blood_pressure', 'specific_gravity', 'albumin', 'sugar', 'red_blood_cells',
+    'pus_cell', 'pus_cell_clumps', 'bacteria', 'blood_glucose_random', 'blood_urea', 'serum_creatinine', 'sodium',
+    'potassium', 'haemoglobin', 'packed_cell_volume', 'white_blood_cell_count', 'red_blood_cell_count',
+    'hypertension', 'diabetes_mellitus', 'coronary_artery_disease', 'appetite', 'peda_edema', 'aanemia'
+  ];
 
   useEffect(() => {
-    // Function to retrieve patient records
-    const getPatientLatestRecord= async () => {
+    const getPatientLatestRecord = async () => {
       try {
-        console.log("parm found ",patientId);
-        //http://localhost:8080/getPhysicaltestCK
+        console.log('param found ', patientId);
         const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/getPhysicaltestCK', {
           patientId
         });
 
         const { data } = response;
+
         if (data.error) {
-          alert(JSON.stringify(data.error));
-          console.log("error ")
+          setDialogContent(JSON.stringify(data.error));
+          setDialogOpen(true);
         } else {
           setLatestRecord(data);
-          setTableOfData(data.data)
-          console.log("data", data)
+          setTableOfData(data.data);
         }
       } catch (error) {
-        console.log(`Error With request on patient records: ${error.message}`);
+        setDialogContent(`Error With request on patient records: ${error.message}`);
+        setDialogOpen(true);
       }
     };
 
     getPatientLatestRecord();
   }, [patientId]);
 
-  // Function to send the ckd for prediction
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
   const predict = async (recordTest) => {
     const record = recordTest.latestRecord;
-    console.log("Here I am supposed to get record")
-    console.log(record.data)
+
     try {
-      /*
-      const physicaltestck = await fetch(`data:json,${record}`).then((response) =>
-        response.json()
-      );*/
-      console.log("let's see", record)
-      
-      //skincancer ml model api link deployed on heroku via git
       const response = await axios.post('https://kidneyml-844ab0d69ccd.herokuapp.com/api/check_ckd', record, {
         headers: { 'Content-Type': 'application/json' },
       });
 
       const { data } = response;
+
       if (data.error) {
-        alert(JSON.stringify(data.error));
+        setDialogContent(JSON.stringify(data.error));
+        setDialogOpen(true);
       } else {
         storePrediction(data, record.record_id);
-        const diagnosisMessage = "has CKD?: "+data.cdk_prediction || 'No diagnosis available';
+        const diagnosisMessage = `has CKD?: ${data.cdk_prediction || 'No diagnosis available'}`;
         setDiagnosis(diagnosisMessage);
       }
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      setDialogContent(`Error: ${error.message}`);
+      setDialogOpen(true);
     }
   };
 
-  // Function to store the prediction result
   const storePrediction = async (result, id) => {
     try {
-      const phoneNumber =location.state.MobileNumber;
+      const phoneNumber = location.state.MobileNumber;
       const today = new Date().toISOString();
       const variable = result.cdk_prediction === 'true' ? 1 : 0;
-     
 
       const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/updateDisease', {
         phoneNumber,
         disease: 'chronic_kidney',
         date: today,
         prediction: variable,
-        description: "CKD: "+result.cdk_prediction,
+        description: `CKD: ${result.cdk_prediction}`,
         accuracy: null,
         recordType: 'physical_test_ck',
         recordId: id || null,
       });
 
       const { data } = response;
+
       if (data.error) {
-        alert(JSON.stringify(data.error));
+        setDialogContent(JSON.stringify(data.error));
+        setDialogOpen(true);
       } else {
-        alert(data.success);
+        setDialogContent(data.success);
+        setDialogOpen(true);
       }
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      setDialogContent(`Error: ${error.message}`);
+      setDialogOpen(true);
     }
   };
-       
-    
-    
-    return (
-    <>
-    <br/>   <br/>   
-   <center> <div>
-    <h2>Latest Physical Test Results for CK</h2>
-    <br/>
-    <button onClick={() => predict({latestRecord})}>Diagnose</button>
-    
-    <div>
-        <strong>Diagnosis:</strong> {diagnosis}
-    </div>
-    <br/>
-      <hr/>
-      <table>
-        <thead>
-          <tr>
-            <th>Variables</th>
-            <th>Record Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-          {tableOfData.map((value, index)=>(
-            <tr>
-              <td>
-              {titlesOfData[index]}
-              </td>
-              <td>
-              {value }
-              </td>
-            </tr>
-         ))}
-        </tbody>
-      </table>
 
-      
-     
-    </div></center>   <br/>   <br/>   <br/>   <br/>   <br/>
-
-            </>
-        )
-    }
-
-    export default Ckdml;
+  return (
+    <Container style={{ minHeight: '80vh' }}>
+        <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper sx={{ padding: '16px', textAlign: 'center' }}>
+              <Typography variant="h2" >
+              Patient's Physical Test Result
+              </Typography>
+            <Card>
+            <CardContent>
+              <Button variant="contained" sx={{bgcolor: 'lightseagreen'}} onClick={() => predict({ latestRecord })}>
+                Diagnose
+              </Button>
+              <Typography variant="h4" >
+                Diagnosis:
+              </Typography>
+              <Typography variant="body1" >
+               {diagnosis}
+              </Typography>
+            </CardContent>
+          </Card>
+          </Paper>
+        </Grid>
+      </Grid>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Variables</TableCell>
+            <TableCell>Values</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {tableOfData.map((value, index) => (
+            <TableRow key={index}>
+              <TableCell>{titlesOfData[index]}</TableCell>
+              <TableCell>{value}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
 
 
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Message</DialogTitle>
+        <DialogContent>{dialogContent}</DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Container>
+  );
+}
 
+export default Ckdml;

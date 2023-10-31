@@ -2,7 +2,7 @@ import {useLocation} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {useNavigate } from "react-router-dom";
 import '../styles/screens/Search.css';
-
+import MedicalServicesOutlinedIcon from '@mui/icons-material/MedicalServicesOutlined';
 function Searchresult() {
 
     const navigate = useNavigate();
@@ -14,10 +14,10 @@ function Searchresult() {
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
     const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin}); 
     const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
-    const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});  
+    const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
+    const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
     const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
     const goToHeartStroke = () => navigate("/heartstroke", {state: dataskin });
-
     
     
     
@@ -116,22 +116,19 @@ function Searchresult() {
         <button class="button button5">Go</button>
         
       </div>
-    </div>
-    <div class="row">
       <div class="service">
-        <i class="ri-macbook-line"></i>
+        <MedicalServicesOutlinedIcon sx={{fontSize: 50}} />
         <h3>Kidney Stone Diagnosis</h3>
         <p>94% accuracy ~ Convolutional Neural Networks</p>
         <button class="button button5" onClick={goTokidneystoneml}>Go</button>
       </div>
       <div class="service">
-        <i class="ri-store-3-line"></i>
+        <MedicalServicesOutlinedIcon sx={{fontSize: 50}} />
         <h3>Chronic Kidney Disease Diagnosis</h3>
         <p>93% accuracy~ Decision Tree</p>
         <button class="button button5" onClick={goToCkdML}>Go</button>
       </div>
-      </div>
-    
+    </div>  
     <div class="row">
       <div class="service">
         <i class="ri-macbook-line"></i>
@@ -140,19 +137,25 @@ function Searchresult() {
         <button class="button button5" onClick={goToBreastCancerML}>Go</button>
       </div>
       <div class="service">
+        <i class="ri-store-3-line"></i>
+        <h3>Liver Disease Prediction Model</h3>
+        <p>Machine learning model</p>
+        <button class="button button5" onClick={goToliverdiseaseML}>Go</button>
+      </div>
+      <div class="service">
         <i class="ri-macbook-line"></i>
         <h3>Thyroid Disease Detection</h3>
         <p>96% accuracy ~ Random Forest Model</p>
         <button class="button button5" onClick={goToThyroid_Disease_ML}>Go</button>
       </div>
-          </div>
-      <div class="row">
-        <div class="service">
-        <i class="ri-macbook-line"></i>
-        <h3>Skin Cancer Diagnosis</h3>
-        <p>Detecting skin cancer type using ML</p>
-        <button class="button button5" onClick={() => navigate('/skinCancerMLPage')}>Go</button>
+      <div class="service">
+      <i class="ri-macbook-line"></i>
+      <h3>Skin Cancer Diagnosis</h3>
+      <p>Detecting skin cancer type using ML</p>
+      <button class="button button5" onClick={() => navigate('/skinCancerMLPage')}>Go</button>
       </div>
+    </div>
+    <div class="row">
            <div class="service">
         <i class="ri-macbook-line"></i>
         <h3>Pneumonia Disease Detection</h3>

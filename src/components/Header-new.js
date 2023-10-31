@@ -13,6 +13,7 @@ function Header() {
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="/Tasks">Tasks</a></li>
       <li><a href="/specialities">Specialities</a></li>
       <li><a href="/AboutUs">About Us</a></li>
       <li><a href="/contact">Contact US</a></li>

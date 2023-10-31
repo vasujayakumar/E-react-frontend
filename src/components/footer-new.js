@@ -20,7 +20,7 @@ function Footer() {
           <a href="#">Services</a>
         
           <a href="#">About</a>
-          
+          <a href="/testimonial">Testimonial</a>
           <a href="#">Contact</a>
         </p>
 
