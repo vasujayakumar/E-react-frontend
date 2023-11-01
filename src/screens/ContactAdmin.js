@@ -30,7 +30,7 @@ function ContactAdmin() {
   
 
   return (
-
+    <div className = 'contact-admin-container'>
         <div>
           <table>
             <thead>
@@ -91,7 +91,7 @@ function ContactAdmin() {
             
           </table>
         </div>
-
+        </div>
 
   );
 
