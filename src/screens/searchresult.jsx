@@ -17,13 +17,14 @@ function Searchresult() {
     const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
     const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
     const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
+    const goToBonecancerml = () => navigate('/Bonecancerml',{state:dataskin});
     const goToHeartStroke = () => navigate("/heartstroke", {state: dataskin });
     const goToheartdisease = () => navigate("/Heartdiseaseml", { state: dataskin });
     
     
     return (
 
-            <>
+     <>
     <br></br>
     <h2>Pateint Basic Information details</h2>
     <div class="center">
@@ -158,10 +159,16 @@ function Searchresult() {
             <p>Get heart disease results.</p>
             <button className="button button5" onClick={goToheartdisease}>Go</button>
           </div>
+	<div class="service">
+          <i class="ri-macbook-line"></i>
+          <h3> Bone Cancer Detection</h3>
+          <p>Bone Cancer prediction model using CNN </p>
+          <button class="button button5" onClick={goToBonecancerml}>Go</button>
+        </div> 
     </div>
   </section>
-
-    </>
+         
+  </>
   )
 }
 
