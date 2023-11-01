@@ -28,11 +28,6 @@
   padding: 0;
 }
 
-body {
-  font-family: Oxygen, sans-serif;
-  margin: 2rem;
-}
-
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
