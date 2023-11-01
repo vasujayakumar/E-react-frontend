@@ -42,11 +42,13 @@ import TestimonialsPage from './screens/TestimonialsPage'; // Import Testimonial
 import Terms from'./screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
-
+import HealthcareModels from './screens/ModelsHub'
+import ThyroidModel from './screens/ThyroidModel'
 import DoctorCalendar from './screens/Calendar/DoctorCalendar';
 import PatientCalendar from './screens/Calendar/PatientCalendar';
 import PatientBookTime from './screens/Calendar/PatientBookTime';
 import TimeSegmentDetail from './screens/Calendar/TimeSegmentDetail';
+
 
 class App extends Component {
   constructor(){
@@ -124,6 +126,8 @@ class App extends Component {
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
           </Route>
+          <Route path="/HealthcareModels" element={ <HealthcareModels />}/>
+          <Route path="/ThyroidModel" element={ <ThyroidModel />}/>
           <Route path="/calendar" element={
               (this.state.user.type === 'Doctor') ?
               <DoctorCalendar/> :
