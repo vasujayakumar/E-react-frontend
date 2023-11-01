@@ -56,7 +56,7 @@ class LogIn extends React.Component{
             email:user.email,
           };
           this.props.loadUser(new_user);
-          this.props.navigate('/services');
+          this.props.navigate('/ContactAdmin');
         }
       }
       else if(this.state.selectedOption==='Patient'){

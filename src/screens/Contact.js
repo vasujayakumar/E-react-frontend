@@ -27,7 +27,7 @@ const Contact = () => {
     e.preventDefault()
     try {
       //alert("Submitted!")
-      axios.post("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/", {
+      axios.post("https://e-react-node-backend-22ed6864d5f3.herokuapp.com/contact", {
         formData
       })
     }

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
+import ContactAdmin from './screens/ContactAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
@@ -100,6 +101,7 @@ class App extends Component {
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/ContactAdmin" element={<ContactAdmin />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/rights" element={<Rights />} />
