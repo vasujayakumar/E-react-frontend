@@ -8,32 +8,30 @@ import { Grid, Tabs, Tab, Card, CardContent, Typography, Box } from "@mui/materi
 import { BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, } from 'recharts';
 import SwipeableViews from 'react-swipeable-views';
 
-
-
-
 const modelUsageData = [
   { name: 'Heart Disease', runs: 400 },
   { name: 'Diabetes', runs: 350 },
   { name: 'Cancer Detection', runs: 220 },
-  { name: 'Heart Disease', runs: 400 },
-  { name: 'Diabetes', runs: 350 },
-  { name: 'Cancer Detection', runs: 220 },
-  { name: 'Heart Disease', runs: 400 },
-  { name: 'Diabetes', runs: 350 },
-  { name: 'Cancer Detection', runs: 220 },
-  // ... add other models
+  { name: 'Lung Function', runs: 280 },
+  { name: 'Stroke Risk', runs: 310 },
+  { name: 'Bone Density', runs: 265 },
+  { name: 'Mental Health', runs: 295 },
+  // ... you can add more models if required
 ];
 
 const modelDistributionData = [
   { name: 'Heart Disease', value: 400 },
   { name: 'Diabetes', value: 350 },
   { name: 'Cancer Detection', value: 220 },
-  { name: 'Heart Disease', value: 400 },
-  { name: 'Diabetes', value: 350 },
-  { name: 'Cancer Detection', value: 220 },
-
-  // ... add other models
+  { name: 'Lung Function', value: 280 },
+  { name: 'Stroke Risk', value: 310 },
+  { name: 'Bone Density', value: 265 },
+  { name: 'Mental Health', value: 295 },
+  // ... you can add more models if required
 ];
+function Divider() {
+  return <div style={{height: '1px', backgroundColor: 'grey', margin: '16px 0',}}></div>;
+}
 
 const HealthcareModels = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -57,11 +55,14 @@ const HealthcareModels = () => {
 
   return (
     <div className="healthcare-models-container">
-      <h1>Healthcare Prediction Models Hub</h1>
+      <h1 className='title'>Healthcare Prediction Models Hub</h1>
       <Banner onSearchChange={onSearchChange} />
+      <div style = {{padding:"30px"}}>
+      <Divider/>
+      </div>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <h2>List of Healthcare Prediction Models:</h2>
+        <Grid item xs={12} md={7}>
+          <h2 className='title'>List of Healthcare Prediction Models:</h2>
           <div className="models-grid">
             {filteredModels.map((model, index) => (
               <ModelCard key={index} {...model} />
@@ -69,8 +70,8 @@ const HealthcareModels = () => {
           </div>
         </Grid>
 
-        <Grid item xs={12} md={6}>
-          <h2>Analytics Section</h2>
+        <Grid item xs={12} md={5}>
+          <h2 className='title'>Analytics Section</h2>
           <Tabs value={activeTab} onChange={handleChange} indicatorColor="primary" textColor="primary">
             <Tab label="Model Usage Metrics" />
             <Tab label="Graphical Representation" />
@@ -98,7 +99,7 @@ const HealthcareModels = () => {
                     Graphical Representation
                   </Typography>
                   <PieChart width={500} height={300}>
-                    <Pie data={modelDistributionData} cx={200} cy={200} outerRadius={80} fill="#8884d8" dataKey="value">
+                    <Pie data={modelDistributionData} cx={200} cy={200} outerRadius={90} fill="#8884d8" dataKey="value">
                       {
                         modelDistributionData.map((entry, index) => <Cell key={`cell-${index}`} fill={["#8884d8", "#82ca9d", "#ffc658"][index % 3]} />)
                       }

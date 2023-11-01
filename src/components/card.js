@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/components/modelCard.css';
+import { Link } from 'react-router-dom';
 
-const Card = ({ src, alt, title, description, text }) => {
+const Card = ({ src, alt, title, description, text,page  }) => {
   return (
     <div className="card">
       <CardImage src={src} alt={alt} />
       <CardTitle title={title} />
       <CardDescription description={description} />
-      <ActionButton text={text} />
+      <ActionButton text={text}  page={page} />
     </div>
   );
 }
@@ -18,7 +19,9 @@ Card.propTypes = {
   alt: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  page: PropTypes.string
+
 };
 
 const CardImage = ({ src, alt }) => {
@@ -46,12 +49,21 @@ CardDescription.propTypes = {
   description: PropTypes.string.isRequired,
 };
 
-const ActionButton = ({ text }) => {
-  return <button className="actionButton">{text}</button>;
+const ActionButton = ({ text, page }) => {
+  if(page) {
+    return (
+      <Link to={page} className="actionButtonLink">
+        <button className="actionButton">{text}</button>
+      </Link>
+    );
+  } else {
+    return <button className="actionButton">{text}</button>;
+  }
 }
 
 ActionButton.propTypes = {
   text: PropTypes.string.isRequired,
+  page: PropTypes.string
 };
 
 export default Card;

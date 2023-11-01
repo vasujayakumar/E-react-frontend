@@ -1,40 +1,13 @@
 .healthcare-models-container {
   padding: 20px;
-  font-family: Arial, sans-serif;
   background: #f5f5f5;
   color: #333;
-
 }
-/* 
-h1,
-h2,
-h3 {
+
+.title{
   margin-top: 20px;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 10px;
-} */
-
-/* a {
-  display: inline-block;
-  padding: 5px 15px;
-  background-color: #007BFF;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-} */
-
-/* a:hover {
-  background-color: #0056b3;
-} */
 
 .card-container {
   display: flex;
@@ -71,4 +44,15 @@ li {
   /* Makes both children take up equal space */
   padding: 20px;
   /* Add some padding for better appearance */
+}
+@keyframes fluidMotion {
+  0% {
+      background-image: radial-gradient(circle, rgba(247,150,192,0.6) 0%, rgba(118,174,241,0.6) 100%);
+  }
+  50% {
+      background-image: radial-gradient(circle, rgba(118,174,241,0.6) 0%, rgba(247,150,192,0.6) 100%);
+  }
+  100% {
+      background-image: radial-gradient(circle, rgba(247,150,192,0.6) 0%, rgba(118,174,241,0.6) 100%);
+  }
 }

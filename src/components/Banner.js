@@ -16,8 +16,8 @@ function Banner({ onSearchChange }) {
         paddingBottom: "40px",
         justifyContent: 'center',
         alignItems: "center",
-        textAlign:'center'
-
+        textAlign:'center',
+        borderRadius:"20px",
       }}
     >
       <Container>

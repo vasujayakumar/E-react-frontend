@@ -42,7 +42,7 @@ import Terms from'./screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
 import HealthcareModels from './screens/ModelsHub'
-
+import ThyroidModel from './screens/ThyroidModel'
 
 const initialState ={
   user:{
@@ -112,6 +112,7 @@ class App extends Component {
             <Route path="/doctor/services" element={<DoctorServices />} />
           </Route>
           <Route path="/HealthcareModels" element={ <HealthcareModels />}/>
+          <Route path="/ThyroidModel" element={ <ThyroidModel />}/>
         </Routes>
         <Footer />
       </BrowserRouter>
