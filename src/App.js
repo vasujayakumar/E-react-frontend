@@ -22,7 +22,7 @@ import LabAdminRegistration from './screens/SignUp/LabAdminRegistration'
 import LabApp from './screens/SignUp/LabApp'
 import Specialities from './screens/Specialities';
 import EmergencyLocations from './screens/EmergencyLocations';
-import 'tachyons' ;
+import 'tachyons';
 import SkinCancerMlPage from './screens/skinCancerMlPage';
 import BreastCancerML from './screens/eir_breast_cancer_checker'
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
@@ -38,14 +38,15 @@ import { DoctorServices } from './screens/DoctorServices';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
 import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
-import Terms from'./screens/terms';
+import Terms from './screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
+import FloatingChatWindow from './components/FloatingChatWindow';
 
 
 
-const initialState ={
-  user:{
+const initialState = {
+  user: {
     id: '',
     name: '',
     email: ''
@@ -54,31 +55,31 @@ const initialState ={
 
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = initialState;
   }
 
-  loadUser = (data) =>{
+  loadUser = (data) => {
     this.setState({
-      user:{
-        id:data.id,
-        name:data.name,
-        email:data.email,
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
       }
     })
   }
-  render(){
+  render() {
     return (
       <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/LogIn" element={<LogIn loadUser ={this.loadUser} />} />
-          <Route path="/SignUp" element={<SignUp loadUser ={this.loadUser}/>} />
+          <Route path="/LogIn" element={<LogIn loadUser={this.loadUser} />} />
+          <Route path="/SignUp" element={<SignUp loadUser={this.loadUser} />} />
           <Route path="/searchpatient" element={<Searchpatient />} />
           <Route path="/skincancerml" element={<Skincancerml />} />
-          <Route path="/skinCancerMLPage" element={<SkinCancerMlPage/>} />
+          <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
@@ -88,32 +89,33 @@ class App extends Component {
           <Route path="/rights" element={<Rights />} />
           <Route path="/webform" element={<Webform />} />
           <Route path="/Tasks" element={<Tasks />} />
-          <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
-          <Route path="/chronickidneyml" element={ <Ckdml />}/>
-          <Route path="/breastcancerml" element={<BreastCancerML/>} />
-          <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
-          <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+          <Route path="/kidneystoneml" element={<KidneyStoneML />} />
+          <Route path="/chronickidneyml" element={<Ckdml />} />
+          <Route path="/breastcancerml" element={<BreastCancerML />} />
+          <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
+          <Route path="/Pneumoniaml" element={<Pneumoniaml />} />
           <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
-          <Route path="/heartstroke" element={ <HeartStroke /> } />
-          <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
-          <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
-          <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
-          <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser ={this.loadUser}/>} />
-          <Route path="/LabApp" element={<LabApp />} /> 
+          <Route path="/heartstroke" element={<HeartStroke />} />
+          <Route path="/PatientRegistration" element={<PatientRegistration loadUser={this.loadUser} />} />
+          <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser={this.loadUser} />} />
+          <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser={this.loadUser} />} />
+          <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser={this.loadUser} />} />
+          <Route path="/LabApp" element={<LabApp />} />
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
-          <Route path="/liverdiseaseML" element={ <Liver_disease_ML />}/>
-          <Route path="/doctor" element={<DoctorLayout doctorInfo={{id:58}} />}>
+          <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
+          <Route path="/doctor" element={<DoctorLayout doctorInfo={{ id: 58 }} />}>
             <Route index element={<Dashboard />} />
             <Route path="/doctor/dashboard" element={<Dashboard />} />
             <Route path="/doctor/patients" element={<DoctorPatients />} />
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
-          
-           
+
+
           </Route>
         </Routes>
+        <FloatingChatWindow />
         <Footer />
       </BrowserRouter>
     );
