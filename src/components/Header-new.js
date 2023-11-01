@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/components/Header.css'
 function Header() {
   return (
-
    <header>
     <nav class="headerbody">
     <input type="checkbox" id="check"/>
@@ -11,21 +11,17 @@ function Header() {
     </label>
     <label class="logo"><span>e</span>Hospital</label>
     <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="/specialities">Specialities</a></li>
-      <li><a href="/AboutUs">About Us</a></li>
-      <li><a href="/contact">Contact US</a></li>
-      <li><a href="/LogIn">LogIn</a></li>
-      <li><a href="/signUp">SignUp</a></li>
-   
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/services">Services</Link></li>
+      <li><Link to="/specialities">Specialities</Link></li>
+      <li><Link to="/AboutUs">About Us</Link></li>
+      <li><Link to="/contact">Contact US</Link></li>
+      <li><Link to="/LogIn">LogIn</Link></li>
+      <li><Link to="/signUp">SignUp</Link></li>
     </ul>
   </nav>
   </header>
-
-  
-  
-    );
+  );
 }
 
 export default Header;
