@@ -29,6 +29,7 @@ import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
 import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
+import Bonecancerml from './screens/Bonecancerml';
 import DoctorLayout from './layout/DoctorLayout';
 import Dashboard from './screens/DoctorDashboard';
 import { DoctorPatients } from './screens/DoctorPatients';
@@ -93,6 +94,7 @@ class App extends Component {
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
           <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+          <Route path="/Bonecancerml" element={ <Bonecancerml />}/>
           <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
           <Route path="/heartstroke" element={ <HeartStroke /> } />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
