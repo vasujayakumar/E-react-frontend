@@ -123,7 +123,8 @@ class App extends Component {
           <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser={this.loadUser} />} />
           <Route path="/LabApp" element={<LabApp />} />
           <Route path="/specialities" element={<Specialities />} />
-          <Route path="/services" element={<ServicesHomePage/>} />
+          <Route path="/services" element={<Services/>} />
+          <Route path="/serviceshomepage" element={<ServicesHomePage/>} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
           <Route path="/doctor" element={<DoctorLayout doctorInfo={{ id: 58 }} />}>
