@@ -47,7 +47,7 @@ const HeartStroke = () => {
 
     const renderTableData = () => {
         return Object.keys(tableColumn).map((columnKey) => {
-            if (!predictionData?.[columnKey]) {
+            if (predictionData?.[columnKey] === undefined) {
                 return ;
             }
             return <td>{predictionData?.[columnKey]}</td>
