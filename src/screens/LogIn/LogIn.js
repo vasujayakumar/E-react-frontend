@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from '../../withRouter';
 import './LogIn.css';
 import 'tachyons'
 
@@ -48,38 +49,50 @@ class LogIn extends React.Component{
     .then(user => {
       if(this.state.selectedOption ==='Admin'){
         if(user.admin_id){
-          let new_user = {id:user.admin_id,
-          name: user.full_name,
-          email:user.email}
+          let new_user = {
+            type: 'Admin',
+            id:user.admin_id,
+            name: user.full_name,
+            email:user.email,
+          };
           this.props.loadUser(new_user);
-          window.location.href = '/services';
+          this.props.navigate('/services');
         }
       }
       else if(this.state.selectedOption==='Patient'){
         if(user.id){
-          let new_user = {id:user.id,
-          name: user.Fname,
-          email:user.EmailId}
+          let new_user = {
+            type:'Patient',
+            id:user.id,
+            name: user.FName,
+            email:user.EmailId,
+          };
           this.props.loadUser(new_user);
-          window.location.href = '/services';
+          this.props.navigate('/services');
         } 
       }
       else if(this.state.selectedOption==='Doctor'){
+        console.log("doctor login", user);
         if(user.id){
-          let new_user = {id:user.id,
-          name: user.Fname,
-          email:user.EmailId}
+          let new_user = {
+            type:'Doctor',
+            id:user.id,
+            name: user.Fname,
+            email:user.EmailId,
+          };
           this.props.loadUser(new_user);
-          window.location.href = '/services';
+          this.props.navigate('/services');
         } 
       }
       else{
         if(user.id){
-          let new_user = {id:user.id,
-          name: user.Hospital_Name,
-          email:user.Email_Id}
+          let new_user = {
+            id:user.id,
+            name: user.Hospital_Name,
+            email:user.Email_Id,
+          };
           this.props.loadUser(new_user);
-          window.location.href = '/services';
+          this.props.navigate('/services');
         }
       }
     })
@@ -162,4 +175,4 @@ class LogIn extends React.Component{
 }
 
 
-export default LogIn;
+export default withRouter(LogIn);

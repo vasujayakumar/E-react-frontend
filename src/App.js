@@ -21,6 +21,7 @@ import HospitalAdminRegistration from './screens/SignUp/HospitalAdminRegistratio
 import LabAdminRegistration from './screens/SignUp/LabAdminRegistration'
 import LabApp from './screens/SignUp/LabApp'
 import Specialities from './screens/Specialities';
+import Services from './screens/Services';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons' ;
 import SkinCancerMlPage from './screens/skinCancerMlPage';
@@ -42,31 +43,42 @@ import Terms from'./screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
 
-
-
-const initialState ={
-  user:{
-    id: '',
-    name: '',
-    email: ''
-  }
-}
-
+import DoctorCalendar from './screens/Calendar/DoctorCalendar';
+import PatientCalendar from './screens/Calendar/PatientCalendar';
+import PatientBookTime from './screens/Calendar/PatientBookTime';
+import TimeSegmentDetail from './screens/Calendar/TimeSegmentDetail';
 
 class App extends Component {
   constructor(){
     super();
-    this.state = initialState;
+    this.state = {
+      user: (() => {
+        if(sessionStorage.getItem('loginData')===null){
+          return {
+            type: 'NotLoggedIn',
+            id: -1,
+            name: '',
+            email: '',
+          };
+        }else{
+          return JSON.parse(sessionStorage.getItem('loginData'));
+        }
+      })(),
+    }
   }
 
   loadUser = (data) =>{
+    const userInfo = {
+      type: data.type,
+      id: data.id,
+      name: data.name,
+      email: data.email,
+    };
+    console.log(data);
+    sessionStorage.setItem('loginData', JSON.stringify(userInfo));
     this.setState({
-      user:{
-        id:data.id,
-        name:data.name,
-        email:data.email,
-      }
-    })
+      user: userInfo,
+    });
   }
   render(){
     return (
@@ -101,6 +113,7 @@ class App extends Component {
           <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser ={this.loadUser}/>} />
           <Route path="/LabApp" element={<LabApp />} /> 
           <Route path="/specialities" element={<Specialities />} />
+          <Route path="/services" element={<Services/>} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={ <Liver_disease_ML />}/>
           <Route path="/doctor" element={<DoctorLayout doctorInfo={{id:58}} />}>
@@ -110,9 +123,15 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
-          
-           
           </Route>
+          <Route path="/calendar" element={
+              (this.state.user.type === 'Doctor') ?
+              <DoctorCalendar/> :
+              <PatientCalendar/>
+            }
+          />
+          <Route path="/calendar/timesegment/:id" element={<TimeSegmentDetail />} />
+          <Route path="/calendar/booktime" element={<PatientBookTime />} />
         </Routes>
         <Footer />
       </BrowserRouter>
