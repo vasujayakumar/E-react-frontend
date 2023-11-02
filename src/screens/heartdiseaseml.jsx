@@ -32,7 +32,7 @@ function Heartdiseaseml() {
     try {
       const phoneNumber = location.state?.MobileNumber; 
       const response = await axios.get(
-        `https://heart-disease-api-47316f5960cf.herokuapp.com/predict/phone/${phoneNumber}`
+        `https://heartdiseaseml-varun-fd3507a0de8c.herokuapp.com/predict/phone/${phoneNumber}`
       );
       const { data } = response;
       if (data.error) {
