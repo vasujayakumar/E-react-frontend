@@ -23,7 +23,7 @@ const FloatingChatWindow = () => {
         const fetchData = async () => {
             try {
                 // 获取当前用户的ID和身份
-                const response = await axios.get('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getCurrentId');
+                const response = await axios.get('http://localhost:8080/api/chat/getCurrentId');
                 C_ID = response.data.info.id;
                 C_IDENTITY = response.data.identity;
                 setCurrentId(response.data.info.id);
@@ -33,9 +33,9 @@ const FloatingChatWindow = () => {
                 // 根据身份获取用户列表
                 let userListResponse;
                 if (response.data.identity === "doctor") {
-                    userListResponse = await axios.get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getDoctorChatList?doctorId=${C_ID}`);
+                    userListResponse = await axios.get(`http://localhost:8080/api/chat/getDoctorChatList?doctorId=${C_ID}`);
                 } else if (response.data.identity === "patient") {
-                    userListResponse = await axios.get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getPatientChatList?patientId=${C_ID}`);
+                    userListResponse = await axios.get(`http://localhost:8080/api/chat/getPatientChatList?patientId=${C_ID}`);
                 }
 
                 if (userListResponse) {
@@ -50,7 +50,7 @@ const FloatingChatWindow = () => {
 
         fetchData();
 
-        ws.current = new WebSocket('ws://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/sendMessage');
+        ws.current = new WebSocket('ws://localhost:8080/api/chat/sendMessage');
 
         ws.current.onopen = () => {
             console.log("WebSocket connection opened");
@@ -89,7 +89,7 @@ const FloatingChatWindow = () => {
 
 
         // 发送请求以获取conversationId
-        axios.get('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getConversationIdByUserIdentity', {
+        axios.get('http://localhost:8080/api/chat/getConversationIdByUserIdentity', {
             params: {
                 sender: currentId,
                 senderIdentity: currentIdentity,
@@ -103,7 +103,7 @@ const FloatingChatWindow = () => {
 
                 if (conversationId) {
                     //如果有conversationId，则获取相应的聊天历史记录
-                    let CH_history = axios.get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getChatHistoryByConversationId?conversationId=${conversationId}`);
+                    let CH_history = axios.get(`http://localhost:8080/api/chat/getChatHistoryByConversationId?conversationId=${conversationId}`);
                     console.log(CH_history);
                     return CH_history;
                 }
