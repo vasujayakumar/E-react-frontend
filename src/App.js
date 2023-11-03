@@ -91,7 +91,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Header />
+        <Header  user={this.state.user} />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/LogIn" element={<LogIn loadUser={this.loadUser} />} />

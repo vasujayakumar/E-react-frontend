@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/Header.css'
-function Header() {
+function Header({user}) {
   return (
    <header>
     <nav class="headerbody">
@@ -18,6 +18,16 @@ function Header() {
       <li><Link to="/contact">Contact US</Link></li>
       <li><Link to="/LogIn">LogIn</Link></li>
       <li><Link to="/signUp">SignUp</Link></li>
+      {user.type === 'Doctor'   ? (
+      <>
+        {/* Render the link only if the user is logged in*/}
+        <li><Link to="/doctor">Dashboard</Link></li>
+      </>
+        ) : (
+        <>
+             {/* Render the link only if the user is not logged in or is not a doctor*/}
+        </>
+      )}
     </ul>
   </nav>
   </header>
