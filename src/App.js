@@ -66,7 +66,6 @@ class App extends Component {
             id: -1,
             name: '',
             email: '',
-            isDoctor:'',
           };
         }else{
           return JSON.parse(sessionStorage.getItem('loginData'));
