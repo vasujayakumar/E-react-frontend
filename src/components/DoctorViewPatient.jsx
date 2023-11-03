@@ -55,7 +55,8 @@ export function DoctorViewPatient({ open, onClose, patientId }) {
     const getData = async () => {
       try {
         //https://e-react-node-backend-22ed6864d5f3.herokuapp.com
-        const response = await axios.post('http://localhost:8080/patientOverview', {
+        //http://localhost:8080/
+        const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/patientOverview', {
           patientId,
         });
         const { data } = response;
