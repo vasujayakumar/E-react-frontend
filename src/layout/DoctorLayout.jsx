@@ -8,7 +8,7 @@ import DoctorSideBar from "../components/DoctorSidebar";
 
 function DoctorLayout(userInfo) {
     const doctor_id =userInfo.doctorInfo.id;
-    if(userInfo.doctorInfo.type!="Doctor"){
+    if(userInfo.doctorInfo.type!=="Doctor"){
         return <Navigate to="/"/>
     }
     return(

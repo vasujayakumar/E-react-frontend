@@ -25,24 +25,9 @@ export default function Dashboard() {
                 </Paper>
               </Grid>
               {/* Some Chart */}
-              <Grid item xs={12}  md={6} lg={6}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 200,
-                  }}
-                >
-                  The trends
-                </Paper>
-              </Grid>
+    
               {/* Tasks */}
-              <Grid item xs={12}  md={6} lg={6}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                 To-Do List
-                </Paper>
-              </Grid>
+              
             </Grid>
           </Container>
   );
