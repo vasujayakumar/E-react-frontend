@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Table, TableHead, TableBody, TableRow, TableCell, Button, Grid, Paper } from '@mui/material/';
 import { Dialog, DialogTitle, DialogContent, DialogActions} from  '@mui/material/';
-import { getPatientRecords } from '../utilities/apis'; // Import the utility functions
+import { getPatientRecords, storePredictionAPI } from '../utilities/apis'; // Import the utility functions
 /** 
  * Eir Kidney Team: Yanilda and Maryam
  * Eir is the norse goddes of Health 
@@ -16,7 +16,10 @@ function KidneyStoneML() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState('');
   const phoneNumber = location.state.MobileNumber;
-
+  const openDialog = (message) => {
+  setDialogContent(message);
+  setDialogOpen(true);
+};
   useEffect(() => {
     const fetchPatientRecords = async () => {
       //Syed's API imageRetrieveByPhoneNumber
@@ -47,44 +50,15 @@ function KidneyStoneML() {
       const { data } = response;
 
       if (data.error) {
-        console.log(JSON.stringify(data.error));
+        openDialog(JSON.stringify(data.error));
       } else {
-
-        storePrediction(data, record._id);
         const diagnosisMessage = data.prediction || 'No diagnosis available';
         setDiagnosis(diagnosisMessage);
+        const variable = data.prediction === 'Normal' ? 0 : 1;
+        storePredictionAPI(phoneNumber, 'kidney_stone', data.prediction, data.accuracy, 'CT-Scan_Abdomen', record._id, variable);
       }
     } catch (error) {
-      console.log(`Error: ${error.message}`);
-    }
-  };
-  const storePrediction = async (result, id) => {
-    try {
-      const today = new Date().toISOString();
-      const prediction = result.prediction;
-      const variable = prediction === 'Normal' ? 0 : 1;
-
-      const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/updateDisease', {
-        phoneNumber,
-        disease: 'kidney_stone',
-        date: today,
-        prediction: variable,
-        description: prediction,
-        accuracy: result.accuracy || null,
-        recordType: 'CT-Scan_Abdomen',
-        recordId: id || null,
-      });
-
-      const { data } = response;
-
-      if (data.error) {
-        alert(JSON.stringify(data.error));
-      } else {
-        setDialogOpen(true);
-        setDialogContent(data.success+" Diagnosis has been stored");
-      }
-    } catch (error) {
-      alert(`Error: ${error.message}`);
+      openDialog(`Error: ${error.message}`);
     }
   };
 
