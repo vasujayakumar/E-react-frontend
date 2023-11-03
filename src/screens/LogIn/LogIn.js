@@ -81,7 +81,7 @@ class LogIn extends React.Component{
             email:user.EmailId,
           };
           this.props.loadUser(new_user);
-          this.props.navigate('/services');
+          this.props.navigate('/doctor');
         } 
       }
       else{
