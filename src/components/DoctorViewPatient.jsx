@@ -25,12 +25,12 @@ export function DoctorViewPatient({ open, onClose, patientId }) {
     transform: 'translate(-50%, -50%)',
     width: '100%',
     minHeight: '100%',
-    overflow: 'auto',
     bgcolor: 'background.paper',
     boxShadow: 24,
     pt: 2,
     px: 4,
     pb: 3,
+    overflowY: 'auto'
   };
 
   const [notes, setNotes] = React.useState('The patient reports feeling tired in the evenings. Recommend a follow-up appointment.');
