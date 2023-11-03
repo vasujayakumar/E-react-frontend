@@ -59,7 +59,7 @@ export function DoctorViewPatient({open, onClose, patientId}) {
       >
         <Box sx={style}>
         <Button 
-          variant="outlined"
+          variant="contained"
           color='primary'
           onClick={onClose}
           sx={{ position: 'absolute', top: 10, right: 10 }}
@@ -76,23 +76,27 @@ export function DoctorViewPatient({open, onClose, patientId}) {
               <Grid container spacing={12}>
                 <Grid item xs={4}>
                   <PersonOutlineIcon sx={{ fontSize: 150 }} /> {/* Add PersonOutlineIcon */}
+                  <Button variant="contained"  sx={{ mt: 2 }}>
+                      Contact
+                    </Button>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
+                    <Typography variant="h6">Personal Information</Typography>
+                    <Typography variant="body1">First Name:  Test</Typography>
+                    <Typography variant="body1">Last Name:  Test</Typography>
+                    <Typography variant="body1">Middle Name:  Test</Typography>
+                    <Typography variant="body1">Address: 123 Main St</Typography>
+                    <Typography variant="body1">Phone: (123) 456-7890</Typography>
+                    <Typography variant="body1">Email: patient@example.com</Typography>
+                </Grid>
+                <Grid item xs={3}>
                     <Typography variant="h6">Demographics</Typography>
                     <Typography variant="body1">Age: 35</Typography>
                     <Typography variant="body1">Gender: Male</Typography> {/* Add Gender */}
                     <Typography variant="body1">Blood Type: A+</Typography>
                     <Typography variant="body1">Height: 175 cm</Typography>
                     <Typography variant="body1">Weight: 75 kg</Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography variant="h6">Personal Information</Typography>
-                    <Typography variant="body1">Address: 123 Main St</Typography>
-                    <Typography variant="body1">Phone: (123) 456-7890</Typography>
-                    <Typography variant="body1">Email: patient@example.com</Typography>
-                    <Button variant="outlined"  sx={{ mt: 2 }}>
-                      Contact
-                    </Button>
+                    <Typography variant="body1">Race: 75 kg</Typography>
                   </Grid>
 
                 </Grid>
@@ -179,10 +183,10 @@ export function DoctorViewPatient({open, onClose, patientId}) {
             <Card>
               <CardContent>
               <Typography variant="h6">Actions</Typography>
-              <Button variant='outlined'>View History</Button>
-              <Button variant='outlined'>Create Diagnosis</Button>
-              <Button variant='outlined'>Add Medication</Button>
-              <Button variant='outlined'>Request Lab Work</Button>
+              <Button variant='contained'>View History</Button>
+              <Button variant='contained'>View Diagnosis</Button>
+              <Button variant='contained'>Add Medication</Button>
+              <Button variant='contained'>Request Lab Work</Button>
               </CardContent>
             </Card>
           </Grid>

@@ -65,7 +65,7 @@ export default function DocRecentPatients({doctorId}){
 
         return (
           <div>
-            <Button onClick={onClick} color="info" variant="outlined">
+            <Button onClick={onClick} color="info" variant="contained">
               View
             </Button>
           </div>
