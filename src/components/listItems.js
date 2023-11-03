@@ -41,6 +41,12 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Messages"   />
     </ListItemButton>
+    <ListItemButton  >{/* This is for the calendar Team */}
+      <ListItemIcon>
+       < MessageIcon />
+      </ListItemIcon>
+      <ListItemText primary="Calendar"   />
+    </ListItemButton>
   </React.Fragment>
 );
 

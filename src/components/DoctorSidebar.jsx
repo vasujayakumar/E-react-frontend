@@ -50,7 +50,7 @@ export default function DoctorSideBar (){
       open={open} 
       PaperProps={{
             sx: {
-                backgroundColor: "lightseagreen",
+                backgroundColor: "#0288d1",
             }
     }}>
       <Toolbar
