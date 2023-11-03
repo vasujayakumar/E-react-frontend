@@ -51,6 +51,7 @@ export default function DoctorSideBar (){
       PaperProps={{
             sx: {
                 backgroundColor: "#0288d1",
+                color: 'white'
             }
     }}>
       <Toolbar
@@ -66,7 +67,7 @@ export default function DoctorSideBar (){
         </IconButton>
       </Toolbar>
       <Divider />
-      <List>
+      <List >
         {mainListItems}
       </List>
     </Drawer>
