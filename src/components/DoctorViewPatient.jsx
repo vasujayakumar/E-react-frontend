@@ -15,26 +15,24 @@ import ScienceIcon from '@mui/icons-material/Science'; // Import the ScienceIcon
 import List from '@mui/material/List';
 import TextareaAutosize from '@mui/material/TextareaAutosize'; // Import TextareaAutosize
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'; // Import PersonOutlineIcon
-
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
 export function DoctorViewPatient({open, onClose, patientId}) {
   const style = {
-    position: 'absolute',
+    position: 'relative',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '100%',
+    minHeight:'100%',
+    overflow: 'auto',
     bgcolor: 'background.paper', 
     boxShadow: 24,
     pt: 2,
     px: 4,
     pb: 3,
   };
-
-  const medications = [
-    { name: 'Medication 1', dosage: '1 pill daily' },
-    { name: 'Medication 2', dosage: '2 pills twice a day' },
-    { name: 'Medication 3', dosage: '1 pill daily' },
-  ];
 
   const [notes, setNotes] = React.useState('The patient reports feeling tired in the evenings. Recommend a follow-up appointment.');
   const [isEditingNotes, setIsEditingNotes] = React.useState(false);
@@ -50,6 +48,35 @@ export function DoctorViewPatient({open, onClose, patientId}) {
   const handleNotesBlur = () => {
     setIsEditingNotes(false);
   };
+
+  const [patientData, setPatientData] =React.useState({});  
+  const [treatments, setTreaments] = React.useState([])
+  
+  useEffect(() => {
+    const getData= async () => {
+      try {
+        //https://e-react-node-backend-22ed6864d5f3.herokuapp.com
+        const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/patientOverview', {
+          patientId
+        });
+        console.log("Got here")
+        const { data } = response;
+        if (data.error) {
+          console.log(JSON.stringify(data.error));
+          console.log("error ")
+        } else {
+          console.log("data", data)
+          setPatientData(data.patient_data)
+          setTreaments(data.treatments)
+        }
+      } catch (error) {
+        console.log(`Error With request getting top 5 recent : ${error.message}`);
+      }
+    };
+    getData();
+  },[patientId]);
+
+
   return (
       <Modal
         open={open}
@@ -62,96 +89,91 @@ export function DoctorViewPatient({open, onClose, patientId}) {
           variant="contained"
           color='primary'
           onClick={onClose}
-          sx={{ position: 'absolute', top: 10, right: 10 }}
+          sx={{ position: 'absolute', top: 30, right: 20 }}
         >
           Close
         </Button>
 
         <Card>
           <CardContent>
-            <Typography variant="h5" component="div">
-              Patient Overview {patientId} 
+            <Typography variant="h2" component="div" align='center'>
+              Patient Overview 
             </Typography>
             <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
               <Grid container spacing={12}>
-                <Grid item xs={4}>
-                  <PersonOutlineIcon sx={{ fontSize: 150 }} /> {/* Add PersonOutlineIcon */}
-                  <Button variant="contained"  sx={{ mt: 2 }}>
+                <Grid item xs={3}>
+                  <PersonOutlineIcon sx={{ fontSize: 200 }} /> {/* Add PersonOutlineIcon */}
+                </Grid>
+                <Grid item xs={3}>
+                    <Typography variant="h6">Personal Information</Typography>
+                    <Typography variant="body1">First Name:  {patientData.FName}</Typography>
+                    <Typography variant="body1">Middle Name:   {patientData.MName}</Typography>
+                    <Typography variant="body1">Last Name:    {patientData.LName}</Typography>
+                    <Typography variant="body1">Address: {patientData.Address} </Typography>
+                    <Typography variant="body1">Phone: {patientData.MobileNumber}</Typography>
+                    <Typography variant="body1">Email:  {patientData.EmailId}</Typography>
+                    <Button variant="contained"  sx={{ mt: 2 }} component={Link} to="/contact" >
                       Contact
                     </Button>
                 </Grid>
                 <Grid item xs={3}>
-                    <Typography variant="h6">Personal Information</Typography>
-                    <Typography variant="body1">First Name:  Test</Typography>
-                    <Typography variant="body1">Last Name:  Test</Typography>
-                    <Typography variant="body1">Middle Name:  Test</Typography>
-                    <Typography variant="body1">Address: 123 Main St</Typography>
-                    <Typography variant="body1">Phone: (123) 456-7890</Typography>
-                    <Typography variant="body1">Email: patient@example.com</Typography>
-                </Grid>
-                <Grid item xs={3}>
                     <Typography variant="h6">Demographics</Typography>
-                    <Typography variant="body1">Age: 35</Typography>
-                    <Typography variant="body1">Gender: Male</Typography> {/* Add Gender */}
-                    <Typography variant="body1">Blood Type: A+</Typography>
-                    <Typography variant="body1">Height: 175 cm</Typography>
-                    <Typography variant="body1">Weight: 75 kg</Typography>
-                    <Typography variant="body1">Race: 75 kg</Typography>
+                    <Typography variant="body1">Age:  {patientData.Age}</Typography>
+                    <Typography variant="body1">Gender:  {patientData.Gender}</Typography> {/* Add Gender */}
+                    <Typography variant="body1">Blood Type:  {patientData.BloodGrood}</Typography>
+                    <Typography variant="body1">Height:  {patientData.height} cm</Typography>
+                    <Typography variant="body1">Weight:  {patientData.weight} kg</Typography>
+                    <Typography variant="body1">Race:  {patientData.race}</Typography>
                   </Grid>
-
+                  <Grid item xs={3}>
+                    <Card>
+                      <CardContent>
+                      <Typography variant="h6">Notes</Typography>
+                        {isEditingNotes ? (
+                          <TextareaAutosize
+                            value={notes}
+                            onChange={handleNotesChange}
+                            onBlur={handleNotesBlur}
+                            rowsMin={5}
+                            sx={{ width: '100%', border: '1px solid #ccc', borderRadius: '4px', padding: '8px' }}
+                          />
+                        ) : (
+                          <Typography variant="body1" onClick={handleNotesClick} sx={{ cursor: 'pointer' }}>
+                            {notes}
+                          </Typography>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </Grid>
                 </Grid>
             </Paper>
           </CardContent>
         </Card>
         <Grid container spacing={2} sx={{ mt: 2 }}>
-          <Grid item xs={4}>
+        <Grid item xs={3}>
             <Card>
               <CardContent>
-                <Typography variant="h6">Recent Physical Test</Typography>
-                <Typography variant="body1">Blood Pressure: 120/80 mmHg</Typography>
-                <Typography variant="body1">Heart Rate: 70 bpm</Typography>
-                <Typography variant="body1">Weight: 75 kg</Typography>
-                <Checkbox checked={true} disabled /> Allergies: Pollen
+              <Typography variant="h6">Actions</Typography>
+              <Button variant='contained' fullWidth={true} spacing={2}
+                component={Link} to="/searchresult" state={patientData}>View Diagnosis</Button>
+              <Button variant='contained'  fullWidth={true} >Video Call</Button>
+              <Button variant='contained'  fullWidth={true}  >Voice Recognision</Button>
+              <Button variant='contained'  fullWidth={true} >Send Message</Button>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Card>
               <CardContent>
-              <Typography variant="h6">Lab Results</Typography>
-                <Typography variant="body1">
-                  <ListItemIcon>
-                    <ScienceIcon /> {/* Use ScienceIcon */}
-                  </ListItemIcon>
-                  Blood Test: Normal
-                </Typography>
-                <Typography variant="body1">
-                  <ListItemIcon>
-                    <ScienceIcon /> {/* Use ScienceIcon */}
-                  </ListItemIcon>
-                  X-ray: Clear
-                </Typography>
-                <Typography variant="body1">
-                  <ListItemIcon>
-                    <ScienceIcon /> {/* Use ScienceIcon */}
-                  </ListItemIcon>
-                  Urine Test: Abnormal
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">Current Medications</Typography>
-                  <List>
-                    {medications.map((medication, index) => (
+                <Typography variant="h6">Latest Treatments</Typography>
+                  <List style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                    {treatments.map((treatment, index) => (
                       <ListItem key={index}>
                         <ListItemIcon>
                           <MedicationIcon />
                         </ListItemIcon>
                         <Typography variant="body1">
-                          {medication.name}: {medication.dosage}
+                          {treatment.treatment}: {new Date(treatment.RecordDate).toDateString()}
                         </Typography>
                       </ListItem>
                     ))}
@@ -159,37 +181,25 @@ export function DoctorViewPatient({open, onClose, patientId}) {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Card>
               <CardContent>
-              <Typography variant="h6">Notes</Typography>
-                {isEditingNotes ? (
-                  <TextareaAutosize
-                    value={notes}
-                    onChange={handleNotesChange}
-                    onBlur={handleNotesBlur}
-                    rowsMin={5}
-                    sx={{ width: '100%', border: '1px solid #ccc', borderRadius: '4px', padding: '8px' }}
-                  />
-                ) : (
-                  <Typography variant="body1" onClick={handleNotesClick} sx={{ cursor: 'pointer' }}>
-                    {notes}
-                  </Typography>
-                )}
+                <Typography variant="h6">Recent Physical Test</Typography>
+                
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Card>
               <CardContent>
-              <Typography variant="h6">Actions</Typography>
-              <Button variant='contained'>View History</Button>
-              <Button variant='contained'>View Diagnosis</Button>
-              <Button variant='contained'>Add Medication</Button>
-              <Button variant='contained'>Request Lab Work</Button>
+              <Typography variant="h6">Lab Results</Typography>
+                
               </CardContent>
             </Card>
           </Grid>
+         
+      
+       
         </Grid>
         </Box>
       </Modal>
