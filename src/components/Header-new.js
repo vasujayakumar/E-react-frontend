@@ -21,6 +21,9 @@ class Header extends React.Component {
         <li><Link to="/specialities">Specialities</Link></li>
         <li><Link to="/AboutUs">About Us</Link></li>
         <li><Link to="/contact">Contact US</Link></li>
+        {type ==='Doctor' ? (<>
+          <li><Link to="/doctor/dashboard">DashBoard</Link></li>
+        </>):(<></>)}
         {type === 'NotLoggedIn'? (<>
           <li><Link to="/LogIn">LogIn</Link></li>
           <li><Link to="/signUp">SignUp</Link></li>
