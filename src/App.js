@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
@@ -60,18 +60,19 @@ class App extends Component {
     super();
     this.state = {
       user: (() => {
-        if(sessionStorage.getItem('loginData')===null){
+        if(localStorage.getItem('loginData')===null){
           return {
             type: 'NotLoggedIn',
             id: -1,
             name: '',
             email: '',
+            startInPage:''
           };
         }else{
-          return JSON.parse(sessionStorage.getItem('loginData'));
+          return JSON.parse(localStorage.getItem('loginData'));
         }
       })(),
-    }
+    };
   }
 
   loadUser = (data) =>{
@@ -80,22 +81,34 @@ class App extends Component {
       id: data.id,
       name: data.name,
       email: data.email,
+      startInPage:data.startInPage
     };
     console.log(data);
-    sessionStorage.setItem('loginData', JSON.stringify(userInfo));
+    localStorage.setItem('loginData', JSON.stringify(userInfo));
     this.setState({
       user: userInfo,
     });
-
+  }
+  clearUser = () =>{
+    localStorage.removeItem('loginData');
+    this.setState({
+      user: {
+        type: 'NotLoggedIn',
+        id: -1,
+        name: '',
+        email: '',
+        startInPage:'',
+      }
+    });
   }
   render() {
     return (
       <BrowserRouter>
-        <Header  user={this.state.user} />
+        <Header clearUser={this.clearUser} user= {this.state.user}/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/LogIn" element={<LogIn loadUser={this.loadUser} />} />
-          <Route path="/SignUp" element={<SignUp loadUser={this.loadUser} />} />
+          <Route path="/LogIn" element={this.state.user.type === 'NotLoggedIn' ? <LogIn loadUser={this.loadUser} /> : <Navigate to={`/${this.state.user.startInPage}`} />} />
+          <Route path="/SignUp" element={this.state.user.type === 'NotLoggedIn' ? <SignUp loadUser={this.loadUser} /> : <Navigate to={`/${this.state.user.startInPage}`} />} />
           <Route path="/searchpatient" element={<Searchpatient />} />
           <Route path="/skincancerml" element={<Skincancerml />} />
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
