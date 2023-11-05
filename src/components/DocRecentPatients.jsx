@@ -88,7 +88,7 @@ export default function DocRecentPatients({doctorId}){
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
       />
-      <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} />
+      <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} doctorId={doctorId}/>
   </>
   )
 

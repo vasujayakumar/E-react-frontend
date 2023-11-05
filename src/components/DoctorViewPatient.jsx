@@ -17,7 +17,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-export function DoctorViewPatient({ open, onClose, patientId }) {
+export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
+  //someone needs the doctorId? 
   const style = {
     position: 'relative',
     top: '50%',
@@ -109,7 +110,7 @@ export function DoctorViewPatient({ open, onClose, patientId }) {
                   <Typography variant="body1">Address: {patientData.Address}</Typography>
                   <Typography variant="body1">Phone: {patientData.MobileNumber}</Typography>
                   <Typography variant="body1">Email: {patientData.EmailId}</Typography>
-                  <Button variant="contained" sx={{ mt: 2 }} component={Link} to="/contact">
+                  <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/contact">
                     Contact
                   </Button>
                 </Grid>
@@ -157,6 +158,9 @@ export function DoctorViewPatient({ open, onClose, patientId }) {
                       </Button>
                       <Button variant="contained" fullWidth sx={{ mt: 2 }}>
                         Send Message
+                      </Button>
+                      <Button variant="contained" fullWidth sx={{ mt: 2 }}>
+                        Live Text Chat 
                       </Button>
                     </CardContent>
                   </Card>

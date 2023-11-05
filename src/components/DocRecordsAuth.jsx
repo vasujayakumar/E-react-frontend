@@ -91,7 +91,7 @@ export default function DocRecordsAuth({doctorId}){
         disableColumnFilter={true}
         disableDensitySelector={true}
       />
-      <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} />
+      <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} doctorId={doctorId} />
       </>
   )
 
