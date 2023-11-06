@@ -8,6 +8,7 @@ import ContactAdmin from './screens/ContactAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
+import DoctorVideo from './screens/DoctorVideo'
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
@@ -100,6 +101,7 @@ class App extends Component {
           <Route path="/skincancerml" element={<Skincancerml />} />
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
           <Route path="/Searchresult" element={<Searchresult />} />
+          <Route path="/DoctorVideo" element={< DoctorVideo/>} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
