@@ -28,8 +28,7 @@
 
 }
 
-.contact-container input[type=text],
-textarea {
+.contact-container input[type=text]{
   font-family: 'Poppins', sans-serif !important;
   width: 100%;
   /* Full width */
@@ -47,7 +46,7 @@ textarea {
   /* Add a top margin */
 }
 
-.contactinput textarea {
+.contact-container textarea {
   font-family: 'Poppins', sans-serif !important;
   width: 100%;
   max-height: 900px;

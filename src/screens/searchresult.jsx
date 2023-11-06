@@ -13,17 +13,19 @@ function Searchresult() {
     const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
     const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin}); 
-    const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
+    const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});  
+    const goToBreastCancerPredictionML = () => navigate('/breastcancerpredictionml',{state:dataskin}); 
     const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
     const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
     const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
+    const goToBonecancerml = () => navigate('/Bonecancerml',{state:dataskin});
     const goToHeartStroke = () => navigate("/heartstroke", {state: dataskin });
     const goToheartdisease = () => navigate("/Heartdiseaseml", { state: dataskin });
     
     
     return (
 
-            <>
+     <>
     <br></br>
     <h2>Pateint Basic Information details</h2>
     <div class="center">
@@ -118,6 +120,11 @@ function Searchresult() {
         <h3>Breast Cancer Diagnosis</h3>
         <p>97% accuracy ~ Linear Logistic Regression</p>
         <button class="button button5" onClick={goToBreastCancerML}>Go</button>
+      </div><div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Breast Cancer Diagnosis</h3>
+        <p>95% accuracy ~ Logistic Regression</p>
+        <button class="button button5" onClick={goToBreastCancerPredictionML}>Go</button>
       </div>
       <div class="service">
         <i class="ri-store-3-line"></i>
@@ -158,10 +165,16 @@ function Searchresult() {
             <p>Get heart disease results.</p>
             <button className="button button5" onClick={goToheartdisease}>Go</button>
           </div>
+	<div class="service">
+          <i class="ri-macbook-line"></i>
+          <h3> Bone Cancer Detection</h3>
+          <p>Bone Cancer prediction model using CNN </p>
+          <button class="button button5" onClick={goToBonecancerml}>Go</button>
+        </div> 
     </div>
   </section>
-
-    </>
+         
+  </>
   )
 }
 

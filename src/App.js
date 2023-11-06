@@ -1,12 +1,14 @@
 import React from 'react';
 import { Component } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
+import ContactAdmin from './screens/ContactAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
+import DoctorVideo from './screens/DoctorVideo'
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
@@ -25,11 +27,13 @@ import Services from './screens/Services';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons';
 import SkinCancerMlPage from './screens/skinCancerMlPage';
-import BreastCancerML from './screens/eir_breast_cancer_checker'
+import BreastCancerML from './screens/eir_breast_cancer_checker';
+import BreastCancerPredictionML from './screens/breast_cancer_prediction';
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
 import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
+import Bonecancerml from './screens/Bonecancerml';
 import DoctorLayout from './layout/DoctorLayout';
 import Dashboard from './screens/DoctorDashboard';
 import { DoctorPatients } from './screens/DoctorPatients';
@@ -49,6 +53,9 @@ import DoctorCalendar from './screens/Calendar/DoctorCalendar';
 import PatientCalendar from './screens/Calendar/PatientCalendar';
 import PatientBookTime from './screens/Calendar/PatientBookTime';
 import TimeSegmentDetail from './screens/Calendar/TimeSegmentDetail';
+import ServicesHomePage from './components/services/ServicesHomePage';
+import VideoBackground from './styles/screens/VideoBackground';
+import Chatbot from './screens/Chatbot/Chatbot';
 
 
 class App extends Component {
@@ -56,18 +63,19 @@ class App extends Component {
     super();
     this.state = {
       user: (() => {
-        if(sessionStorage.getItem('loginData')===null){
+        if(localStorage.getItem('loginData')===null){
           return {
             type: 'NotLoggedIn',
             id: -1,
             name: '',
             email: '',
+            startInPage:''
           };
         }else{
-          return JSON.parse(sessionStorage.getItem('loginData'));
+          return JSON.parse(localStorage.getItem('loginData'));
         }
       })(),
-    }
+    };
   }
 
   loadUser = (data) =>{
@@ -76,39 +84,55 @@ class App extends Component {
       id: data.id,
       name: data.name,
       email: data.email,
+      startInPage:data.startInPage
     };
     console.log(data);
-    sessionStorage.setItem('loginData', JSON.stringify(userInfo));
+    localStorage.setItem('loginData', JSON.stringify(userInfo));
     this.setState({
       user: userInfo,
     });
-
+  }
+  clearUser = () =>{
+    localStorage.removeItem('loginData');
+    this.setState({
+      user: {
+        type: 'NotLoggedIn',
+        id: -1,
+        name: '',
+        email: '',
+        startInPage:'',
+      }
+    });
   }
   render() {
     return (
       <BrowserRouter>
-        <Header />
+        <Header clearUser={this.clearUser} user= {this.state.user}/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/LogIn" element={<LogIn loadUser={this.loadUser} />} />
-          <Route path="/SignUp" element={<SignUp loadUser={this.loadUser} />} />
+          <Route path="/LogIn" element={this.state.user.type === 'NotLoggedIn' ? <LogIn loadUser={this.loadUser} /> : <Navigate to={`/${this.state.user.startInPage}`} />} />
+          <Route path="/SignUp" element={this.state.user.type === 'NotLoggedIn' ? <SignUp loadUser={this.loadUser} /> : <Navigate to={`/${this.state.user.startInPage}`} />} />
           <Route path="/searchpatient" element={<Searchpatient />} />
           <Route path="/skincancerml" element={<Skincancerml />} />
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
           <Route path="/Searchresult" element={<Searchresult />} />
+          <Route path="/DoctorVideo" element={< DoctorVideo/>} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/ContactAdmin" element={<ContactAdmin />} />
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/rights" element={<Rights />} />
           <Route path="/webform" element={<Webform />} />
           <Route path="/Tasks" element={<Tasks />} />
-          <Route path="/kidneystoneml" element={<KidneyStoneML />} />
-          <Route path="/chronickidneyml" element={<Ckdml />} />
-          <Route path="/breastcancerml" element={<BreastCancerML />} />
-          <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
-          <Route path="/Pneumoniaml" element={<Pneumoniaml />} />
+          <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
+          <Route path="/chronickidneyml" element={ <Ckdml />}/>
+          <Route path="/breastcancerml" element={<BreastCancerML/>} />
+          <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML/>} />
+          <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
+          <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
+          <Route path="/Bonecancerml" element={ <Bonecancerml />}/>
           <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
           <Route path="/heartstroke" element={<HeartStroke />} />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser={this.loadUser} />} />
@@ -118,9 +142,11 @@ class App extends Component {
           <Route path="/LabApp" element={<LabApp />} />
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/services" element={<Services/>} />
+          <Route path="/serviceshomepage" element={<ServicesHomePage/>} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
-          <Route path="/doctor" element={<DoctorLayout doctorInfo={{ id: 58 }} />}>
+          <Route path="/Chatbot" element={<Chatbot patientInfo={this.state.user} />} /> 
+          <Route path="/doctor" element={<DoctorLayout doctorInfo={this.state.user} />}>
             <Route index element={<Dashboard />} />
             <Route path="/doctor/dashboard" element={<Dashboard />} />
             <Route path="/doctor/patients" element={<DoctorPatients />} />

@@ -12,12 +12,7 @@ export function DoctorPatients(){
     return(
       <Container maxWidth="xl" >
       <Grid container spacing={12}>
-        {/* Search Feature link */}
-        <Grid item xs={12}>
-          <Paper sx={{p:2, display: 'flex', flexDirection: 'column' }}>
-           <Button variant="outlined">Special Button</Button>
-          </Paper>
-        </Grid>
+  
         {/*Patients Authorized */}
         <Grid item xs={12}>
           <Paper
