@@ -13,7 +13,8 @@ function Searchresult() {
     const goToskinml = () => navigate('/Skincancerml',{state:dataskin});
     const goTokidneystoneml = () => navigate('/kidneystoneml',{state:dataskin});
     const goToCkdML = () => navigate('/chronickidneyml',{state:dataskin}); 
-    const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});   
+    const goToBreastCancerML = () => navigate('/breastcancerml',{state:dataskin});  
+    const goToBreastCancerPredictionML = () => navigate('/breastcancerpredictionml',{state:dataskin}); 
     const goToThyroid_Disease_ML = () => navigate('/thyroidDiseaseml',{state:dataskin});   
     const goToliverdiseaseML = () => navigate('/liverdiseaseML',{state:dataskin});  
     const goToPneumoniaML = () => navigate('/Pneumoniaml',{state:dataskin});
@@ -119,6 +120,11 @@ function Searchresult() {
         <h3>Breast Cancer Diagnosis</h3>
         <p>97% accuracy ~ Linear Logistic Regression</p>
         <button class="button button5" onClick={goToBreastCancerML}>Go</button>
+      </div><div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Breast Cancer Diagnosis</h3>
+        <p>95% accuracy ~ Logistic Regression</p>
+        <button class="button button5" onClick={goToBreastCancerPredictionML}>Go</button>
       </div>
       <div class="service">
         <i class="ri-store-3-line"></i>
