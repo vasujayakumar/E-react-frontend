@@ -16,6 +16,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
   //someone needs the doctorId? 
@@ -74,6 +75,12 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
     };
     getData();
   }, [patientId]);
+  const navigate = useNavigate();
+
+  const handleOpenNewTab = (path, state) => {
+    const url = window.location.origin + path;
+    window.open(url, '_blank');
+  }
 
   return (
     <Modal
@@ -147,7 +154,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                       <Button variant="contained" fullWidth sx={{ mt: 2 }} component={Link} to="/searchresult" state={patientData}>
                         View Diagnosis
                       </Button>
-                      <Button variant="contained" fullWidth sx={{ mt: 2 }}>
+                      <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={() => handleOpenNewTab("/DoctorVideo", patientData)}>
                         Video Call
                       </Button>
                       <Button variant="contained" fullWidth sx={{ mt: 2 }}>
