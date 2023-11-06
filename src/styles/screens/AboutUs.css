@@ -2,35 +2,73 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
+    background-color: transparent;
+    color: white; 
+    
 }
 
 main {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    
+    
 }
 
 h1 {
     font-size: 36px;
+    color: white; 
+    text-align: center;
 }
 
 .about, .team {
     margin-bottom: 30px;
-    background-color: #fff;
+    background-color: transparent;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0);
+    text-align: center;
+    margin-left: 200px;
+    margin-right: 200px;
+    
 }
 
 h2 {
     font-size: 24px;
+    color: white; 
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 ul {
-    padding: 0;
+    
+list-style-type: disc;
+  list-style-position: outside;
+  padding-left: 0;
 }
 
 li {
-    margin: 5px 0;
+     margin-left: 10px; 
+    color: white; 
+    line-height: 1.5;
+    text-align: left;
+    text-indent: -20px; 
+
 }
+.bullet-point {
+    list-style: none; /* Remove default browser bullet points */
+    padding-left: 0px;
+    color: rgb(255, 255, 255);
+    background: none; /* Remove any background color */
+    border: none; /* Remove any border */
+    
+  }
+  
+  .bullet-point::before {
+    content: "●";
+    font-size: 15px;
+    padding-right: 10px;
+    color: white;
+    
+  }
+  
