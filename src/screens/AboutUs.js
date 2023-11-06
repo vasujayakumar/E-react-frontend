@@ -5,10 +5,10 @@ import '../styles/screens/VideoBackground.css';
 
 const AboutUs = () => {
   return (
-    <div>
+    <div className="about-body">
       <VideoBackground /> 
       <div className="content">
-        <h1>Who we are?</h1>
+        <h1 className="about-h1">Who we are?</h1>
         <div className="about">
           <p> <b>Welcome to eHospital, where we are dedicated to transforming the healthcare landscape by harnessing the power of cutting-edge technology. Our eHealth system is designed to provide innovative, accessible, and personalized healthcare solutions that empower individuals and healthcare providers to take control of their well-being. </b></p>
         </div>
