@@ -56,12 +56,14 @@ import TimeSegmentDetail from './screens/Calendar/TimeSegmentDetail';
 import ServicesHomePage from './components/services/ServicesHomePage';
 import VideoBackground from './styles/screens/VideoBackground';
 import Chatbot from './screens/Chatbot/Chatbot';
-
+import Sidebar from "./components/SideBar";
+import "./App.css";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+      isSidebarOpen: false,
       user: (() => {
         if(localStorage.getItem('loginData')===null){
           return {
@@ -92,6 +94,11 @@ class App extends Component {
       user: userInfo,
     });
   }
+  toggleSidebar = () => {
+    this.setState((prevState) => ({
+      isSidebarOpen: !prevState.isSidebarOpen,
+    }));
+  }
   clearUser = () =>{
     localStorage.removeItem('loginData');
     this.setState({
@@ -107,6 +114,11 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <button className="menu-button" onClick={this.toggleSidebar}>
+          &#9776; 
+        </button>
+        {this.state.isSidebarOpen && (<Sidebar isOpen={this.state.isSidebarOpen} onClose={this.toggleSidebar} />
+        )}
         <Header clearUser={this.clearUser} user= {this.state.user}/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
