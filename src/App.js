@@ -27,7 +27,8 @@ import Services from './screens/Services';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons';
 import SkinCancerMlPage from './screens/skinCancerMlPage';
-import BreastCancerML from './screens/eir_breast_cancer_checker'
+import BreastCancerML from './screens/eir_breast_cancer_checker';
+import BreastCancerPredictionML from './screens/breast_cancer_prediction';
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
 import ThyroidML from './screens/eir_thyroid_disease_checker';
 import Liver_disease_ML from './screens/liver_prediction_model';
@@ -128,6 +129,7 @@ class App extends Component {
           <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
+          <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML/>} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
           <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
           <Route path="/Bonecancerml" element={ <Bonecancerml />}/>
