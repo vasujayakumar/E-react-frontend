@@ -15,7 +15,7 @@ main {
     
 }
 
-.about-h1 {
+.about-body h1 {
     font-size: 36px;
     color: white; 
     text-align: center;
@@ -33,21 +33,21 @@ main {
     
 }
 
-.about-h2 {
+.about-body h2 {
     font-size: 24px;
     color: white; 
     text-align: center;
     margin-bottom: 1em;
 }
 
-.about-ul {
+.about-body ul {
     
 list-style-type: disc;
   list-style-position: outside;
   padding-left: 0;
 }
 
-.about-li {
+.about-body li {
      margin-left: 10px; 
     color: white; 
     line-height: 1.5;
