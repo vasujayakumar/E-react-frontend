@@ -15,37 +15,34 @@ function DoctorVideo() {
         remoteVideoTrack: null,
         remoteUid: null,
     });
-    const agoraEngineRef = useRef()
+    const agoraEngineRef = useRef(null);
     const [isCameraMuted, setIsCameraMuted] = useState(false);
     const [isMicMuted, setIsMicMuted] = useState(false);
 
-    let APP_ID = "8310514e8aff413b87abb9d0bdb095bb";
-    let token = null;
+    const APP_ID = "8310514e8aff413b87abb9d0bdb095bb";
+    const roomId = '123';  // should be doctor-name-patient-name-reservation-id
 
     function uuidv4() {
         return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-            (((c ^ crypto.getRandomValues(new Uint8Array(1))[0]) & 15) >> c / 4).toString(16)
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
     }
-    let localUid = uuidv4();
-    let roomId = '123';  // should be doctor-name-patient-name-reservation-id
-    let agoraEngine = null;
 
     useEffect(() => {
         // Place the init function within the useEffect
         async function init() {
-            if (agoraEngine) {
+            if (agoraEngineRef.current) {
                 // we see that useEffect can run twice during initialization, so return for the second time.
                 return;
             }
 
             const setupAgoraEngine = async () => {
-                agoraEngine = new AgoraRTC.createClient({ mode: "rtc", codec: "vp9" });
+                agoraEngineRef.current = new AgoraRTC.createClient({ mode: "rtc", codec: "vp9" });
             };
             await setupAgoraEngine();
 
-            agoraEngine.on("user-published", async (user, mediaType) => {
-                await agoraEngine.subscribe(user, mediaType);
+            agoraEngineRef.current.on("user-published", async (user, mediaType) => {
+                await agoraEngineRef.current.subscribe(user, mediaType);
                 console.log("subscribe success");
 
                 if (mediaType === "video") {
@@ -64,30 +61,30 @@ function DoctorVideo() {
                 }
             });
 
-            agoraEngine.on("user-unpublished", (user, mediaType) => {
+            agoraEngineRef.current.on("user-unpublished", (user, mediaType) => {
             });
 
-            agoraEngine.on("user-joined", (user) => {
-                // localPlayerContainerRef.current.classList.add('smallFrame');
-                // remotePlayerContainerRef.current.style.display = 'block';
+            agoraEngineRef.current.on("user_joined", (user) => {
+                localPlayerContainerRef.current.classList.add('smallFrame');
+                remotePlayerContainerRef.current.style.display = 'block';
             });
 
-            agoraEngine.on("user-left", (user, reason) => {
+            agoraEngineRef.current.on("user-left", (user, reason) => {
                 localPlayerContainerRef.current.classList.remove('smallFrame');
                 remotePlayerContainerRef.current.style.display = 'none';
             });
 
-            await agoraEngine.join(
+            await agoraEngineRef.current.join(
                 APP_ID,
                 roomId,
-                token,
-                localUid
+                null, /* token */
+                uuidv4() /* uid */
             );
 
             channelParametersRef.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
             channelParametersRef.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
 
-            await agoraEngine.publish([
+            await agoraEngineRef.current.publish([
                 channelParametersRef.localAudioTrack,
                 channelParametersRef.localVideoTrack,
             ]);
@@ -97,9 +94,7 @@ function DoctorVideo() {
         init();
 
         return () => {
-            if (agoraEngine) {
-                agoraEngine.leave();
-            }
+            agoraEngineRef.current.leave();
         };
     }, []);
 
@@ -123,8 +118,8 @@ function DoctorVideo() {
     };
 
     let handleLeaveClick = async () => {
-        if (agoraEngine) {
-            await agoraEngine.leave();
+        if (agoraEngineRef.current) {
+            await agoraEngineRef.current.leave();
         }
         window.close();
     };
