@@ -50,7 +50,7 @@ const FloatingChatWindow = () => {
 
         fetchData();
 
-        ws.current = new WebSocket('ws://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/sendMessage');
+        ws.current = new WebSocket('wss://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/sendMessage');
 
         ws.current.onopen = () => {
             console.log("WebSocket connection opened");
