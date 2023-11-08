@@ -46,7 +46,6 @@ import TestimonialsPage from './screens/TestimonialsPage'; // Import Testimonial
 import Terms from './screens/terms';
 import Rights from './screens/rights';
 import Webform from './screens/webform';
-import FloatingChatWindow from './components/FloatingChatWindow';
 import HealthcareModels from './screens/ModelsHub'
 import ThyroidModel from './screens/ThyroidModel'
 import DoctorCalendar from './screens/Calendar/DoctorCalendar';
@@ -157,7 +156,6 @@ class App extends Component {
           <Route path="/serviceshomepage" element={<ServicesHomePage />} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
-          <Route path="/FloatingChatWindow" element={<FloatingChatWindow />} />
           <Route path="/Chatbot" element={<Chatbot patientInfo={this.state.user} />} />
           <Route path="/doctor" element={<DoctorLayout doctorInfo={this.state.user} />}>
             <Route index element={<Dashboard />} />

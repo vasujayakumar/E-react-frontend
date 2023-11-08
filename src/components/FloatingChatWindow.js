@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import './FloatingChatWindow.css';
 import axios from 'axios';
 
@@ -12,10 +13,9 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
     const [chatHistory, setChatHistory] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
     const ws = useRef(null);
-    const location = useLocation();
     let C_ID = null;
     let C_IDENTITY = null;
-    let otherSideId = location.state;
+    let otherSideId = patientId;
     let otherSideIdentity = 'patient';
 
     useEffect(() => {
@@ -84,7 +84,20 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
 
     return (
         <div className="floating-chat">
-            <div className="chat-container">
+
+            <div className="chat-container" style={{ position: 'relative' }}>
+                <IconButton
+                    aria-label="close"
+                    onClick={closeChat}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        zIndex: 1, // Make sure it's above other elements
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
                 <div className="chat-box">
                     <div className="chat-history">
                         {chatHistory && chatHistory.map(chatMessage => (
@@ -98,7 +111,7 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
                         <button onClick={handleSendMessage}>Send</button>
                     </div>
                 </div>
-                <button onClick={closeChat}>Close Chat</button>
+                {/* <button onClick={closeChat}>Close Chat</button> */}
             </div>
         </div>
     );
