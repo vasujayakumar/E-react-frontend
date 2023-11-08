@@ -30,6 +30,9 @@ function Tasks() {
   const findTask = (id) => {
     axios
       .get(`http://localhost:8080/api/users/tasks/${id}`)
+    //find task by id or FName then //put the reponse data into all input fields,if response is null, set the input fields to empty
+      .get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`)
+      //put the reponse data into all input fields,if response is null, set the input fields to empty
       .then((response) => {
         if (response.data.FName != null) {
           setState({
@@ -60,13 +63,13 @@ function Tasks() {
 
   const createTask = () => {
     axios
-      .post(`http://localhost:8080/api/users/tasks/add`, {
-        DoctorName: state.DoctorName,
-        FName: state.FName,
-        MName: state.MName,
-        LName: state.LName,
-        Age: state.Age,
-        Plan: state.Plan,
+      .post(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/add`, {
+        DoctorName: this.state.DoctorName,
+        FName: this.state.FName,
+        MName: this.state.MName,
+        LName: this.state.LName,
+        Age: this.state.Age,
+        Plan: this.state.Plan,
       })
       .then((response) => {
         setState({
@@ -86,12 +89,12 @@ function Tasks() {
 
   const updateTask = () => {
     axios
-      .put(`http://localhost:8080/api/users/tasks/${state.id}`, {
-        DoctorName: state.DoctorName,
-        FName: state.FName,
-        MName: state.MName,
-        LName: state.LName,
-        Age: state.Age,
+      .put(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`, {
+        DoctorName: this.state.DoctorName,
+        FName: this.state.FName,
+        MName: this.state.MName,
+        LName: this.state.LName,
+        Age: this.state.Age,
       })
       .then(() => {
         setState({
@@ -110,7 +113,7 @@ function Tasks() {
 
   const deleteTask = () => {
     axios
-      .delete(`http://localhost:8080/api/users/tasks/${state.id}`)
+      .delete(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`)
       .then(() => {
         setState({
           id: "",

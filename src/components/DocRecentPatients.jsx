@@ -8,9 +8,11 @@ import {DoctorViewPatient} from './DoctorViewPatient';
 export default function DocRecentPatients({doctorId}){
   const [dataForTable, setDataForTable]= useState([]);  
   const [open, setOpen] = useState(false);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
 
-  function viewPatientHandler(){
-    setOpen(!open)
+  function viewPatientHandler(patientID) {
+    setOpen(!open);
+    setSelectedPatientId(patientID);
   }
 
  
@@ -51,28 +53,28 @@ export default function DocRecentPatients({doctorId}){
       width: 160, 
       valueFormatter: params=>new Date(params?.value).toDateString()
     },
-    {
+   {
       field: "action",
       headerName: "Action",
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-          viewPatientHandler();
+          viewPatientHandler(params.row.id); // Pass the patientID to the function
         };
-      
+
         return (
           <div>
-            <Button onClick={onClick} color="info" variant="outlined">
+            <Button onClick={onClick} color="info" variant="contained">
               View
             </Button>
-            <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={params.row.id} />
           </div>
         );
       }
-    },
-  ];
+    }
+  ]
   return( 
+    <>
       <DataGrid
         rows={dataForTable}
         columns={columns}
@@ -86,6 +88,8 @@ export default function DocRecentPatients({doctorId}){
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
       />
+      <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} doctorId={doctorId}/>
+  </>
   )
 
 }

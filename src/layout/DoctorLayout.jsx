@@ -6,10 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import DoctorSideBar from "../components/DoctorSidebar";
 
 
-function DoctorLayout( doctorInfo) {
-    const doctor_id =doctorInfo.doctorInfo.id;
-    //console.log(doctorInfo.doctorInfo.id)
-    if(doctor_id<=0){
+function DoctorLayout(userInfo) {
+    const doctor_id =userInfo.doctorInfo.id;
+    if(userInfo.doctorInfo.type!=="Doctor"){
         return <Navigate to="/"/>
     }
     return(
