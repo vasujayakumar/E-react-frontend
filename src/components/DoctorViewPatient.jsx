@@ -169,6 +169,9 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                       <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/contact">
                         Contact Admin
                       </Button>
+                      <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/Chatbot">
+                        Chatbot
+                      </Button>
                     </CardContent>
                   </Card>
                 </Grid>
