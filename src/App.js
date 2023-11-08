@@ -34,6 +34,7 @@ import { DocProfile } from './screens/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
 import Tasks from './screens/Tasks';
+import TasksList from './screens/TasksList';
 
 const initialState ={
   user:{
@@ -74,7 +75,8 @@ class App extends Component {
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/Tasks" element={<Tasks />} />
+          <Route path="/Tasks/:id" element={<Tasks />} />
+          <Route path="/TasksList" element={<TasksList />} />
           <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
           <Route path="/chronickidneyml" element={ <Ckdml />}/>
           <Route path="/breastcancerml" element={<BreastCancerML/>} />
