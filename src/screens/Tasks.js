@@ -29,9 +29,7 @@ function Tasks() {
 
   const findTask = (id) => {
     axios
-      .get(`http://localhost:8080/api/users/tasks/${id}`)
-    //find task by id or FName then //put the reponse data into all input fields,if response is null, set the input fields to empty
-      .get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`)
+      .get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${id}`)
       //put the reponse data into all input fields,if response is null, set the input fields to empty
       .then((response) => {
         if (response.data.FName != null) {
@@ -64,12 +62,12 @@ function Tasks() {
   const createTask = () => {
     axios
       .post(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/add`, {
-        DoctorName: this.state.DoctorName,
-        FName: this.state.FName,
-        MName: this.state.MName,
-        LName: this.state.LName,
-        Age: this.state.Age,
-        Plan: this.state.Plan,
+        DoctorName: state.DoctorName,
+        FName: state.FName,
+        MName: state.MName,
+        LName: state.LName,
+        Age: state.Age,
+        Plan: state.Plan,
       })
       .then((response) => {
         setState({
@@ -81,6 +79,7 @@ function Tasks() {
           Age: response.data.Age,
           Plan: response.data.Plan,
         });
+        alert("Task added successfully!");
       })
       .catch((error) => {
         console.error(error);
@@ -89,12 +88,13 @@ function Tasks() {
 
   const updateTask = () => {
     axios
-      .put(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`, {
-        DoctorName: this.state.DoctorName,
-        FName: this.state.FName,
-        MName: this.state.MName,
-        LName: this.state.LName,
-        Age: this.state.Age,
+      .put(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${id}`, {
+        DoctorName: state.DoctorName,
+        FName: state.FName,
+        MName: state.MName,
+        LName: state.LName,
+        Age: state.Age,
+        Plan: state.Plan,
       })
       .then(() => {
         setState({
@@ -104,7 +104,9 @@ function Tasks() {
           MName: "",
           LName: "",
           Age: "",
+          Plan: "",
         });
+        alert("Task updated successfully!");
       })
       .catch((error) => {
         console.error(error);
@@ -113,7 +115,7 @@ function Tasks() {
 
   const deleteTask = () => {
     axios
-      .delete(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${this.state.id}`)
+      .delete(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks/${id}`)
       .then(() => {
         setState({
           id: "",
@@ -122,7 +124,9 @@ function Tasks() {
           MName: "",
           LName: "",
           Age: "",
+          Plan: "",
         });
+        alert("Task deleted successfully!");
       })
       .catch((error) => {
         console.error(error);

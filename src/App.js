@@ -42,14 +42,22 @@ import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
-
-const initialState ={
-  user:{
-    id: '',
-    name: '',
-    email: ''
-  }
-}
+import TasksList from './screens/TasksList';
+import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
+import Terms from './screens/terms';
+import Rights from './screens/rights';
+import Webform from './screens/webform';
+import HealthcareModels from './screens/ModelsHub'
+import ThyroidModel from './screens/ThyroidModel'
+import DoctorCalendar from './screens/Calendar/DoctorCalendar';
+import PatientCalendar from './screens/Calendar/PatientCalendar';
+import PatientBookTime from './screens/Calendar/PatientBookTime';
+import TimeSegmentDetail from './screens/Calendar/TimeSegmentDetail';
+import ServicesHomePage from './components/services/ServicesHomePage';
+import VideoBackground from './styles/screens/VideoBackground';
+import Chatbot from './screens/Chatbot/Chatbot';
+import Sidebar from "./components/SideBar";
+import "./App.css";
 
 
 class App extends Component {
@@ -127,17 +135,25 @@ class App extends Component {
           <Route path="/contact" element={<Contact />} />
           <Route path="/ContactAdmin" element={<ContactAdmin />} />
           <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="/Tasks" element={<Tasks />} />
-          <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
-          <Route path="/chronickidneyml" element={ <Ckdml />}/>
-          <Route path="/breastcancerml" element={<BreastCancerML/>} />
-          <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
-          <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
-          <Route path="/PatientRegistration" element={<PatientRegistration loadUser ={this.loadUser}/>} />
-          <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser ={this.loadUser}/>} />  
-          <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser ={this.loadUser}/>} /> 
-          <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser ={this.loadUser}/>} />
-          <Route path="/LabApp" element={<LabApp />} /> 
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/rights" element={<Rights />} />
+          <Route path="/webform" element={<Webform />} />
+          <Route path="/Tasks/:id" element={<Tasks />} />
+          <Route path="/TasksList" element={<TasksList />} />
+          <Route path="/kidneystoneml" element={<KidneyStoneML />} />
+          <Route path="/chronickidneyml" element={<Ckdml />} />
+          <Route path="/breastcancerml" element={<BreastCancerML />} />
+          <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML />} />
+          <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
+          <Route path="/Pneumoniaml" element={<Pneumoniaml />} />
+          <Route path="/Bonecancerml" element={<Bonecancerml />} />
+          <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
+          <Route path="/heartstroke" element={<HeartStroke />} />
+          <Route path="/PatientRegistration" element={<PatientRegistration loadUser={this.loadUser} />} />
+          <Route path="/DoctorRegistration" element={<DoctorRegistration loadUser={this.loadUser} />} />
+          <Route path="/HospitalAdminRegistration" element={<HospitalAdminRegistration loadUser={this.loadUser} />} />
+          <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser={this.loadUser} />} />
+          <Route path="/LabApp" element={<LabApp />} />
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/services" element={<Services />} />
           <Route path="/serviceshomepage" element={<ServicesHomePage />} />

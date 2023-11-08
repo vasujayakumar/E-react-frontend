@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Tasks from "./Tasks";
 import backgroundImage from '../assets/images/hospital.jpg';
 
 class TasksList extends Component {
@@ -19,7 +17,7 @@ class TasksList extends Component {
 
     fetchAllTasks = () => {
         axios
-            .get(`http://localhost:8080/api/users/tasks`)
+            .get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks`)
             .then((response) => {
                 this.setState({
                     tasks: response.data,
@@ -65,13 +63,24 @@ class TasksList extends Component {
                                         borderRadius: '5px', 
                                         margin: '5px' 
                                     }}>
-                                        <Link to={`/Tasks/${task.id}`} >Patient: {task.FName} {task.LName}</Link>
+                                        <Link to={`/tasks/${task.id}`} >Patient: {task.FName} {task.LName}</Link>
                                     </button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                <button style={{ 
+                    border: 'none', 
+                    backgroundColor: 'gray', 
+                    color: 'black', 
+                    fontWeight: 'bold',
+                    padding: '10px 20px', 
+                    borderRadius: '5px', 
+                    margin: '25px' 
+                }}>
+                    <Link to={`/tasks/0`} >Add Task</Link>
+                </button>
             </div>
             </div>
         );

@@ -49,6 +49,23 @@ const Services = () => {
           </Card>
         </Col>
       </Row>
+
+      <Row gutter={[16, 16]} key={0} style={{}}>
+        <Col span={24} style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '24px' }}>
+          C
+        </Col>
+
+        <Col xs={24} sm={12} md={8} lg={8} xl={6} key={'Calendar'}>
+          <Card hoverable={true}>
+            <Link to="/TasksList" style={{ textDecoration: 'none' }}>
+                <Meta
+                    title={<span style={{ whiteSpace: 'normal', overflow: 'visible' }}>Tasks</span>}
+                    description="All Tasks of the Doctor"
+                />
+            </Link>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
