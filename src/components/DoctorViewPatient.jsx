@@ -163,7 +163,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                       <Button variant="contained" fullWidth sx={{ mt: 2 }}>
                         Send Message
                       </Button>
-                      <Button variant="contained" fullWidth sx={{ mt: 2 }}>
+                      <Button variant="contained" fullWidth sx={{ mt: 2 }} component={Link} to="/FloatingChatWindow" state={patientId}>
                         Live Text Chat 
                       </Button>
                       <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/contact">

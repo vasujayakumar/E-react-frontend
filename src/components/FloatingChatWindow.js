@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import './FloatingChatWindow.css';
 import axios from 'axios';
 
@@ -8,18 +9,18 @@ import axios from 'axios';
 const FloatingChatWindow = () => {
     const [currentId, setCurrentId] = useState(0);
     const [currentIdentity, setCurrentIdentity] = useState(null);
-    const [otherSideId, setOtherSideId] = useState(null);
-    const [otherSideIdentity, setOtherSideIdentity] = useState(null);
     const [chatHistory, setChatHistory] = useState([]);
-    const [userList, setUserList] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
-    const [isChatOpen, setIsChatOpen] = useState(false);
     const ws = useRef(null);
+    const location = useLocation();
     let C_ID = null;
     let C_IDENTITY = null;
+    let otherSideId = location.state;
+    let otherSideIdentity = 'patient';
 
     useEffect(() => {
         //Define WebSocket message event
+
         const fetchData = async () => {
             try {
                 // 获取当前用户的ID和身份
@@ -28,21 +29,6 @@ const FloatingChatWindow = () => {
                 C_IDENTITY = response.data.identity;
                 setCurrentId(response.data.info.id);
                 setCurrentIdentity(response.data.identity);
-
-
-                // 根据身份获取用户列表
-                let userListResponse;
-                if (response.data.identity === "doctor") {
-                    userListResponse = await axios.get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getDoctorChatList?doctorId=${C_ID}`);
-                } else if (response.data.identity === "patient") {
-                    userListResponse = await axios.get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getPatientChatList?patientId=${C_ID}`);
-                }
-
-                if (userListResponse) {
-                    setUserList(userListResponse.data);
-                    // alert(userListResponse.data);
-                    //console.log("User List: ", userListResponse.data);
-                }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -75,49 +61,7 @@ const FloatingChatWindow = () => {
     }, []);
 
 
-    const handleUserClick = (userId) => {
-        setOtherSideId(userId);
-        setChatHistory([]); //make sure other user can't look guys history
-        let osIdentity;
-        if (currentIdentity == "patient") {
-            osIdentity = "doctor"
-            setOtherSideIdentity(osIdentity);
-        } else {
-            osIdentity = "patient"
-            setOtherSideIdentity(osIdentity);
-        }
 
-
-        // 发送请求以获取conversationId
-        axios.get('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getConversationIdByUserIdentity', {
-            params: {
-                sender: currentId,
-                senderIdentity: currentIdentity,
-                receiver: userId,
-                receiverIdentity: osIdentity
-            }
-
-        })
-            .then(response => {
-                const conversationId = response.data.conversation_id;
-
-                if (conversationId) {
-                    //如果有conversationId，则获取相应的聊天历史记录
-                    let CH_history = axios.get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getChatHistoryByConversationId?conversationId=${conversationId}`);
-                    console.log(CH_history);
-                    return CH_history;
-                }
-                return null;
-            })
-            .then(response => {
-                if (response && response.data) {
-                    setChatHistory(response.data);
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching conversation or chat history:", error);
-            });
-    };
 
 
     const handleSendMessage = () => {
@@ -140,34 +84,23 @@ const FloatingChatWindow = () => {
 
     return (
         <div className="floating-chat">
-            <button onClick={() => setIsChatOpen(!isChatOpen)}>Chat</button>
-            {isChatOpen && (
-                <div className="chat-container">
-                    <div className="user-list">
-                        {userList && userList.map(user => (
-                            <div key={user.id} className="user-item" onClick={() => handleUserClick(user.id)}>
-                                {user.FName ? user.FName : user.Fname}
+            <div className="chat-container">
+                <div className="chat-box">
+                    <div className="chat-history">
+                        {chatHistory && chatHistory.map(chatMessage => (
+                            <div className={chatMessage.sender != currentId && chatMessage.sender_identity != currentIdentity ? 'chat-left' : 'chat-right'}>
+                                {chatMessage.message}
                             </div>
                         ))}
                     </div>
-                    <div className="chat-box">
-                        <div className="chat-history">
-                            {chatHistory.map(chatMessage => (
-                                <div className={chatMessage.sender != currentId && chatMessage.sender_identity != currentIdentity ? 'chat-left' : 'chat-right'}>
-                                    {chatMessage.message}
-                                </div>
-
-                            ))}
-                        </div>
-                        <div className="chat-input">
-                            <input type="text" placeholder="Send a message..." value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
-                            <button onClick={handleSendMessage}>Send</button>
-                        </div>
+                    <div className="chat-input">
+                        <input type="text" placeholder="Send a message..." value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
+                        <button onClick={handleSendMessage}>Send</button>
                     </div>
-                </div>)}
+                </div>
+            </div>
         </div>
     );
 };
 
 export default FloatingChatWindow;
-

@@ -65,28 +65,28 @@ class App extends Component {
     this.state = {
       isSidebarOpen: false,
       user: (() => {
-        if(localStorage.getItem('loginData')===null){
+        if (localStorage.getItem('loginData') === null) {
           return {
             type: 'NotLoggedIn',
             id: -1,
             name: '',
             email: '',
-            startInPage:''
+            startInPage: ''
           };
-        }else{
+        } else {
           return JSON.parse(localStorage.getItem('loginData'));
         }
       })(),
     };
   }
 
-  loadUser = (data) =>{
+  loadUser = (data) => {
     const userInfo = {
       type: data.type,
       id: data.id,
       name: data.name,
       email: data.email,
-      startInPage:data.startInPage
+      startInPage: data.startInPage
     };
     console.log(data);
     localStorage.setItem('loginData', JSON.stringify(userInfo));
@@ -99,7 +99,7 @@ class App extends Component {
       isSidebarOpen: !prevState.isSidebarOpen,
     }));
   }
-  clearUser = () =>{
+  clearUser = () => {
     localStorage.removeItem('loginData');
     this.setState({
       user: {
@@ -107,7 +107,7 @@ class App extends Component {
         id: -1,
         name: '',
         email: '',
-        startInPage:'',
+        startInPage: '',
       }
     });
   }
@@ -115,11 +115,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <button className="menu-button" onClick={this.toggleSidebar}>
-          &#9776; 
+          &#9776;
         </button>
         {this.state.isSidebarOpen && (<Sidebar isOpen={this.state.isSidebarOpen} onClose={this.toggleSidebar} />
         )}
-        <Header clearUser={this.clearUser} user= {this.state.user}/>
+        <Header clearUser={this.clearUser} user={this.state.user} />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/LogIn" element={this.state.user.type === 'NotLoggedIn' ? <LogIn loadUser={this.loadUser} /> : <Navigate to={`/${this.state.user.startInPage}`} />} />
@@ -128,7 +128,7 @@ class App extends Component {
           <Route path="/skincancerml" element={<Skincancerml />} />
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
           <Route path="/Searchresult" element={<Searchresult />} />
-          <Route path="/DoctorVideo" element={< DoctorVideo/>} />
+          <Route path="/DoctorVideo" element={< DoctorVideo />} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
@@ -138,13 +138,13 @@ class App extends Component {
           <Route path="/rights" element={<Rights />} />
           <Route path="/webform" element={<Webform />} />
           <Route path="/Tasks" element={<Tasks />} />
-          <Route path="/kidneystoneml" element={<KidneyStoneML/>} />
-          <Route path="/chronickidneyml" element={ <Ckdml />}/>
-          <Route path="/breastcancerml" element={<BreastCancerML/>} />
-          <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML/>} />
-          <Route path="/thyroidDiseaseml" element={<ThyroidML/>} />
-          <Route path="/Pneumoniaml" element={ <Pneumoniaml />}/>
-          <Route path="/Bonecancerml" element={ <Bonecancerml />}/>
+          <Route path="/kidneystoneml" element={<KidneyStoneML />} />
+          <Route path="/chronickidneyml" element={<Ckdml />} />
+          <Route path="/breastcancerml" element={<BreastCancerML />} />
+          <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML />} />
+          <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
+          <Route path="/Pneumoniaml" element={<Pneumoniaml />} />
+          <Route path="/Bonecancerml" element={<Bonecancerml />} />
           <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
           <Route path="/heartstroke" element={<HeartStroke />} />
           <Route path="/PatientRegistration" element={<PatientRegistration loadUser={this.loadUser} />} />
@@ -153,11 +153,12 @@ class App extends Component {
           <Route path="/LabAdminRegistration" element={<LabAdminRegistration loadUser={this.loadUser} />} />
           <Route path="/LabApp" element={<LabApp />} />
           <Route path="/specialities" element={<Specialities />} />
-          <Route path="/services" element={<Services/>} />
-          <Route path="/serviceshomepage" element={<ServicesHomePage/>} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/serviceshomepage" element={<ServicesHomePage />} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
-          <Route path="/Chatbot" element={<Chatbot patientInfo={this.state.user} />} /> 
+          <Route path="/FloatingChatWindow" element={<FloatingChatWindow />} />
+          <Route path="/Chatbot" element={<Chatbot patientInfo={this.state.user} />} />
           <Route path="/doctor" element={<DoctorLayout doctorInfo={this.state.user} />}>
             <Route index element={<Dashboard />} />
             <Route path="/doctor/dashboard" element={<Dashboard />} />
@@ -166,18 +167,17 @@ class App extends Component {
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
           </Route>
-          <Route path="/HealthcareModels" element={ <HealthcareModels />}/>
-          <Route path="/ThyroidModel" element={ <ThyroidModel />}/>
+          <Route path="/HealthcareModels" element={<HealthcareModels />} />
+          <Route path="/ThyroidModel" element={<ThyroidModel />} />
           <Route path="/calendar" element={
-              (this.state.user.type === 'Doctor') ?
-              <DoctorCalendar/> :
-              <PatientCalendar/>
-            }
+            (this.state.user.type === 'Doctor') ?
+              <DoctorCalendar /> :
+              <PatientCalendar />
+          }
           />
           <Route path="/calendar/timesegment/:id" element={<TimeSegmentDetail />} />
           <Route path="/calendar/booktime" element={<PatientBookTime />} />
         </Routes>
-        <FloatingChatWindow />
         <Footer />
       </BrowserRouter>
     );
