@@ -24,11 +24,11 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
         const fetchData = async () => {
             try {
                 // 获取当前用户的ID和身份
-                const response = await axios.get('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getCurrentId');
-                C_ID = response.data.info.id;
-                C_IDENTITY = response.data.identity;
-                setCurrentId(response.data.info.id);
-                setCurrentIdentity(response.data.identity);
+                // const response = await axios.get('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/chat/getCurrentId');
+                C_ID = 58;
+                C_IDENTITY = "doctor";
+                setCurrentId(58);
+                setCurrentIdentity("doctor");
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
