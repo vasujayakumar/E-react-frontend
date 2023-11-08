@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-const FloatingChatWindow = () => {
+const FloatingChatWindow = ({ patientId, closeChat }) => {
     const [currentId, setCurrentId] = useState(0);
     const [currentIdentity, setCurrentIdentity] = useState(null);
     const [chatHistory, setChatHistory] = useState([]);
@@ -98,6 +98,7 @@ const FloatingChatWindow = () => {
                         <button onClick={handleSendMessage}>Send</button>
                     </div>
                 </div>
+                <button onClick={closeChat}>Close Chat</button>
             </div>
         </div>
     );
