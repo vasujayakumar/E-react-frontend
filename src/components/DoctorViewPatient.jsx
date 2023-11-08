@@ -170,7 +170,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                         Chatbot
                       </Button>
                       <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/contact">
-                        Contact Admin
+                        Contact Staff
                       </Button>
                     </CardContent>
                   </Card>
