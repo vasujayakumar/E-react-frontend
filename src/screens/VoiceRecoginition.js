@@ -79,7 +79,7 @@ function VoiceRecognition() {
   };
  
   useEffect(() => {
-    wishMe();
+    //wishMe();
     setupAnnyang();
   }, []);
  
