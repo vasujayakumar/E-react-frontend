@@ -9,10 +9,13 @@ import { DoctorViewPatient } from './DoctorViewPatient';
 export default function DocRecordsAuth({doctorId}){
   const [dataForTable, setDataForTable]= useState([]);  
   const [open, setOpen] = useState(false);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
 
-  function viewPatientHandler(){
-    setOpen(!open)
+  function viewPatientHandler(patientID) {
+    setOpen(!open);
+    setSelectedPatientId(patientID);
   }
+
   const columns= [
 
     {field: 'id', headerName: 'ID', width: 30 },
@@ -29,15 +32,14 @@ export default function DocRecordsAuth({doctorId}){
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
-          viewPatientHandler();
+          viewPatientHandler(params.row.id);
         };
       
         return (
           <div>
-            <Button onClick={onClick} color="info" variant="outlined">
+            <Button onClick={onClick} color="info" variant="contained">
               View
             </Button>
-            <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={params.row.id} />
           </div>
         );
       }
@@ -68,6 +70,7 @@ export default function DocRecordsAuth({doctorId}){
   },[doctorId]);
 
   return( 
+    <>
       <DataGrid
         rows={dataForTable}
         columns={columns}
@@ -88,6 +91,8 @@ export default function DocRecordsAuth({doctorId}){
         disableColumnFilter={true}
         disableDensitySelector={true}
       />
+      <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} doctorId={doctorId} />
+      </>
   )
 
 }

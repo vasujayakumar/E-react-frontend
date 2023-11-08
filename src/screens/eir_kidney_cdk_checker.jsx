@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {Card, Container, Button, Grid, Paper, Table, TableHead, TableBody, TableRow, TableCell, Dialog, DialogTitle, DialogContent, DialogActions, Typography, CardContent } from '@mui/material';
+import { storePredictionAPI } from '../utilities/apis';
+
 
 import '../styles/screens/diagonostic.css';
 /** 
@@ -69,9 +71,12 @@ function Ckdml() {
         setDialogContent(JSON.stringify(data.error));
         setDialogOpen(true);
       } else {
-        storePrediction(data, record.record_id);
         const diagnosisMessage = `has CKD?: ${data.cdk_prediction || 'No diagnosis available'}`;
         setDiagnosis(diagnosisMessage);
+        const phoneNumber = location.state.MobileNumber;
+        const variable = data.cdk_prediction === 'true' ? 1 : 0;
+        storePredictionAPI(phoneNumber, 'chronic_kidney',`CKD: ${data.cdk_prediction}`, 
+        data.accuracy, 'physical_test_ck', record.record_id, variable);
       }
     } catch (error) {
       setDialogContent(`Error: ${error.message}`);
@@ -79,37 +84,7 @@ function Ckdml() {
     }
   };
 
-  const storePrediction = async (result, id) => {
-    try {
-      const phoneNumber = location.state.MobileNumber;
-      const today = new Date().toISOString();
-      const variable = result.cdk_prediction === 'true' ? 1 : 0;
 
-      const response = await axios.post('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/updateDisease', {
-        phoneNumber,
-        disease: 'chronic_kidney',
-        date: today,
-        prediction: variable,
-        description: `CKD: ${result.cdk_prediction}`,
-        accuracy: null,
-        recordType: 'physical_test_ck',
-        recordId: id || null,
-      });
-
-      const { data } = response;
-
-      if (data.error) {
-        setDialogContent(JSON.stringify(data.error));
-        setDialogOpen(true);
-      } else {
-        setDialogContent(data.success);
-        setDialogOpen(true);
-      }
-    } catch (error) {
-      setDialogContent(`Error: ${error.message}`);
-      setDialogOpen(true);
-    }
-  };
 
   return (
     <Container style={{ minHeight: '80vh' }}>
