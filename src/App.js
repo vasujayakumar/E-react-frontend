@@ -52,7 +52,7 @@ import PatientCalendar from './screens/Calendar/PatientCalendar';
 import PatientBookTime from './screens/Calendar/PatientBookTime';
 import TimeSegmentDetail from './screens/Calendar/TimeSegmentDetail';
 import ServicesHomePage from './components/services/ServicesHomePage';
-
+import VoiceRecoginition from "./screens/VoiceRecoginition.js"
 
 
 class App extends Component {
@@ -127,6 +127,8 @@ class App extends Component {
           <Route path="/serviceshomepage" element={<ServicesHomePage/>} />
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
+          <Route path="/VoiceRecoginition" element={<VoiceRecoginition />} />
+
           <Route path="/doctor" element={<DoctorLayout doctorInfo={{ id: 58 }} />}>
             <Route index element={<Dashboard />} />
             <Route path="/doctor/dashboard" element={<Dashboard />} />
