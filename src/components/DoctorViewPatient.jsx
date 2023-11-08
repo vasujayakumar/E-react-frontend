@@ -223,16 +223,10 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                       <Button variant='contained' fullWidth sx={{ mt: 2 }}>
                         Send Message
                       </Button>
-
-                      <div>
-                        <Button
-                          variant='contained'
-                          fullWidth
-                          sx={{ mt: 2 }}
-                          onClick={toggleChatWindow}
-                        >
-                          Live Text Chat
-                        </Button>
+                     <div>
+                      <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={toggleChatWindow}>
+                        Live Text Chat 
+                      </Button>
                         {windowOpen && (
                           <FloatingChatWindow
                             patientId={patientId}
@@ -240,13 +234,10 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                           />
                         )}
                       </div>
-                      <Button
-                        variant='contained'
-                        fullWidth={true}
-                        sx={{ mt: 2 }}
-                        component={Link}
-                        to='/contact'
-                      >
+                      <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/Chatbot">
+                        Chatbot
+                      </Button>
+                      <Button variant="contained" fullWidth={true} sx={{ mt: 2 }} component={Link} to="/contact">
                         Contact Admin
                       </Button>
                     </CardContent>

@@ -28,9 +28,8 @@ export function DoctorPatients(){
               <DocRecordsAuth doctorId={doctorId}/>
             </Paper>
           </Grid>
-        </Grid><br></br>
-        <Button variant="outlined" component={Link} to="/Chatbot">Click here for Medical Chatbot</Button>
-      </Container>
+        </Grid>
+       </Container>
      
        
     )
