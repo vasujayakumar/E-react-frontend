@@ -1,5 +1,5 @@
 const getLoginData = () => {
-  const loginData = sessionStorage.getItem('loginData');
+  const loginData = localStorage.getItem('loginData');
   if(loginData !== null){
     const parsed = JSON.parse(loginData);
     if(parsed.type !== 'NotLoggedIn'){

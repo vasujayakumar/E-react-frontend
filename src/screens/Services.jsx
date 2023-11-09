@@ -6,66 +6,56 @@ import { Row, Col } from 'antd';
 const { Meta } = Card;
 
 const Services = () => {
-  var isDoctor = false;
-  if(sessionStorage.getItem('loginData')!==null){
-    isDoctor = JSON.parse(sessionStorage.getItem('loginData')).type === 'Doctor';
+  const services = [
+    { name: 'Tasks', link: '/TasksList', description: "All Tasks of the Doctor" },
+  ];
+
+  if(localStorage.getItem('loginData')!==null){
+    const userType = JSON.parse(localStorage.getItem('loginData')).type;
+    if(userType==='Doctor'){
+      services.push({ name: 'Calendar', link: '/calendar', description: "Doctors and Patients Calendar" });
+    }else if(userType==='Patient'){
+      services.push({ name: 'BookTime', link: '/calendar/booktime', description: "For patients to book doctors' time" });
+      services.push({ name: 'Calendar', link: '/calendar', description: "Doctors and Patients Calendar" });
+    }
   }
+
+  const groupedServices = ([...services]
+    .sort((a, b) => (a.name).localeCompare(b.name))
+    .reduce((accum, current) => {
+      const initialChar = current.name[0].toUpperCase();
+      if(!accum[initialChar]){
+        accum[initialChar] = [];
+      }
+      accum[initialChar].push(current);
+      return accum;
+    }, {}));
+
+  console.log("services", groupedServices);
 
   return (
     <div style={{ padding: '20px' }}>
-      { !isDoctor ?
-        <Row gutter={[16, 16]} key={0} style={{}}>
-          <Col span={24} style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '24px' }}>
-            B
-          </Col>
-
-          <Col xs={24} sm={12} md={8} lg={8} xl={6} key={'BookTime'}>
-            <Card hoverable={true}>
-              <Link to="/calendar/booktime" style={{ textDecoration: 'none' }}>
-                  <Meta
-                      title={<span style={{ whiteSpace: 'normal', overflow: 'visible' }}>BookTime</span>}
-                      description="For patients to book doctors' time"
-                  />
-              </Link>
-            </Card>
-          </Col>
-        </Row> :
-        null
+      {
+        Object.entries(groupedServices).map(([initialChar, group], groupIndex) => (
+          <Row gutter={[16, 16]} key={groupIndex} style={ groupIndex > 0 ? { marginTop: '20px' } : {} }>
+            <Col span={24} style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '24px' }}>{initialChar}</Col>
+            {
+              group.map(service => (
+                <Col xs={24} sm={12} md={8} lg={8} xl={6} key={service.name}>
+                  <Card hoverable={true}>
+                    <Link to={service.link} style={{ textDecoration: 'none' }}>
+                      <Meta
+                        title={<span style={{ whiteSpace: 'normal', overflow: 'visible' }}>{service.name}</span>}
+                        description={service.description}
+                      />
+                    </Link>
+                  </Card>
+                </Col>
+              ))
+            }
+          </Row>
+        ))
       }
-
-      <Row gutter={[16, 16]} key={0} style={{}}>
-        <Col span={24} style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '24px' }}>
-          C
-        </Col>
-
-        <Col xs={24} sm={12} md={8} lg={8} xl={6} key={'Calendar'}>
-          <Card hoverable={true}>
-            <Link to="/calendar" style={{ textDecoration: 'none' }}>
-                <Meta
-                    title={<span style={{ whiteSpace: 'normal', overflow: 'visible' }}>Calendar</span>}
-                    description="Doctors and Patients Calendar"
-                />
-            </Link>
-          </Card>
-        </Col>
-      </Row>
-
-      <Row gutter={[16, 16]} key={0} style={{}}>
-        <Col span={24} style={{ marginBottom: '10px', fontWeight: 'bold', fontSize: '24px' }}>
-          C
-        </Col>
-
-        <Col xs={24} sm={12} md={8} lg={8} xl={6} key={'Calendar'}>
-          <Card hoverable={true}>
-            <Link to="/TasksList" style={{ textDecoration: 'none' }}>
-                <Meta
-                    title={<span style={{ whiteSpace: 'normal', overflow: 'visible' }}>Tasks</span>}
-                    description="All Tasks of the Doctor"
-                />
-            </Link>
-          </Card>
-        </Col>
-      </Row>
     </div>
   );
 };
