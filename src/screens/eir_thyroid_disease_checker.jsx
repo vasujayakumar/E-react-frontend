@@ -9,7 +9,9 @@ function ThyroidML() {
   const [tableOfData, setTableOfData] = useState([]);
   const [diagnosis, setDiagnosis] = useState('');
   const patientId = location.state.id;
-
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  
   const titlesOfData = [
     "age", "sex", "TSH", "T3", "T4U", "FTI", "onthyroxine", "queryonthyroxine",
     "onantithyroidmedication", "sick", "pregnant", "thyroidsurgery", "I131treatment",
@@ -72,9 +74,21 @@ function ThyroidML() {
         alert(JSON.stringify(result.error));
       } else {
         setDiagnosis(result);
+        setAlertMessage('Successfully stored in db'); // Set the success message
+        setShowAlert(true); // Show the alert
+        // Hide the alert after 3 seconds
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 3000);
       }
     } catch (error) {
-      alert(`Error: ${error.message}`);
+      //alert(`Error: ${error.message}`);
+      setAlertMessage(`Error: ${error.message}`);
+      setShowAlert(true); // Show the alert
+      // Optionally hide the alert after some time
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
     }
   };
 
@@ -114,6 +128,11 @@ function ThyroidML() {
             <div className="diagnosis-result">
                 <strong>Diagnosis:</strong> {diagnosis}
             </div>
+            {showAlert && (
+                <div className="alert-success">
+                  {alertMessage}
+                </div>
+              )}
             <table className="results-table">
                 <thead>
                     <tr>
