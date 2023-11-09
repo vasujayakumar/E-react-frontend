@@ -158,7 +158,7 @@ class App extends Component {
           <Route path="/emergencyLocations" element={<EmergencyLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
           <Route path="/VoiceRecoginition" element={<VoiceRecoginition />} />
-
+          <Route path="/Chatbot" element={<Chatbot patientInfo={this.state.user} />} />
           <Route path="/doctor" element={<DoctorLayout doctorInfo={{ id: 58 }} />}>
             <Route index element={<Dashboard />} />
             <Route path="/doctor/dashboard" element={<Dashboard />} />
