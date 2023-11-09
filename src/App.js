@@ -42,6 +42,7 @@ import { DoctorMessages } from './screens/DoctorMessages';
 import { DoctorServices } from './screens/DoctorServices';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
+import TasksList from './screens/TasksList';
 import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
 import Terms from './screens/terms';
 import Rights from './screens/rights';
@@ -58,6 +59,7 @@ import VideoBackground from './styles/screens/VideoBackground';
 import Chatbot from './screens/Chatbot/Chatbot';
 import Sidebar from "./components/SideBar";
 import "./App.css";
+
 
 class App extends Component {
   constructor() {
@@ -137,7 +139,8 @@ class App extends Component {
           <Route path="/terms" element={<Terms />} />
           <Route path="/rights" element={<Rights />} />
           <Route path="/webform" element={<Webform />} />
-          <Route path="/Tasks" element={<Tasks />} />
+          <Route path="/Tasks/:id" element={<Tasks />} />
+          <Route path="/TasksList" element={<TasksList />} />
           <Route path="/kidneystoneml" element={<KidneyStoneML />} />
           <Route path="/chronickidneyml" element={<Ckdml />} />
           <Route path="/breastcancerml" element={<BreastCancerML />} />
