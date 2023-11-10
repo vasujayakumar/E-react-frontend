@@ -53,33 +53,32 @@ class LogIn extends React.Component{
             type: 'Admin',
             id:user.admin_id,
             name: user.full_name,
-            email:user.email,
+            email: user.email,
+            startInPage: '/ContactAdmin',
           };
           this.props.loadUser(new_user);
-          this.props.navigate('/ContactAdmin');
         }
       }
       else if(this.state.selectedOption==='Patient'){
         if(user.id){
           let new_user = {
-            type:'Patient',
+            type: 'Patient',
             id:user.id,
             name: user.FName,
-            email:user.EmailId,
+            email: user.EmailId,
+            startInPage: '/services',
           };
           this.props.loadUser(new_user);
-          this.props.navigate('/services');
         } 
       }
       else if(this.state.selectedOption==='Doctor'){
-        console.log("doctor login", user);
         if(user.id){
           let new_user = {
-            type:'Doctor',
-            id:user.id,
+            type: 'Doctor',
+            id: user.id,
             name: user.Fname,
-            email:user.EmailId,
-            startInPage: 'doctor'
+            email: user.EmailId,
+            startInPage: '/doctor',
           };
           this.props.loadUser(new_user);
         } 
@@ -90,9 +89,9 @@ class LogIn extends React.Component{
             id:user.id,
             name: user.Hospital_Name,
             email:user.Email_Id,
+            startInPage: '/',
           };
           this.props.loadUser(new_user);
-          this.props.navigate('/services');
         }
       }
     })
