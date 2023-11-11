@@ -42,7 +42,7 @@ function SkinCancerMlPage() {
 
       formData.append("file", blob);
       const { data } = await axios.post(
-        "https://skin-cancer-predict-8ffaf5441a72.herokuapp.com/predict",
+        "https://skincancerml-wasef-77e295f74782.herokuapp.com/predict",
         formData,
         {
           headers: {
