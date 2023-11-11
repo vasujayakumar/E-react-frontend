@@ -15,6 +15,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <li><a href="/Tasks">Tasks</a></li>
         <li><a href="/serviceshomepage">Services Home Page</a></li>
         <li><a href="/webform">Surgery Feedback Form</a></li>
+        <li><a href="/emergencylocations">Emergency Locations</a></li>
       </ul>
     </div>
   );
