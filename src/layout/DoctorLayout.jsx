@@ -3,7 +3,7 @@ import {  Outlet, Navigate  } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import DoctorSideBar from "../components/DoctorSidebar";
+import DoctorSideBar from "../components/DoctorComponents/DoctorSidebar";
 
 
 function DoctorLayout(userInfo) {

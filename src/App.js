@@ -8,7 +8,7 @@ import ContactAdmin from './screens/ContactAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
-import DoctorVideo from './screens/DoctorVideo'
+import DoctorVideo from './screens/DoctorPanel/DoctorVideo'
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
@@ -35,11 +35,11 @@ import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
 import Bonecancerml from './screens/Bonecancerml';
 import DoctorLayout from './layout/DoctorLayout';
-import Dashboard from './screens/DoctorDashboard';
-import { DoctorPatients } from './screens/DoctorPatients';
-import { DocProfile } from './screens/DoctorProfile';
-import { DoctorMessages } from './screens/DoctorMessages';
-import { DoctorServices } from './screens/DoctorServices';
+import Dashboard from './screens/DoctorPanel/DoctorDashboard';
+import { DoctorPatients } from './screens/DoctorPanel/DoctorPatients';
+import { DocProfile } from './screens/DoctorPanel/DoctorProfile';
+import { DoctorMessages } from './screens/DoctorPanel/DoctorMessages';
+import { DoctorServices } from './screens/DoctorPanel/DoctorServices';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
 import TasksList from './screens/TasksList';

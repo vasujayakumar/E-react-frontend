@@ -9,6 +9,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from 'react-router-dom';
 import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import HelpIcon from '@mui/icons-material/Help';
 export const mainListItems = (
   <React.Fragment>
     <ListItemButton component={Link} to={"/doctor/dashboard"}>
@@ -46,6 +47,12 @@ export const mainListItems = (
        <CalendarMonthIcon />
       </ListItemIcon>
       <ListItemText primary="Calendar"   />
+    </ListItemButton>
+    <ListItemButton component={Link} > {/* For admin Team */}
+      <ListItemIcon>
+       <HelpIcon />
+      </ListItemIcon>
+      <ListItemText primary="Help"   />
     </ListItemButton>
   </React.Fragment>
 );

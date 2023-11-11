@@ -13,7 +13,7 @@ import MedicationIcon from '@mui/icons-material/Medication';
 import List from '@mui/material/List';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import FloatingChatWindow from './FloatingChatWindow';
+import FloatingChatWindow from '../FloatingChatWindow';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
