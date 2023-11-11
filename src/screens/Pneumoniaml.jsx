@@ -1,118 +1,128 @@
-import { useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import "../styles/screens/pneumoniaMl.css";
+import axios from "axios";
 
-const API_BASE_URL = 'https://e-react-node-backend-22ed6864d5f3.herokuapp.com';
-const PREDICTION_API_URL = 'https://backend-pneu-test-6cb7676aceab.herokuapp.com/predict';
+import { BASE_URL } from "../constants";
 
 function Pneumoniaml() {
-  const location = useLocation();
-  const [recordList, setRecordList] = useState([]);
-  const [diagnosis, setDiagnosis] = useState(null); // Initialize to null
+  const patientInfo = useSelector((state) => state.patientInfo);
+  const [pneumoniaData, setpneumoniaData] = useState(null);
+  const [prediction, setPrediction] = useState("");
+  const [predictionLoader, setPredictionLoader] = useState(false);
 
   useEffect(() => {
-    const getPatientRecords = async () => {
+    async function getpneumoniaData() {
       try {
-        const phoneNumber = location.state.MobileNumber;
-        const response = await axios.post(`${API_BASE_URL}/imageRetrieveByPhoneNumber`, {
-          phoneNumber,
-          recordType: 'Pneumonia_Images',
-        });
-        const { data } = response;
-        if (data.error) {
-          setDiagnosis(`Error: ${data.error}`);
-        } else {
-          setRecordList(data.success);
-        }
-      } catch (error) {
-        setDiagnosis(`Error: ${error.message}`);
+        const { id } = patientInfo;
+        const { data } = await axios.get(`${BASE_URL}/pneumoniaData/${id}`);
+        setpneumoniaData(data);
+      } catch (err) {
+        console.error(err);
       }
+    }
+    if (patientInfo.id) {
+      getpneumoniaData();
+    }
+  }, [patientInfo]);
+
+  async function predict(base64Image) {
+    setPredictionLoader(true);
+    try {
+      const formData = new FormData();
+      const binaryData = atob(base64Image);
+      const arrayBuffer = new ArrayBuffer(binaryData.length);
+      const uint8Array = new Uint8Array(arrayBuffer);
+
+      for (let i = 0; i < binaryData.length; i++) {
+        uint8Array[i] = binaryData.charCodeAt(i);
+      }
+
+      const blob = new Blob([uint8Array], { type: "image/jpeg" });
+
+      formData.append("file", blob);
+      const { data } = await axios.post(
+        "https://backend-pneu-test-6cb7676aceab.herokuapp.com/predict",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setPrediction(data.class);
+      setPredictionLoader(false);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  function renderPredictionCell() {
+    if (predictionLoader) {
+      return <div>Loading...</div>;
+    }
+    if (!prediction.length && pneumoniaData) {
+      return (
+        <button
+          className="predictButton"
+          onClick={() => predict(pneumoniaData.file.buffer)}
+        >
+          Predict
+        </button>
+      );
+    }
+    if (prediction.length) {
+      return prediction;
+    }
+  }
+
+  async function savePrediction() {
+    const url = `${BASE_URL}/pneumoniaData/${patientInfo.id}`;
+    const requestData = {
+      prediction: prediction,
     };
 
-    getPatientRecords();
-  }, [location.state.MobileNumber]);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-  const predict = async (index) => {
-    const record = recordList[index];
-    try {
-      const imageBlob = await fetch(`data:image/jpeg;base64,${record.file.buffer}`).then((response) =>
-        response.blob()
-      );
-      const formData = new FormData();
-      formData.append('image', imageBlob);
-
-      const response = await fetch(PREDICTION_API_URL, {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (data.error) {
-        setDiagnosis(`Error: ${JSON.stringify(data.error)}`);
-      } else {
-        storePrediction(data, record._id);
-        const diagnosisMessage = data.prediction || 'No diagnosis available';
-        setDiagnosis(diagnosisMessage);
-      }
-    } catch (error) {
-      setDiagnosis(`Error: ${error.message}`);
-    }
-  };
-
-  const storePrediction = async (result, id) => {
-    try {
-      const phoneNumber = location.state.MobileNumber;
-      const today = new Date().toISOString();
-      const variable = result.prediction === 'Patient has pneumonia' ? 1 : 0;
-
-      const response = await axios.post(`${API_BASE_URL}/updateDisease`, {
-        phoneNumber,
-        disease: 'Pneumonia',
-        date: today,
-        prediction: variable,
-        description: 'Pneumonia Diagnosis',
-        accuracy: result.accuracy || null,
-        recordType: 'Pneumonia_Images',
-        recordId: id || null,
-      });
-
-      const { data } = response;
-      if (data.error) {
-        setDiagnosis(`Error: ${JSON.stringify(data.error)}`);
-      } else {
-        setDiagnosis(data.success);
-      }
-    } catch (error) {
-      setDiagnosis(`Error: ${error.message}`);
-    }
-  };
+    const response = await axios.post(url, requestData, config);
+  }
 
   return (
-    <div>
-      <h2>Pneumonia Diagnosis</h2>
-      {diagnosis !== null && <div><strong>Diagnosis:</strong> {diagnosis}</div>}
-      <table>
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Record Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recordList.map(({ _id, file, RecordDate }, index) => (
-            <tr key={_id}>
-              <td>
-                <img src={`data:image/jpeg;base64,${file.buffer}`} alt="Patient Image" width="150" height="150" />
-              </td>
-              <td>{RecordDate}</td>
-              <td>
-                <button onClick={() => predict(index)}>Diagnose</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+    <div className="pneumonia-page">
+      <table className="penumonia-container">
+        <tr>
+          <th>Patient Information</th>
+          <th>X-Ray Image</th>
+          <th>Previous Prediction</th>
+          <th>Prediction</th>
+        </tr>
+        <tr className="table-contents">
+          <td>
+            {patientInfo.FName} {patientInfo.MName} {patientInfo.LName}
+          </td>
+          <td>
+            {pneumoniaData && (
+              <img
+                src={`data:image/jpeg;base64,${pneumoniaData.file.buffer}`}
+                alt="Skin Image"
+                width="150"
+                height="150"
+              />
+            )}
+          </td>
+          <td>{pneumoniaData ? pneumoniaData.prediction : null}</td>
+          <td>{renderPredictionCell()}</td>
+        </tr>
       </table>
+      {prediction.length ? (
+        <button className="saveButton" onClick={() => savePrediction()}>
+          Save
+        </button>
+      ) : null}
     </div>
   );
 }
