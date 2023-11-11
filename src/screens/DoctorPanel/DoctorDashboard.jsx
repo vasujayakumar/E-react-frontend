@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useOutletContext } from "react-router-dom";
-import DocRecentPatients from '../components/DocRecentPatients';
+import DocRecentPatients from '../../components/DoctorComponents/DocRecentPatients';
 
 export default function Dashboard() {
   const doctorId=useOutletContext();

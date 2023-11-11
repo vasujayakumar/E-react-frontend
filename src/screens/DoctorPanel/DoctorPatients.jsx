@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { useOutletContext } from "react-router-dom";
-import DocRecordsAuth from '../components/DocRecordsAuth';
+import DocRecordsAuth from '../../components/DoctorComponents/DocRecordsAuth';
 
 export function DoctorPatients(){
     const doctorId = useOutletContext();

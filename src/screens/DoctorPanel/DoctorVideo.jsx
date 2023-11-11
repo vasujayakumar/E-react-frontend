@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import '../styles/screens/DoctorVideo.css';
-import CameraIcon from '../styles/images/DoctorVideo/camera.png';
-import MicIcon from '../styles/images/DoctorVideo/mic.png';
-import PhoneIcon from '../styles/images/DoctorVideo/phone.png';
+import '../../styles/screens/DoctorVideo.css';
+import CameraIcon from '../../styles/images/DoctorVideo/camera.png';
+import MicIcon from '../../styles/images/DoctorVideo/mic.png';
+import PhoneIcon from '../../styles/images/DoctorVideo/phone.png';
 import AgoraRTC from "agora-rtc-sdk-ng";
 
 function DoctorVideo() {

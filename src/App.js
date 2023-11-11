@@ -8,7 +8,7 @@ import ContactAdmin from './screens/ContactAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
-import DoctorVideo from './screens/DoctorVideo'
+import DoctorVideo from './screens/DoctorPanel/DoctorVideo'
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
@@ -35,11 +35,11 @@ import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
 import Bonecancerml from './screens/Bonecancerml';
 import DoctorLayout from './layout/DoctorLayout';
-import Dashboard from './screens/DoctorDashboard';
-import { DoctorPatients } from './screens/DoctorPatients';
-import { DocProfile } from './screens/DoctorProfile';
-import { DoctorMessages } from './screens/DoctorMessages';
-import { DoctorServices } from './screens/DoctorServices';
+import Dashboard from './screens/DoctorPanel/DoctorDashboard';
+import { DoctorPatients } from './screens/DoctorPanel/DoctorPatients';
+import { DocProfile } from './screens/DoctorPanel/DoctorProfile';
+import { DoctorMessages } from './screens/DoctorPanel/DoctorMessages';
+import { DoctorServices } from './screens/DoctorPanel/DoctorServices';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
 import TasksList from './screens/TasksList';
@@ -58,6 +58,8 @@ import VoiceRecoginition from "./screens/VoiceRecoginition.js";
 import VideoBackground from './styles/screens/VideoBackground';
 import Chatbot from './screens/Chatbot/Chatbot';
 import Sidebar from "./components/SideBar";
+import PatientLayout from './layout/PatientLayout.jsx';
+import {PatientPortal} from './screens/PatientPanel/PatientPortal.jsx'
 import "./App.css";
 
 
@@ -169,6 +171,10 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+          </Route>
+          <Route path="/patient" element={<PatientLayout data={this.state.user} />}>
+            <Route index element={<PatientPortal />} />
+            <Route path="/patient/portal" element={<PatientPortal />} />
           </Route>
           <Route path="/HealthcareModels" element={<HealthcareModels />} />
           <Route path="/ThyroidModel" element={<ThyroidModel />} />
