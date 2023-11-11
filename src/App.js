@@ -58,6 +58,8 @@ import VoiceRecoginition from "./screens/VoiceRecoginition.js";
 import VideoBackground from './styles/screens/VideoBackground';
 import Chatbot from './screens/Chatbot/Chatbot';
 import Sidebar from "./components/SideBar";
+import PatientLayout from './layout/PatientLayout.jsx';
+import {PatientPortal} from './screens/PatientPanel/PatientPortal.jsx'
 import "./App.css";
 
 
@@ -169,6 +171,10 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+          </Route>
+          <Route path="/patient" element={<PatientLayout data={this.state.user} />}>
+            <Route index element={<PatientPortal />} />
+            <Route path="/patient/portal" element={<PatientPortal />} />
           </Route>
           <Route path="/HealthcareModels" element={<HealthcareModels />} />
           <Route path="/ThyroidModel" element={<ThyroidModel />} />
