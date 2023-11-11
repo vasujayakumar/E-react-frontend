@@ -66,7 +66,7 @@ class LogIn extends React.Component{
             id:user.id,
             name: user.FName,
             email: user.EmailId,
-            startInPage: '/services',
+            startInPage: '/patient',
           };
           this.props.loadUser(new_user);
         } 
