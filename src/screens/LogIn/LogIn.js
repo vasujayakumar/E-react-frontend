@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from '../../withRouter';
 import './LogIn.css';
 import 'tachyons'
 
@@ -23,6 +24,14 @@ class LogIn extends React.Component{
   }
 
   onSubmitLogIn = () =>{
+    if(!this.state.logInEmail.includes('@')){
+      return alert("Please enter a valid email");
+    }
+    if(this.state.logInEmail === '' || this.state.logInPassword ==='' || this.state.selectedOption === null){
+      return alert("Please enter valid credentials");
+    //https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/login
+    //http://localhost:8080/api/users/login
+    }
     this.setState({ wrongCredentials: false });
     fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/login',{
     method: 'POST',
@@ -38,9 +47,52 @@ class LogIn extends React.Component{
       }
     )
     .then(user => {
-      if(user.id){
-        this.props.loadUser(user);
-        window.location.href = '/services';
+      if(this.state.selectedOption ==='Admin'){
+        if(user.admin_id){
+          let new_user = {
+            type: 'Admin',
+            id:user.admin_id,
+            name: user.full_name,
+            email: user.email,
+            startInPage: '/ContactAdmin',
+          };
+          this.props.loadUser(new_user);
+        }
+      }
+      else if(this.state.selectedOption==='Patient'){
+        if(user.id){
+          let new_user = {
+            type: 'Patient',
+            id:user.id,
+            name: user.FName,
+            email: user.EmailId,
+            startInPage: '/services',
+          };
+          this.props.loadUser(new_user);
+        } 
+      }
+      else if(this.state.selectedOption==='Doctor'){
+        if(user.id){
+          let new_user = {
+            type: 'Doctor',
+            id: user.id,
+            name: user.Fname,
+            email: user.EmailId,
+            startInPage: '/doctor',
+          };
+          this.props.loadUser(new_user);
+        } 
+      }
+      else{
+        if(user.id){
+          let new_user = {
+            id:user.id,
+            name: user.Hospital_Name,
+            email:user.Email_Id,
+            startInPage: '/',
+          };
+          this.props.loadUser(new_user);
+        }
       }
     })
     .catch(error => {
@@ -64,10 +116,10 @@ class LogIn extends React.Component{
                 <div className="optionsContainer">
                   <button
                     type="button"
-                    className={`optionButton ${this.state.selectedOption === 'Hospital' ? 'selected' : ''}`}
-                    onClick={() => this.onOptionChange('Hospital')}
+                    className={`optionButton ${this.state.selectedOption === 'Admin' ? 'selected' : ''}`}
+                    onClick={() => this.onOptionChange('Admin')}
                   >
-                    Hospital
+                    Admin
                   </button>
                   <button
                     type="button"
@@ -84,8 +136,17 @@ class LogIn extends React.Component{
                     Doctor
                   </button>
                 </div>
+                <div className="optionsContainer">
+                <button
+                    type="button"
+                    className={`optionButton ${this.state.selectedOption === 'Hospital' ? 'selected' : ''}`}
+                    onClick={() => this.onOptionChange('Hospital')}
+                  >
+                    Hospital
+                  </button>
+                </div>
                 <label>Email Address</label>
-                <input className=' input-reset  bg-transparent' placeholder="Email address..." type="email" required onChange={this.onEmailChange} />
+                <input className=' input-reset  bg-transparent' placeholder="Email address..." type="email"  onChange={this.onEmailChange} />
               </div>
               <div className="input-group">
                 <label>Password</label>
@@ -113,4 +174,4 @@ class LogIn extends React.Component{
 }
 
 
-export default LogIn;
+export default withRouter(LogIn);

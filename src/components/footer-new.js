@@ -15,13 +15,9 @@ function Footer() {
         <h3><span>e</span>Hospital</h3>
 
         <p class="footer-links">
-          <a href="#" class="link-1">Home</a>
-        
-          <a href="#">Services</a>
-        
-          <a href="#">About</a>
-          
-          <a href="#">Contact</a>
+        <a href="terms" class="link-1">Terms and Conditions</a>
+        <a href="/testimonial">Testimonial</a>
+        <a href="rights">Patient rights</a>
         </p>
 
         <p class="footer-company-name"><p>&copy; {new Date().getFullYear()} e-hospital React Platform</p></p>
