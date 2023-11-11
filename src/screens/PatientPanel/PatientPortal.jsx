@@ -21,7 +21,7 @@ export function PatientPortal() {
       </Typography>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={6}>
           <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="body1" gutterBottom>
               Welcome to the patient portal. Here you can access your medical
@@ -47,7 +47,7 @@ export function PatientPortal() {
           </Paper>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={6}>
           <Card>
             <CardContent>
               <Typography variant="h5" component="div" gutterBottom>
@@ -75,6 +75,53 @@ export function PatientPortal() {
               </Button>
             </CardContent>
           </Card>
+        </Grid>
+
+        <Grid item xs={6}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" component="div" gutterBottom>
+                Live Actions
+              </Typography>
+
+              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
+                Live Text Chat
+              </Button>
+              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
+                Video Call
+              </Button>
+              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
+                Medical Chatbot
+              </Button>
+              {/* Add more action buttons as needed */}
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={6}>
+          <Paper elevation={3} style={{ padding: "20px" }}>
+            <Typography variant="h5" gutterBottom>
+              Extra
+            </Typography>
+
+            <List>
+              <ListItem>
+                <Avatar>A</Avatar>
+                <ListItemText primary="Lab Work Results" />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <Avatar>B</Avatar>
+                <ListItemText primary="Health Education Resources" />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <Avatar>C</Avatar>
+                <ListItemText primary="Referrals" />
+              </ListItem>
+              {/* Add more extra features as needed */}
+            </List>
+          </Paper>
         </Grid>
       </Grid>
     </div>

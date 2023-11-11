@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/Header.css'
 class Header extends React.Component {
-  constructor(props){
-    super(props);
-  }
   render(){
     const { type } = this.props.user;
     return (
@@ -40,13 +37,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-
-  {/* message prop requires a string <header>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/DBConnection">DB Connection</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header> */} 
