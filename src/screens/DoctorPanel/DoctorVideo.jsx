@@ -4,6 +4,12 @@ import CameraIcon from '../../styles/images/DoctorVideo/camera.png';
 import MicIcon from '../../styles/images/DoctorVideo/mic.png';
 import PhoneIcon from '../../styles/images/DoctorVideo/phone.png';
 import AgoraRTC from "agora-rtc-sdk-ng";
+import { useLocation } from 'react-router-dom';
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 
 function DoctorVideo() {
     const remotePlayerContainerRef = useRef(null);
@@ -20,7 +26,9 @@ function DoctorVideo() {
     const [isMicMuted, setIsMicMuted] = useState(false);
 
     const APP_ID = "8310514e8aff413b87abb9d0bdb095bb";
-    const roomId = '123';  // should be doctor-name-patient-name-reservation-id
+
+    const query = useQuery();
+    const roomId = query.get('doctorID') + query.get('patientID');
 
     function uuidv4() {
         return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>

@@ -13,6 +13,11 @@ import {
   Avatar,
 } from "@mui/material";
 
+const handleOpenNewTab = (path) => {
+  const url = window.location.origin + path;
+  window.open(url, '_blank');
+};
+
 export function PatientPortal() {
   return (
     <div>
@@ -87,7 +92,8 @@ export function PatientPortal() {
               <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
                 Live Text Chat
               </Button>
-              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
+              {/* should pass doctor ID and patient ID here */}
+              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }} onClick={() => handleOpenNewTab(`/DoctorVideo?doctorID={}&patientID={}`)}>
                 Video Call
               </Button>
               <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
