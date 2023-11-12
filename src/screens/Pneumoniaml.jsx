@@ -42,7 +42,7 @@ function Pneumoniaml() {
 
       formData.append("file", blob);
       const { data } = await axios.post(
-        "https://backend-pneu-test-6cb7676aceab.herokuapp.com/predict",
+        "https://pneumoniaml-8cf578a66437.herokuapp.com/predict",
         formData,
         {
           headers: {
