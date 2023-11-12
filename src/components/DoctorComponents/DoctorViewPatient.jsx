@@ -20,7 +20,6 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
-  //someone needs the doctorId?
   const style = {
     position: 'relative',
     top: '50%',
@@ -90,7 +89,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
   }, [patientId]);
   const navigate = useNavigate();
 
-  const handleOpenNewTab = (path, state) => {
+  const handleOpenNewTab = (path) => {
     const url = window.location.origin + path;
     window.open(url, '_blank');
   };
@@ -212,7 +211,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                         fullWidth
                         sx={{ mt: 2 }}
                         onClick={() =>
-                          handleOpenNewTab('/DoctorVideo', patientData)
+                          handleOpenNewTab(`/DoctorVideo?doctorID=${doctorId}&patientID=${patientId}`)
                         }
                       >
                         Video Call
