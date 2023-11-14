@@ -60,6 +60,7 @@ import Chatbot from './screens/Chatbot/Chatbot';
 import Sidebar from "./components/SideBar";
 import PatientLayout from './layout/PatientLayout.jsx';
 import {PatientPortal} from './screens/PatientPanel/PatientPortal.jsx'
+import { readLoginData, clearLoginData, isTempLogin, writeLoginData } from './loginData.js';
 import "./App.css";
 
 
@@ -68,19 +69,7 @@ class App extends Component {
     super();
     this.state = {
       isSidebarOpen: false,
-      user: (() => {
-        if (localStorage.getItem('loginData') === null) {
-          return {
-            type: 'NotLoggedIn',
-            id: -1,
-            name: '',
-            email: '',
-            startInPage: ''
-          };
-        } else {
-          return JSON.parse(localStorage.getItem('loginData'));
-        }
-      })(),
+      user: (() => readLoginData())(),
     };
   }
 
@@ -92,7 +81,7 @@ class App extends Component {
       email: data.email,
       startInPage: data.startInPage
     };
-    localStorage.setItem('loginData', JSON.stringify(userInfo));
+    writeLoginData(userInfo, true);
     this.setState({
       user: userInfo,
     });
@@ -106,7 +95,7 @@ class App extends Component {
       email: data.email,
       startInPage: data.startInPage
     };
-    sessionStorage.setItem('loginData', JSON.stringify(userInfo));
+    writeLoginData(userInfo, false);
     this.setState({
       user: userInfo,
     });
@@ -118,21 +107,20 @@ class App extends Component {
     }));
   }
   clearUser = () => {
+    const loginData = readLoginData();
+    
     //https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser
-    const localStorageLoginData = localStorage.getItem('loginData');
-    const sessionStorageLoginData = sessionStorage.getItem('loginData');
-    if(localStorageLoginData && JSON.parse(localStorageLoginData).type === 'Patient'){
-    const email = JSON.parse(localStorageLoginData).email;
+    if(loginData.type === 'Patient'){
     fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser',{
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({
-            email: email
+            email: loginData.email
           })
         })
     .then(res =>{
           if(res.status === 200){
-            localStorage.removeItem('loginData');
+            clearLoginData();
           }else{
             throw new Error('Error in processing request');
           }
@@ -148,59 +136,31 @@ class App extends Component {
             startInPage: '',
         }
       });
-  }else if(sessionStorageLoginData && JSON.parse(sessionStorageLoginData).type === 'Patient'){ 
-    const email = JSON.parse(sessionStorageLoginData).email;
-    fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser',{
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({
-            email: email
-          })
-        })
-    .then(res =>{
-          if(res.status === 200){
-            sessionStorage.removeItem('loginData');
-          }else{
-            throw new Error('Error in processing request');
-          }
-        }).catch(error => {
-          console.error('There was an error during the fetch:', error);
-        });
-        this.setState({
-          user: {
-            type: 'NotLoggedIn',
-            id: -1,
-            name: '',
-            email: '',
-            startInPage: '',
+    }else{
+      clearLoginData();
+      this.setState({
+        user: {
+          type: 'NotLoggedIn',
+          id: -1,
+          name: '',
+          email: '',
+          startInPage: '',
         }
       });
-  }else{
-    localStorage.removeItem('loginData');
-    this.setState({
-      user: {
-        type: 'NotLoggedIn',
-        id: -1,
-        name: '',
-        email: '',
-        startInPage: '',
-      }
-    });
-  }
+    }
   }
   componentDidMount() {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
   handleBeforeUnload = (e) =>{
-    const sessionStorageLoginData = sessionStorage.getItem('loginData');
-    if(sessionStorageLoginData && JSON.parse(sessionStorageLoginData).type === 'Patient'){ 
+    const loginData = readLoginData();
+    if(isTempLogin() && loginData.type === 'Patient'){
       try {
-        const email = JSON.parse(sessionStorageLoginData).email;
         fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser',{
           method: 'POST',
           headers: {'Content-Type':'application/json'},
           body: JSON.stringify({
-            email: email
+            email: loginData.email
           })
         })
       } catch (err) {

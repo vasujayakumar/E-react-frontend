@@ -1,13 +1,40 @@
-const getLoginData = () => {
-  const loginData = localStorage.getItem('loginData');
-  if(loginData !== null){
+export const readLoginData = () => {
+  let loginData = sessionStorage.getItem('loginData');
+  if(loginData === null) { loginData = localStorage.getItem('loginData'); }
+
+  if(loginData === null){
+    return {
+      type: 'NotLoggedIn',
+      id: -1,
+      name: '',
+      email: '',
+      startInPage: ''
+    };
+  }else{
     const parsed = JSON.parse(loginData);
-    if(parsed.type !== 'NotLoggedIn'){
-      return parsed;
+    return {
+      type: parsed.type,
+      id: parsed.id,
+      name: parsed.name,
+      email: parsed.email,
+      startInPage: parsed.startInPage,
     }
   }
-
-  throw new Error('Requires login');
 };
 
-export default getLoginData;
+export const writeLoginData = (userInfo, persist) => {
+  if(persist){
+    localStorage.setItem('loginData', JSON.stringify(userInfo));
+  } else {
+    sessionStorage.setItem('loginData', JSON.stringify(userInfo));
+  }
+}
+
+export const isTempLogin = () => {
+  return sessionStorage.getItem('loginData') !== null;
+}
+
+export const clearLoginData = () => {
+  localStorage.removeItem('loginData');
+  sessionStorage.removeItem('loginData');
+}

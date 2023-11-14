@@ -4,7 +4,7 @@ import { Modal, Spin } from 'antd';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { patientGetCalendar } from '../../api/calendar';
-import getLoginData from '../../loginData';
+import { readLoginData } from '../../loginData';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
@@ -82,7 +82,7 @@ const TimeSegmentsView = (props) => {
 }
 
 const PatientCalendar = (props) => {
-  const loginData = getLoginData();
+  const loginData = readLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
   let [ loading, setLoading] = useState(true);
   let [ data, setData ] = useState([]);
