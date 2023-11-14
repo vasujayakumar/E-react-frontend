@@ -12,6 +12,7 @@ import {
   Divider,
   Avatar,
 } from "@mui/material";
+import getLoginData from '../../loginData';
 
 const handleOpenNewTab = (path) => {
   const url = window.location.origin + path;
@@ -19,6 +20,7 @@ const handleOpenNewTab = (path) => {
 };
 
 export function PatientPortal() {
+  const loginData = getLoginData();
   return (
     <div>
       <Typography variant="h4" gutterBottom>
@@ -93,7 +95,7 @@ export function PatientPortal() {
                 Live Text Chat
               </Button>
               {/* should pass doctor ID and patient ID here */}
-              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }} onClick={() => handleOpenNewTab(`/DoctorVideo?doctorID={}&patientID={}`)}>
+              <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }} onClick={() => handleOpenNewTab(`/DoctorVideo?patientID=${loginData.id}`)}>
                 Video Call
               </Button>
               <Button variant="contained" color="primary" fullWidth  sx={{ mt: 2 }}>
