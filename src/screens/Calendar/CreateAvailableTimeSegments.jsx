@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 
 import { doctorCreateAvailableTimeSegment } from '../../api/calendar';
-import getLoginData from '../../loginData';
+import { readLoginData } from '../../loginData';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
@@ -35,7 +35,7 @@ const ModalContent = (props) => {
 };
 
 const CreateAvailableTimeSegments = (props) => {
-  const loginData = getLoginData();
+  const loginData = readLoginData();
 
   const [ formContent, setFormContent ] = useState({
     start: props.start,

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Divider, Card, Flex, Empty, Modal, Spin } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { getTimeSegmentDetail, doctorApproveRequest } from '../../api/calendar';
-import getLoginData from '../../loginData';
+import { readLoginData } from '../../loginData';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
@@ -60,7 +60,7 @@ const TimeSegmentDetail = (props) => {
   const navigate = useNavigate();
   const segmentId = parseInt(useParams().id);
 
-  const loginData = getLoginData();
+  const loginData = readLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
   let [ loading, setLoading] = useState(true);
   let [ data, setData ] = useState({

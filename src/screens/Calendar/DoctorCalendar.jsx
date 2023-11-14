@@ -5,7 +5,7 @@ import { Spin } from 'antd';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { doctorGetCalendar } from '../../api/calendar';
-import getLoginData from '../../loginData';
+import { readLoginData } from '../../loginData';
 import CreateAvailableTimeSegments from './CreateAvailableTimeSegments';
 
 const getBackgroundColorFromStatus = (status) => {
@@ -74,7 +74,7 @@ const TimeSegmentsView = (props) => {
 const DoctorCalendar = (props) => {
   const navigate = useNavigate();
 
-  const loginData = getLoginData();
+  const loginData = readLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
   let [ loading, setLoading] = useState(true);
   let [ data, setData ] = useState([]);
