@@ -14,14 +14,9 @@ export function DoctorPatients(){
         <Grid container spacing={12}>
 
           {/* Patients Authorized */}
-          <Grid item xs={12}>
+          <Grid item xs={12} md={12} sm={12}>
             <Paper
-              sx={{
-                p:2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 440,
-              }}
+               sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
             >
               <h3>Patients</h3>
              
