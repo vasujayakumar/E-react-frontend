@@ -59,7 +59,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
 
   const [patientData, setPatientData] = React.useState({});
   const [treatments, setTreatments] = React.useState([]);
-
+  const [loginStatus,setLoginStatus] = React.useState();
   useEffect(() => {
     const getData = async () => {
       try {
@@ -78,6 +78,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
         } else {
           setPatientData(data.patient_data);
           setTreatments(data.treatments);
+          setLoginStatus(data.status)
         }
       } catch (error) {
         console.log(
@@ -114,7 +115,18 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
         <Card>
           <CardContent>
             <Typography variant='h2' component='div' align='center'>
-              Patient Overview
+            <div 
+                style={{ 
+                  height: '20px', 
+                  width: '20px', 
+                  backgroundColor: loginStatus === 'active' ? 'green' : 'gray', 
+                  borderRadius: '50%', 
+                  display: 'inline-block', 
+                  marginRight: '10px', 
+                  verticalAlign: 'middle' 
+                }} 
+            />
+            Patient Overview
             </Typography>
             <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
               <Grid container spacing={3}>

@@ -11,30 +11,34 @@ export default function DocRecordsAuth({doctorId}){
   const [open, setOpen] = useState(false);
   const [selectedPatientId, setSelectedPatientId] = useState(null);
 
+
+
+  
+
   function viewPatientHandler(patientID) {
     setOpen(!open);
     setSelectedPatientId(patientID);
   }
 
-  const columns= [
-
-    {field: 'id', headerName: 'ID', width: 30 },
-    {field: 'FName',headerName: 'First Name',width: 100},
-    {field: 'MI',headerName: 'M.I.',width: 10},
-    {field: 'LName',headerName: 'Last Name',width: 100},
-    {field: 'MobileNumber',headerName: 'Phone',width: 120},
-    {field: 'Age',headerName: 'Age',width: 30},
-    {field: 'Gender',headerName: 'Gender',width: 100},
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 90, flex: 0.5 },
+    { field: 'FName', headerName: 'First Name', flex: 1 },
+    { field: 'MI', headerName: 'M.I.', flex: 0.5 },
+    { field: 'LName', headerName: 'Last Name', flex: 1 },
+    { field: 'MobileNumber', headerName: 'Phone', flex: 1 },
+    { field: 'Age', headerName: 'Age', flex: 0.5 },
+    { field: 'Gender', headerName: 'Gender', flex: 1 },
     {
-      field: "action",
-      headerName: "Action",
+      field: 'action',
+      headerName: 'Action',
       sortable: false,
+      flex: 1,
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation();
           viewPatientHandler(params.row.id);
         };
-      
+
         return (
           <div>
             <Button onClick={onClick} color="info" variant="contained">
@@ -42,7 +46,7 @@ export default function DocRecordsAuth({doctorId}){
             </Button>
           </div>
         );
-      }
+      },
     },
   ];
  
@@ -70,7 +74,7 @@ export default function DocRecordsAuth({doctorId}){
   },[doctorId]);
 
   return( 
-    <>
+    <div style={{ width: '100%', height: '60vh', minHeight: '400px' }}>
       <DataGrid
         rows={dataForTable}
         columns={columns}
@@ -83,16 +87,17 @@ export default function DocRecordsAuth({doctorId}){
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 5,
+              pageSize: 10,
             },
           },
         }}
         pageSizeOptions={[5,10,25,100]}
         disableColumnFilter={true}
         disableDensitySelector={true}
+  
       />
       <DoctorViewPatient open={open} onClose={viewPatientHandler} patientId={selectedPatientId} doctorId={doctorId} />
-      </>
+      </div>
   )
 
 }

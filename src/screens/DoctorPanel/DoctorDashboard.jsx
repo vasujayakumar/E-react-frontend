@@ -4,31 +4,44 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useOutletContext } from "react-router-dom";
 import DocRecentPatients from '../../components/DoctorComponents/DocRecentPatients';
+// Additional imports for new components
+import PatientStatisticsChart from '../../components/DoctorComponents/PatientStatisticsChart';
+import DoctorTasksList from '../../components/DoctorComponents/DoctorTasksList';
+import QuickAccessTools from '../../components/DoctorComponents/QuickAccessTools';
 
 export default function Dashboard() {
-  const doctorId=useOutletContext();
+  const doctorId = useOutletContext();
   return (
-          <Container maxWidth="xl" >
-            <Grid container spacing={12}>
-              {/* Recent Patients */}
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 440,
-                  }}
-                >
-                  <h3>Recent Patients</h3>
-                  <DocRecentPatients doctorId={doctorId}/>
-                </Paper>
-              </Grid>
-              {/* Some Chart */}
-    
-              {/* Tasks */}
-              
-            </Grid>
-          </Container>
+    <Container maxWidth="xl" >
+      <Grid container spacing={3}> {/* Adjusted spacing */}
+        {/* Recent Patients */}
+        <Grid item xs={12} md={12}> {/* Adjusted grid size */}
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 440 }}>
+            <h3>Recent Patients</h3>
+            <DocRecentPatients doctorId={doctorId}/>
+          </Paper>
+        </Grid>
+         {/* Quick Access Tools */}
+         <Grid item xs={12} md={6}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <h3>Quick Access</h3>
+            <QuickAccessTools doctorId={doctorId}/>
+          </Paper>
+        </Grid>
+        {/* Tasks List */}
+        <Grid item xs={12} md={6}>
+          <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <h3>Tasks & Reminders</h3>
+            <DoctorTasksList doctorId={doctorId}/>
+          </Paper>
+        </Grid>
+
+       
+
+
+  
+
+      </Grid>
+    </Container>
   );
 }
