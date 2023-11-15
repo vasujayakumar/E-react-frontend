@@ -211,7 +211,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                         fullWidth
                         sx={{ mt: 2 }}
                         onClick={() =>
-                          handleOpenNewTab(`/DoctorVideo?doctorID=${doctorId}&patientID=${patientId}`)
+                          handleOpenNewTab(`/DoctorVideo?patientID=${patientId}`)
                         }
                       >
                         Video Call
