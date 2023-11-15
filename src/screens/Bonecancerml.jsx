@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import "../styles/screens/boneMl.css";
 import axios from "axios";
 
 import { BASE_URL } from "../constants";
+import "../styles/screens/boneMl.css";
 
 function Boneml() {
   const patientInfo = useSelector((state) => state.patientInfo);
@@ -29,35 +29,44 @@ function Boneml() {
 
   async function predict(base64Image) {
     setPredictionLoader(true);
-
     try {
+      console.log('Before FormData creation');
       const formData = new FormData();
-      const binaryData = atob(base64Image);
-      const arrayBuffer = new ArrayBuffer(binaryData.length);
-      const uint8Array = new Uint8Array(arrayBuffer);
+      const blob = await (async () => {
+        return new Promise((resolve) => {
+          const binaryData = atob(base64Image);
+          const arrayBuffer = new ArrayBuffer(binaryData.length);
+          const uint8Array = new Uint8Array(arrayBuffer);
 
-      for (let i = 0; i < binaryData.length; i++) {
-        uint8Array[i] = binaryData.charCodeAt(i);
+          for (let i = 0; i < binaryData.length; i++) {
+            uint8Array[i] = binaryData.charCodeAt(i);
+          }
+
+          const blob = new Blob([uint8Array], { type: "image/jpeg" });
+          resolve(blob);
+        });
+      })();
+      console.log('After FormData creation', formData);
+
+      if (blob instanceof Blob) {
+        formData.append("image", blob, "image.jpg");
+        console.log('Before axios.post');
+        const { data } = await axios.post(
+          "https://bonecancerml-2307992bf352.herokuapp.com/predict",
+          formData
+        );
+        console.log('After axios.post', data);
+        setPrediction(data.prediction);
+      } else {
+        console.error("Invalid blob type");
+        throw new Error("Invalid blob type");
       }
-
-      const blob = new Blob([uint8Array], { type: "image/jpeg" });
-
-      formData.append("file", blob);
-
-      const { data } = await axios.post(
-        "https://final-cancer-1cbe1fe9b6d2.herokuapp.com/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      setPrediction(data.class);
-      setPredictionLoader(false);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error during prediction:", error);
+      // Set prediction to null or handle differently based on your needs
+      setPrediction(null);
+    } finally {
+      setPredictionLoader(false);
     }
   }
 
@@ -66,35 +75,46 @@ function Boneml() {
       return <div>Loading...</div>;
     }
 
-    if (!prediction.length && boneData) {
+    if (!prediction && boneData) {
       return (
         <button
           className="predictButton"
           onClick={() => predict(boneData.file.buffer)}
+          disabled={predictionLoader}
         >
           Predict
         </button>
       );
     }
 
-    if (prediction.length) {
-      return prediction;
+    if (prediction !== undefined && prediction !== null) {
+      return <div>{prediction}</div>;
     }
+
+    return null; // Return null if none of the conditions are met
   }
 
   async function savePrediction() {
-    const url = `${BASE_URL}/boneData/${patientInfo.id}`;
-    const requestData = {
-      prediction: prediction,
-    };
+    try {
+      const url = `${BASE_URL}/boneData/${patientInfo.id}`;
+      const requestData = {
+        prediction: prediction,
+      };
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    const response = await axios.post(url, requestData, config);
+      const response = await axios.post(url, requestData, config);
+      // Handle the response if needed
+      console.log("Prediction saved successfully:", response.data);
+    } catch (error) {
+      console.error("Error saving prediction:", error);
+      // Display an error message to the user
+      // For example: alert("Failed to save prediction. Please try again.")
+    }
   }
 
   return (
@@ -128,7 +148,7 @@ function Boneml() {
           </tr>
         </tbody>
       </table>
-      {prediction.length ? (
+      {prediction ? (
         <button className="saveButton" onClick={() => savePrediction()}>
           Save
         </button>
