@@ -11,6 +11,8 @@ function Pneumoniaml() {
   const [prediction, setPrediction] = useState("");
   const [predictionLoader, setPredictionLoader] = useState(false);
 
+
+
   useEffect(() => {
     async function getpneumoniaData() {
       try {
@@ -29,39 +31,47 @@ function Pneumoniaml() {
   async function predict(base64Image) {
     setPredictionLoader(true);
     try {
+      console.log('Before FormData creation');
       const formData = new FormData();
-      const binaryData = atob(base64Image);
-      const arrayBuffer = new ArrayBuffer(binaryData.length);
-      const uint8Array = new Uint8Array(arrayBuffer);
-
-      for (let i = 0; i < binaryData.length; i++) {
-        uint8Array[i] = binaryData.charCodeAt(i);
-      }
-
-      const blob = new Blob([uint8Array], { type: "image/jpeg" });
-
-      formData.append("file", blob);
+      const blob = await (async () => {
+        return new Promise((resolve) => {
+          const binaryData = atob(base64Image);
+          const arrayBuffer = new ArrayBuffer(binaryData.length);
+          const uint8Array = new Uint8Array(arrayBuffer);
+  
+          for (let i = 0; i < binaryData.length; i++) {
+            uint8Array[i] = binaryData.charCodeAt(i);
+          }
+  
+          const blob = new Blob([uint8Array], { type: "image/jpeg" });
+          resolve(blob);
+        });
+      })();
+      console.log('After FormData creation', formData);
+  
+      formData.append("image", blob, "image.jpg");
+      console.log('Before axios.post');
       const { data } = await axios.post(
         "https://pneumoniaml-8cf578a66437.herokuapp.com/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       );
-      setPrediction(data.class);
-      setPredictionLoader(false);
+      console.log('After axios.post', data);
+      setPrediction(data.prediction);
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setPredictionLoader(false);
     }
   }
-
+  
+  
+  
   function renderPredictionCell() {
     if (predictionLoader) {
       return <div>Loading...</div>;
     }
-    if (!prediction.length && pneumoniaData) {
+  
+    if (!prediction && pneumoniaData) {
       return (
         <button
           className="predictButton"
@@ -71,24 +81,31 @@ function Pneumoniaml() {
         </button>
       );
     }
-    if (prediction.length) {
-      return prediction;
+  
+    if (prediction !== undefined && prediction !== null) {
+      return <div>{prediction}</div>;
     }
+  
+    return null; // Return null if none of the conditions are met
   }
+  
+
 
   async function savePrediction() {
-    const url = `${BASE_URL}/pneumoniaData/${patientInfo.id}`;
-    const requestData = {
-      prediction: prediction,
-    };
+    if (prediction) {
+      const url = `${BASE_URL}/pneumoniaData/${patientInfo.id}`;
+      const requestData = {
+        prediction: prediction,
+      };
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    const response = await axios.post(url, requestData, config);
+      const response = await axios.post(url, requestData, config);
+    }
   }
 
   return (
@@ -118,7 +135,7 @@ function Pneumoniaml() {
           <td>{renderPredictionCell()}</td>
         </tr>
       </table>
-      {prediction.length ? (
+      {prediction && prediction.length ? (
         <button className="saveButton" onClick={() => savePrediction()}>
           Save
         </button>
