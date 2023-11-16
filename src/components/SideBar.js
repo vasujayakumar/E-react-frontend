@@ -12,7 +12,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       <ul>
         <li><a href="/LogIn">Log In</a></li>
         <li><a href="/searchpatient">Search Patient</a></li>
-        <li><a href="/Tasks">Tasks</a></li>
+        <li><a href="/TasksList">Tasks</a></li>
         <li><a href="/serviceshomepage">Services Home Page</a></li>
         <li><a href="/webform">Surgery Feedback Form</a></li>
         <li><a href="/emergencylocations">Emergency Locations</a></li>
