@@ -1,6 +1,6 @@
 /* Add a background color and some padding around the form */
 .contact-admin-container {
-  background-color: rgba(173, 201, 199, 0.306);
+  background-color: #dbf2ff;
   padding: 20px;
   min-height: 400px;
   height: fit-content;
@@ -9,7 +9,7 @@
 .contact-admin-container h1 {
   font-size: 36px;
   margin: 10px;  
-  color:  lightseagreen;
+  color:  #0288d1;
   font-family: 'Poppins', sans-serif!important;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .contact-admin-container th {
-background-color: rgb(169, 216, 214);
+background-color: #aee0fa;
 margin: 10px;
 border:1px solid rgb(44, 44, 44);
 color:rgb(44, 44, 44);

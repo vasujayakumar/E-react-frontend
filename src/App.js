@@ -4,7 +4,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
-import ContactAdmin from './screens/ContactAdmin';
+import AdminLayout from './layout/AdminLayout';
+import AdminDashboard from './screens/AdminPanel/AdminDashboard';
+import ContactAdmin from './screens/AdminPanel/ContactAdmin';
+import HelpAdmin from './screens/AdminPanel/HelpAdmin';
+import ReviewAdmin from './screens/AdminPanel/ReviewAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
@@ -40,6 +44,7 @@ import { DoctorPatients } from './screens/DoctorPanel/DoctorPatients';
 import { DocProfile } from './screens/DoctorPanel/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorPanel/DoctorMessages';
 import { DoctorServices } from './screens/DoctorPanel/DoctorServices';
+import DoctorHelp from './screens/DoctorPanel/DoctorHelp';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
 import TasksList from './screens/TasksList';
@@ -196,7 +201,13 @@ class App extends Component {
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
-          <Route path="/ContactAdmin" element={<ContactAdmin />} />
+          <Route path="/Admin" element={<AdminLayout adminInfo={this.state.user} />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="/Admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/Admin/help" element={<HelpAdmin />} />
+            <Route path="/Admin/contact" element={<ContactAdmin />} />
+            <Route path="/Admin/review" element={<ReviewAdmin />} />
+          </Route>
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/rights" element={<Rights />} />
@@ -231,6 +242,7 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+            <Route path="/doctor/help" element={<DoctorHelp />} />
           </Route>
           <Route path="/patient" element={<PatientLayout data={this.state.user} />}>
             <Route index element={<PatientPortal />} />
