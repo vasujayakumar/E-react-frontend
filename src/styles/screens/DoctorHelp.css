@@ -1,34 +1,16 @@
-.contact-page {
+.help-page {
   padding: 20px;
   text-align: center;
   min-height: 2500px;
 }
-.contact-container {
-  background-color: #eaf7ff;
+.help-container {
+  background-color: #dce0e2;
   padding: 20px;
-  min-height: 1020px;
+  min-height: 500px;
   height: fit-content;
 }
 
-.contact-heading-one h1 {
-  font-size: 56px;
-  margin: 5px;
-  margin-top: 20px;
-  color: #0288d1;
-  text-align: center;
-  font-family: 'Poppins', sans-serif !important;
-}
-
-.contact-heading-three h3 {
-  font-size: 18px;
-  margin-bottom: 25px;
-  color: #57a3cd;
-  text-align: center;
-  font-family: 'Poppins', sans-serif !important;
-
-}
-
-.contact-container input[type=text]{
+.help-container input[type=text]{
   font-family: 'Poppins', sans-serif !important;
   width: 100%;
   /* Full width */
@@ -46,7 +28,7 @@
   /* Add a top margin */
 }
 
-.contact-container textarea {
+.help-container textarea {
   font-family: 'Poppins', sans-serif !important;
   width: 100%;
   max-height: 900px;
@@ -68,7 +50,7 @@
 
 }
 
-.contact-container select{
+.help-container select{
   font-family: 'Poppins', sans-serif !important;
   width: 100%;
   /* Full width */
@@ -88,7 +70,7 @@
 
 }
 
-.contact-container input[type=email]{
+.help-container input[type=email]{
   font-family: 'Poppins', sans-serif !important;
   width: 100%;
   /* Full width */
@@ -108,7 +90,7 @@
     /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
-.contact-container form {
+.help-container form {
   max-width: 800px;
   max-height: 1500px;
   margin: 0 auto;
@@ -128,7 +110,7 @@
 }
 
 /* Styles for the form fields and labels */
-.contact-container form div {
+.help-container form div {
   margin-bottom: 15px;
 }
 
@@ -140,7 +122,7 @@
   color: #e74c3c;
 }
 
-.contact-container input {
+.help-container input {
   width: 100%;
   padding: 10px;
   border: 1px solid #000000;
@@ -153,7 +135,7 @@
 
 /* Styles for the submit button */
 /* Style the submit button with a specific background color etc */
-.contact-container button[type=submit] {
+.help-container button[type=submit] {
   margin-top: 20px;
   font-family: 'Poppins', sans-serif !important;
   border-radius: 20px;
@@ -167,7 +149,7 @@
 }
 
 /* When moving the mouse over the submit button, add a darker green color */
-.contact-container button[type=submit]:hover {
+.help-container button[type=submit]:hover {
   margin-top: 20px;
   font-family: 'Poppins', sans-serif !important;
   border-radius: 20px;

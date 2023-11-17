@@ -48,7 +48,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Calendar"   />
     </ListItemButton>
-    <ListItemButton component={Link} > {/* For admin Team */}
+    <ListItemButton component={Link} to={"/doctor/help"}>
       <ListItemIcon>
        <HelpIcon />
       </ListItemIcon>

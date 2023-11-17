@@ -60,7 +60,7 @@ class LogIn extends React.Component{
             id:user.admin_id,
             name: user.full_name,
             email: user.email,
-            startInPage: '/ContactAdmin',
+            startInPage: '/Admin',
           };
           if(this.state.rememberMe){this.props.loadUser(new_user);this.setState({rememberMe: false})}
           else{this.props.loadTempUser(new_user)};
