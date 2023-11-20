@@ -230,6 +230,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                           <FloatingChatWindow
                             patientId={patientId}
                             closeChat={toggleChatWindow}
+                            isVideoCallPage={false}
                           />
                         )}
                       </div>

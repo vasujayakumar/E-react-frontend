@@ -4,11 +4,16 @@
     box-sizing: border-box;
 }
 
-#videos{
+#videos {
     display: grid;
     grid-template-columns: 1fr;
     height: 100vh;
-    overflow:hidden;
+    overflow: hidden;
+    transition: width 0.3s ease; /* Smooth transition for width change */
+  }
+  
+#videos.chat-open {
+width: 80%; /* Reduced width when chat is open */
 }
 
 .video-player{
