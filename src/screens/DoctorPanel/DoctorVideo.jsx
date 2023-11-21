@@ -5,6 +5,8 @@ import MicIcon from '../../styles/images/DoctorVideo/mic.png';
 import PhoneIcon from '../../styles/images/DoctorVideo/phone.png';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useLocation } from 'react-router-dom';
+import FloatingChatWindow from '../../components/FloatingChatWindow';
+import Button from '@mui/material/Button';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -24,6 +26,10 @@ function DoctorVideo() {
     const agoraEngineRef = useRef(null);
     const [isCameraMuted, setIsCameraMuted] = useState(false);
     const [isMicMuted, setIsMicMuted] = useState(false);
+    const [windowOpen, setwindowOpen] = useState(false);
+    const toggleChatWindow = () => {
+        setwindowOpen(!windowOpen);
+    };
 
     const APP_ID = "8310514e8aff413b87abb9d0bdb095bb";
 
@@ -133,8 +139,8 @@ function DoctorVideo() {
     };
 
     return (
-        <div>
-            <div id="videos">
+        <div class="content-container">
+            <div id="videos" className={windowOpen ? 'chat-open' : ''}>
                 <video ref={localPlayerContainerRef} className="video-player" id="user-1" autoPlay playsInline></video>
                 <video ref={remotePlayerContainerRef} className="video-player" id="user-2" autoPlay playsInline></video>
             </div>
@@ -161,6 +167,27 @@ function DoctorVideo() {
                 <div className="control-container" id="leave-btn" onClick={handleLeaveClick}>
                     <img src={PhoneIcon} alt="Leave" />
                 </div>
+            </div>
+            <div>
+                <Button 
+                    variant="contained" 
+                    sx={{ 
+                        mt: 2, 
+                        width: '210px', // Custom width
+                        position: 'fixed', // Fixed position relative to the viewport
+                        bottom: '20px', // Distance from the bottom
+                        right: '20px' // Distance from the right
+                      }} 
+                    onClick={toggleChatWindow}>
+                    Live Text Chat
+                </Button>
+                {windowOpen && (
+                    <FloatingChatWindow
+                    patientId={roomId}
+                    closeChat={toggleChatWindow}
+                    isVideoCallPage={true}
+                    />
+                )}
             </div>
         </div>
     );
