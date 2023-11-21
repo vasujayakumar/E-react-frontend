@@ -4,11 +4,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
-import ContactAdmin from './screens/ContactAdmin';
+import AdminLayout from './layout/AdminLayout';
+import AdminDashboard from './screens/AdminPanel/AdminDashboard';
+import ContactAdmin from './screens/AdminPanel/ContactAdmin';
+import HelpAdmin from './screens/AdminPanel/HelpAdmin';
+import ReviewAdmin from './screens/AdminPanel/ReviewAdmin';
 import AboutUs from './screens/AboutUs';
 import Searchpatient from './screens/searchpatient';
 import Searchresult from './screens/searchresult';
-import DoctorVideo from './screens/DoctorVideo'
+import DoctorVideo from './screens/DoctorPanel/DoctorVideo'
 import Skincancerml from './screens/skincancerml';
 import Header from './components/Header-new';
 import Footer from './components/footer-new';
@@ -35,11 +39,12 @@ import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
 import Bonecancerml from './screens/Bonecancerml';
 import DoctorLayout from './layout/DoctorLayout';
-import Dashboard from './screens/DoctorDashboard';
-import { DoctorPatients } from './screens/DoctorPatients';
-import { DocProfile } from './screens/DoctorProfile';
-import { DoctorMessages } from './screens/DoctorMessages';
-import { DoctorServices } from './screens/DoctorServices';
+import Dashboard from './screens/DoctorPanel/DoctorDashboard';
+import { DoctorPatients } from './screens/DoctorPanel/DoctorPatients';
+import { DocProfile } from './screens/DoctorPanel/DoctorProfile';
+import { DoctorMessages } from './screens/DoctorPanel/DoctorMessages';
+import { DoctorServices } from './screens/DoctorPanel/DoctorServices';
+import DoctorHelp from './screens/DoctorPanel/DoctorHelp';
 import HeartStroke from './screens/HeartStroke';
 import Tasks from './screens/Tasks';
 import TasksList from './screens/TasksList';
@@ -58,27 +63,18 @@ import VoiceRecoginition from "./screens/VoiceRecoginition.js";
 import VideoBackground from './styles/screens/VideoBackground';
 import Chatbot from './screens/Chatbot/Chatbot';
 import Sidebar from "./components/SideBar";
+import PatientLayout from './layout/PatientLayout.jsx';
+import {PatientPortal} from './screens/PatientPanel/PatientPortal.jsx'
+import { readLoginData, clearLoginData, isTempLogin, writeLoginData } from './loginData.js';
 import "./App.css";
-
+import SkinDiseasesMlPage from './screens/SkinDiseasesMlPage.js';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       isSidebarOpen: false,
-      user: (() => {
-        if (localStorage.getItem('loginData') === null) {
-          return {
-            type: 'NotLoggedIn',
-            id: -1,
-            name: '',
-            email: '',
-            startInPage: ''
-          };
-        } else {
-          return JSON.parse(localStorage.getItem('loginData'));
-        }
-      })(),
+      user: (() => readLoginData())(),
     };
   }
 
@@ -90,29 +86,100 @@ class App extends Component {
       email: data.email,
       startInPage: data.startInPage
     };
-    console.log(data);
-    localStorage.setItem('loginData', JSON.stringify(userInfo));
+    writeLoginData(userInfo, true);
     this.setState({
       user: userInfo,
     });
   }
+
+  loadTempUser = (data) =>{
+    const userInfo = {
+      type: data.type,
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      startInPage: data.startInPage
+    };
+    writeLoginData(userInfo, false);
+    this.setState({
+      user: userInfo,
+    });
+  }
+
   toggleSidebar = () => {
     this.setState((prevState) => ({
       isSidebarOpen: !prevState.isSidebarOpen,
     }));
   }
   clearUser = () => {
-    localStorage.removeItem('loginData');
-    this.setState({
-      user: {
-        type: 'NotLoggedIn',
-        id: -1,
-        name: '',
-        email: '',
-        startInPage: '',
-      }
-    });
+    const loginData = readLoginData();
+    
+    //https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser
+    if(loginData.type === 'Patient'){
+    fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser',{
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            email: loginData.email
+          })
+        })
+    .then(res =>{
+          if(res.status === 200){
+            clearLoginData();
+          }else{
+            throw new Error('Error in processing request');
+          }
+        }).catch(error => {
+          console.error('There was an error during the fetch:', error);
+        });
+        this.setState({
+          user: {
+            type: 'NotLoggedIn',
+            id: -1,
+            name: '',
+            email: '',
+            startInPage: '',
+        }
+      });
+    }else{
+      clearLoginData();
+      this.setState({
+        user: {
+          type: 'NotLoggedIn',
+          id: -1,
+          name: '',
+          email: '',
+          startInPage: '',
+        }
+      });
+    }
   }
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+  }
+  handleBeforeUnload = (e) =>{
+    const loginData = readLoginData();
+    if(isTempLogin() && loginData.type === 'Patient'){
+      try {
+        fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/inactiveUser',{
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            email: loginData.email
+          })
+        })
+      } catch (err) {
+        console.error('Error with signing out user', err);
+      }
+    }
+    e.preventDefault();
+    e.returnValue = '';
+    return 'Are you sure you want to leave? Your changes may not be saved.';
+  }
+  componentWillUnmount(){
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -124,17 +191,24 @@ class App extends Component {
         <Header clearUser={this.clearUser} user={this.state.user} />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/LogIn" element={this.state.user.type === 'NotLoggedIn' ? <LogIn loadUser={this.loadUser} /> : <Navigate to={`${this.state.user.startInPage}`} />} />
+          <Route path="/LogIn" element={this.state.user.type === 'NotLoggedIn' ? <LogIn loadUser={this.loadUser} loadTempUser = {this.loadTempUser} /> : <Navigate to={`${this.state.user.startInPage}`} />} />
           <Route path="/SignUp" element={this.state.user.type === 'NotLoggedIn' ? <SignUp loadUser={this.loadUser} /> : <Navigate to={`${this.state.user.startInPage}`} />} />
           <Route path="/searchpatient" element={<Searchpatient />} />
           <Route path="/skincancerml" element={<Skincancerml />} />
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
+          <Route path="/skinCancerDiseasesPage" element={ <SkinDiseasesMlPage/>} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DoctorVideo" element={< DoctorVideo />} />
           <Route path="/DBConnection" element={<DBConnection />} />
           <Route path="/testimonial" element={<TestimonialsPage />} /> {/* Use TestimonialsPage */}
           <Route path="/contact" element={<Contact />} />
-          <Route path="/ContactAdmin" element={<ContactAdmin />} />
+          <Route path="/Admin" element={<AdminLayout adminInfo={this.state.user} />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="/Admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/Admin/help" element={<HelpAdmin />} />
+            <Route path="/Admin/contact" element={<ContactAdmin />} />
+            <Route path="/Admin/review" element={<ReviewAdmin />} />
+          </Route>
           <Route path="/AboutUs" element={<AboutUs />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/rights" element={<Rights />} />
@@ -169,6 +243,11 @@ class App extends Component {
             <Route path="/doctor/profile" element={<DocProfile />} />
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
+            <Route path="/doctor/help" element={<DoctorHelp />} />
+          </Route>
+          <Route path="/patient" element={<PatientLayout data={this.state.user} />}>
+            <Route index element={<PatientPortal />} />
+            <Route path="/patient/portal" element={<PatientPortal />} />
           </Route>
           <Route path="/HealthcareModels" element={<HealthcareModels />} />
           <Route path="/ThyroidModel" element={<ThyroidModel />} />

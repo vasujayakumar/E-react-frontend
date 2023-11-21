@@ -5,24 +5,24 @@ import axios from "axios";
 
 import { BASE_URL } from "../constants";
 
-function SkinCancerMlPage() {
+function SkinDiseasesMlPage() {
   const patientInfo = useSelector((state) => state.patientInfo);
-  const [skinCancerData, setSkinCancerData] = useState(null);
+  const [skinDiseasesData, setSkinDiseasesData] = useState(null);
   const [prediction, setPrediction] = useState("");
   const [predictionLoader, setPredictionLoader] = useState(false);
 
   useEffect(() => {
-    async function getSkinCancerData() {
+    async function getSkinDiseasesData() {
       try {
         const { id } = patientInfo;
-        const { data } = await axios.get(`${BASE_URL}/skinCancerData/${id}`);
-        setSkinCancerData(data);
+        const { data } = await axios.get(`${BASE_URL}/skinDiseasesData/${id}`);
+        setSkinDiseasesData(data);
       } catch (err) {
         console.error(err);
       }
     }
     if (patientInfo.id) {
-      getSkinCancerData();
+      getSkinDiseasesData();
     }
   }, [patientInfo]);
 
@@ -42,7 +42,7 @@ function SkinCancerMlPage() {
 
       formData.append("file", blob);
       const { data } = await axios.post(
-        "https://skincancerml-wasef-77e295f74782.herokuapp.com/predict",
+        "https://skin-disease-cnn-model-2f8798d0d0a5.herokuapp.com/predict",
         formData,
         {
           headers: {
@@ -61,11 +61,11 @@ function SkinCancerMlPage() {
     if (predictionLoader) {
       return <div>Loading...</div>;
     }
-    if (!prediction.length && skinCancerData) {
+    if (!prediction.length && skinDiseasesData) {
       return (
         <button
           className="predictButton"
-          onClick={() => predict(skinCancerData.file.buffer)}
+          onClick={() => predict(skinDiseasesData.file.buffer)}
         >
           Predict
         </button>
@@ -76,8 +76,9 @@ function SkinCancerMlPage() {
     }
   }
 
-  async function savePrediction() {
-    const url = `${BASE_URL}/skinCancerData/${patientInfo.id}`;
+    async function savePrediction()
+    {
+    const url = `${BASE_URL}/skinDiseasesData/${patientInfo.id}`;
     const requestData = {
       prediction: prediction,
     };
@@ -96,7 +97,7 @@ function SkinCancerMlPage() {
       <table className="skin-cancer-container">
         <tr>
           <th>Patient Information</th>
-          <th>Skin Cancer Image</th>
+          <th>Skin Disease Image</th>
           <th>Previous Prediction</th>
           <th>Prediction</th>
         </tr>
@@ -105,16 +106,16 @@ function SkinCancerMlPage() {
             {patientInfo.FName} {patientInfo.MName} {patientInfo.LName}
           </td>
           <td>
-            {skinCancerData && (
+            {skinDiseasesData && (
               <img
-                src={`data:image/jpeg;base64,${skinCancerData.file.buffer}`}
+                src={`data:image/jpeg;base64,${skinDiseasesData.file.buffer}`}
                 alt="Skin Image"
                 width="150"
                 height="150"
               />
             )}
           </td>
-          <td>{skinCancerData ? skinCancerData.prediction : null}</td>
+          <td>{skinDiseasesData ? skinDiseasesData.prediction : null}</td>
           <td>{renderPredictionCell()}</td>
         </tr>
       </table>
@@ -127,4 +128,4 @@ function SkinCancerMlPage() {
   );
 }
 
-export default SkinCancerMlPage;
+export default SkinDiseasesMlPage;

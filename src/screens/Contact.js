@@ -146,7 +146,6 @@ const Contact = () => {
               Submit
             </button>
           </form>
-          <a href="/ContactAdmin">ContactAdminPage</a><br></br>
         </div>
       </div>
     </div>

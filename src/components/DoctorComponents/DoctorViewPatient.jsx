@@ -13,14 +13,13 @@ import MedicationIcon from '@mui/icons-material/Medication';
 import List from '@mui/material/List';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import FloatingChatWindow from './FloatingChatWindow';
+import FloatingChatWindow from '../FloatingChatWindow';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
-  //someone needs the doctorId?
   const style = {
     position: 'relative',
     top: '50%',
@@ -60,7 +59,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
 
   const [patientData, setPatientData] = React.useState({});
   const [treatments, setTreatments] = React.useState([]);
-
+  const [loginStatus,setLoginStatus] = React.useState();
   useEffect(() => {
     const getData = async () => {
       try {
@@ -79,6 +78,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
         } else {
           setPatientData(data.patient_data);
           setTreatments(data.treatments);
+          setLoginStatus(data.status)
         }
       } catch (error) {
         console.log(
@@ -90,7 +90,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
   }, [patientId]);
   const navigate = useNavigate();
 
-  const handleOpenNewTab = (path, state) => {
+  const handleOpenNewTab = (path) => {
     const url = window.location.origin + path;
     window.open(url, '_blank');
   };
@@ -115,7 +115,18 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
         <Card>
           <CardContent>
             <Typography variant='h2' component='div' align='center'>
-              Patient Overview
+            <div 
+                style={{ 
+                  height: '20px', 
+                  width: '20px', 
+                  backgroundColor: loginStatus === 'active' ? 'green' : 'gray', 
+                  borderRadius: '50%', 
+                  display: 'inline-block', 
+                  marginRight: '10px', 
+                  verticalAlign: 'middle' 
+                }} 
+            />
+            Patient Overview
             </Typography>
             <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
               <Grid container spacing={3}>
@@ -212,7 +223,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                         fullWidth
                         sx={{ mt: 2 }}
                         onClick={() =>
-                          handleOpenNewTab('/DoctorVideo', patientData)
+                          handleOpenNewTab(`/DoctorVideo?patientID=${patientId}`)
                         }
                       >
                         Video Call
@@ -231,6 +242,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                           <FloatingChatWindow
                             patientId={patientId}
                             closeChat={toggleChatWindow}
+                            isVideoCallPage={false}
                           />
                         )}
                       </div>

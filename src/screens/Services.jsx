@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Card } from 'antd';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'antd';
+import { readLoginData } from '../loginData';
 
 const { Meta } = Card;
 
@@ -10,14 +11,12 @@ const Services = () => {
     { name: 'Tasks', link: '/TasksList', description: "All Tasks of the Doctor" },
   ];
 
-  if(localStorage.getItem('loginData')!==null){
-    const userType = JSON.parse(localStorage.getItem('loginData')).type;
-    if(userType==='Doctor'){
-      services.push({ name: 'Calendar', link: '/calendar', description: "Doctors and Patients Calendar" });
-    }else if(userType==='Patient'){
-      services.push({ name: 'BookTime', link: '/calendar/booktime', description: "For patients to book doctors' time" });
-      services.push({ name: 'Calendar', link: '/calendar', description: "Doctors and Patients Calendar" });
-    }
+  const userType = readLoginData().type;
+  if(userType==='Doctor'){
+    services.push({ name: 'Calendar', link: '/calendar', description: "Doctors and Patients Calendar" });
+  }else if(userType==='Patient'){
+    services.push({ name: 'BookTime', link: '/calendar/booktime', description: "For patients to book doctors' time" });
+    services.push({ name: 'Calendar', link: '/calendar', description: "Doctors and Patients Calendar" });
   }
 
   const groupedServices = ([...services]

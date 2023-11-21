@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Avatar, Card } from 'antd';
+import { Avatar, Card, Row, Col } from 'antd';
 import { fetchSpecialities } from '../redux/actions/specialitiesActions';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'antd';
 
 const { Meta } = Card;
-const Specialities = () => {
 
+const Specialities = () => {
     const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');
     const specialities = useSelector((state) => state.specialities.specialities);
 
     // sort specialities based on the first letter
@@ -18,21 +18,36 @@ const Specialities = () => {
         return first.localeCompare(second);
     });
 
+    // Update to use searchTerm
+    const filteredSpecialities = searchTerm
+        ? sortedSpecialities.filter(speciality =>
+            speciality.speciality.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : sortedSpecialities;
+
     useEffect(() => {
         dispatch(fetchSpecialities());
     }, [dispatch]);
 
-    const groupedSpecialities = sortedSpecialities.reduce((acc, curr) => {
-        const initial = curr.speciality[0].toUpperCase();
-        if (!acc[initial]) {
-            acc[initial] = [];
-        }
-        acc[initial].push(curr);
-        return acc;
-    }, {});
+    // Handler for search input change
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const groupedSpecialities = groupByInitial(filteredSpecialities);
 
     return (
         <div style={{ padding: '20px' }}>
+            <h1 style={{ fontSize: '32px', textAlign: 'center', margin: '20px 0' }}>Specialities</h1>
+            <div style={{ textAlign: 'center', margin: '20px 0' }}>
+                <input
+                    type="text"
+                    placeholder="Search specialities..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    style={{ padding: '10px', width: '80%', maxWidth: '500px' }}
+                />
+            </div>
             {Object.entries(groupedSpecialities).map(([initial, group], groupIndex) => (
                 <Row gutter={[16, 16]} key={groupIndex} style={groupIndex > 0 ? { marginTop: '20px' } : {}}>
 
@@ -49,7 +64,7 @@ const Specialities = () => {
                                             <Avatar src={"/images/specialities/" + (speciality.avatar_url ? (speciality.avatar_url + '.png'): "logo192.png")}
                                                 size={64} />}
                                         title={<span style={{ whiteSpace: 'normal', overflow: 'visible' }}>{speciality.speciality}</span>}
-                                        description={speciality.description ? speciality.description : "This is the description"}
+                                        description={speciality.description ? speciality.description : "No description available"}
                                     />
                                 </Link>
                             </Card>
@@ -59,6 +74,18 @@ const Specialities = () => {
             ))}
         </div>
     );
+};
+
+// Helper function to group specialities by initial
+const groupByInitial = (specialities) => {
+    return specialities.reduce((acc, curr) => {
+        const initial = curr.speciality[0].toUpperCase();
+        if (!acc[initial]) {
+            acc[initial] = [];
+        }
+        acc[initial].push(curr);
+        return acc;
+    }, {});
 };
 
 export default Specialities;

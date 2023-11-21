@@ -3,19 +3,21 @@ import {  Outlet, Navigate  } from "react-router-dom";
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import DoctorSideBar from "../components/DoctorComponents/DoctorSidebar";
+import AdminSideBar from "../components/AdminComponents/AdminSidebar";
 
 
-function DoctorLayout(userInfo) {
-    const doctor_id =userInfo.doctorInfo.id;
-    if(userInfo.doctorInfo.type!=="Doctor"){
+function AdminLayout(userInfo) {
+    const admin_id =userInfo.adminInfo.id;
+
+    if(userInfo.adminInfo.type!=="Admin"){
         return <Navigate to="/"/>
     }
+    
     return(
         <>
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <DoctorSideBar />
+            <AdminSideBar />
             <Box
             component="main"
             sx={{
@@ -25,7 +27,7 @@ function DoctorLayout(userInfo) {
             }}
             >
                 <Toolbar />
-                <Outlet context={doctor_id}/>
+                <Outlet context={admin_id}/>
             </Box>
         </Box>
         
@@ -34,4 +36,4 @@ function DoctorLayout(userInfo) {
 }
 
   
-export default DoctorLayout;
+export default AdminLayout;

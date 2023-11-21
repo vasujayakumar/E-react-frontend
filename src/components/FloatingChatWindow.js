@@ -7,11 +7,12 @@ import axios from 'axios';
 
 
 
-const FloatingChatWindow = ({ patientId, closeChat }) => {
+const FloatingChatWindow = ({ patientId, closeChat,isVideoCallPage }) => {
     const [currentId, setCurrentId] = useState(0);
     const [currentIdentity, setCurrentIdentity] = useState(null);
     const [chatHistory, setChatHistory] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
+    const containerClass = isVideoCallPage ? 'floating-chat-video-call' : 'floating-chat-default';
     const ws = useRef(null);
     let C_ID = null;
     let C_IDENTITY = null;
@@ -62,8 +63,6 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
 
 
 
-
-
     const handleSendMessage = () => {
 
         if (inputMessage) {
@@ -83,7 +82,7 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
     };
 
     return (
-        <div className="floating-chat">
+        <div className={containerClass}>
 
             <div className="chat-container" style={{ position: 'relative' }}>
                 <IconButton
@@ -96,7 +95,7 @@ const FloatingChatWindow = ({ patientId, closeChat }) => {
                         zIndex: 1, // Make sure it's above other elements
                     }}
                 >
-                    <CloseIcon />
+                <CloseIcon />
                 </IconButton>
                 <div className="chat-box">
                     <div className="chat-history">

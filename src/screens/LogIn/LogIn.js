@@ -11,6 +11,7 @@ class LogIn extends React.Component{
       logInPassword: '',
       selectedOption: null,
       wrongCredentials:false,
+      rememberMe: false
     }
   }
   onEmailChange = (event) =>{
@@ -22,6 +23,10 @@ class LogIn extends React.Component{
   onOptionChange = (option) => {
     this.setState({ selectedOption: option });
   }
+  onRememberMeChange = (event) =>{
+    this.setState({ rememberMe: event.target.checked }, () =>{
+    });
+  }
 
   onSubmitLogIn = () =>{
     if(!this.state.logInEmail.includes('@')){
@@ -30,6 +35,7 @@ class LogIn extends React.Component{
     if(this.state.logInEmail === '' || this.state.logInPassword ==='' || this.state.selectedOption === null){
       return alert("Please enter valid credentials");
     //https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/login
+    //https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/activeOnlineUser
     //http://localhost:8080/api/users/login
     }
     this.setState({ wrongCredentials: false });
@@ -54,9 +60,10 @@ class LogIn extends React.Component{
             id:user.admin_id,
             name: user.full_name,
             email: user.email,
-            startInPage: '/ContactAdmin',
+            startInPage: '/Admin',
           };
-          this.props.loadUser(new_user);
+          if(this.state.rememberMe){this.props.loadUser(new_user);this.setState({rememberMe: false})}
+          else{this.props.loadTempUser(new_user)};
         }
       }
       else if(this.state.selectedOption==='Patient'){
@@ -66,9 +73,31 @@ class LogIn extends React.Component{
             id:user.id,
             name: user.FName,
             email: user.EmailId,
-            startInPage: '/services',
+            startInPage: '/patient',
           };
-          this.props.loadUser(new_user);
+          fetch('https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/activeOnlineUser',{
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({
+              id:new_user.id,
+              name:new_user.name,
+              email: new_user.email
+            })
+          }).then(res =>{
+            if(res.status === 200){
+              if(this.state.rememberMe){
+                this.props.loadUser(new_user);
+                this.setState({rememberMe: false})
+              }
+              else{
+                this.props.loadTempUser(new_user)
+              };
+            }else{
+              throw new Error('Error in processing request');
+            }
+          }).catch(error => {
+            console.error('There was an error during the fetch:', error);
+          });
         } 
       }
       else if(this.state.selectedOption==='Doctor'){
@@ -80,7 +109,8 @@ class LogIn extends React.Component{
             email: user.EmailId,
             startInPage: '/doctor',
           };
-          this.props.loadUser(new_user);
+          if(this.state.rememberMe){this.props.loadUser(new_user);this.setState({rememberMe: false})}
+          else{this.props.loadTempUser(new_user)}
         } 
       }
       else{
@@ -91,7 +121,8 @@ class LogIn extends React.Component{
             email:user.Email_Id,
             startInPage: '/',
           };
-          this.props.loadUser(new_user);
+          if(this.state.rememberMe){this.props.loadUser(new_user);this.setState({rememberMe: false})}
+          else{this.props.loadTempUser(new_user)}
         }
       }
     })
@@ -153,7 +184,7 @@ class LogIn extends React.Component{
                 <input className='bg-transparent' placeholder="********" type="password"   onChange={this.onPasswordChange}/>
               </div>
               <div className="remember-me">
-                <input type="checkbox" id="remember" class="larger-checkbox " />
+                <input type="checkbox" id="remember" class="larger-checkbox " checked={this.state.rememberMe} onChange={this.onRememberMeChange}/>
                 <label htmlFor="remember">Remember Me</label>
               </div>
               {this.state.wrongCredentials && <div className="error-message"> ⚠️ Incorrect Email or Password</div>}

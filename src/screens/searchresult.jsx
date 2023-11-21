@@ -144,6 +144,12 @@ function Searchresult() {
       <p>Detecting skin cancer type using ML</p>
       <button class="button button5" onClick={() => navigate('/skinCancerMLPage')}>Go</button>
       </div>
+      <div class="service">
+      <i class="ri-macbook-line"></i>
+      <h3>Skin Diseases Diagnosis</h3>
+      <p>Detecting skin diseases using ML</p>
+      <button class="button button5" onClick={() => navigate('/skinCancerDiseasesPage')}>Go</button>
+      </div>      
     </div>
     <div class="row">
            <div class="service">

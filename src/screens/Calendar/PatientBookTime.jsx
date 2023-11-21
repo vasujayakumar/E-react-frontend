@@ -5,7 +5,7 @@ import { Button, DatePicker, Card, Flex, Empty, Modal, Spin } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons'
 import { patientSearchForTimeSegments, patientBookTime } from '../../api/calendar';
 import dayjs from 'dayjs';
-import getLoginData from '../../loginData';
+import { readLoginData } from '../../loginData';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
@@ -33,7 +33,7 @@ const AvailableTimeSegmentList = (props) => {
 const PatientBookTime = (props) => {
   const navigate = useNavigate();
 
-  const loginData = getLoginData();
+  const loginData = readLoginData();
   let [ needLoad, setNeedLoad ] = useState(true);
   let [ loading, setLoading] = useState(true);
   let [ currentStart, setCurrentStart ] = useState(moment().startOf('week'));

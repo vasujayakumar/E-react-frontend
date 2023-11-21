@@ -1,120 +1,160 @@
-import { useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-const API_BASE_URL = 'https://e-react-node-backend-22ed6864d5f3.herokuapp.com';
-const PREDICTION_API_URL = 'https://final-cancer-1cbe1fe9b6d2.herokuapp.com/docs';
+import { BASE_URL } from "../constants";
+import "../styles/screens/boneMl.css";
 
-function Bonecanceraml() {
-  const location = useLocation();
-  const [recordList, setRecordList] = useState([]);
-  const [diagnosis, setDiagnosis] = useState(null); // Initialize to null
+function Boneml() {
+  const patientInfo = useSelector((state) => state.patientInfo);
+  const [boneData, setBoneData] = useState(null);
+  const [prediction, setPrediction] = useState("");
+  const [predictionLoader, setPredictionLoader] = useState(false);
 
   useEffect(() => {
-    const getPatientRecords = async () => {
+    async function getBoneData() {
       try {
-        const phoneNumber = location.state.MobileNumber;
-        const response = await axios.post(`${API_BASE_URL}/imageRetrieveByPhoneNumber`, {
-          phoneNumber,
-          recordType: 'Bonecancer_Images',
-        });
-        const { data } = response;
-        if (data.error) {
-          setDiagnosis(`Error: ${data.error}`);
-        } else {
-          setRecordList(data.success);
-        }
-      } catch (error) {
-        setDiagnosis(`Error: ${error.message}`);
+        const { id } = patientInfo;
+        const { data } = await axios.get(`${BASE_URL}/boneData/${id}`);
+        setBoneData(data);
+      } catch (err) {
+        console.error(err);
       }
-    };
+    }
 
-    getPatientRecords();
-  }, [location.state.MobileNumber]);
+    if (patientInfo.id) {
+      getBoneData();
+    }
+  }, [patientInfo]);
 
-  const predict = async (index) => {
-    const record = recordList[index];
+  async function predict(base64Image) {
+    setPredictionLoader(true);
     try {
-      const imageBlob = await fetch(`data:image/jpeg;base64,${record.file.buffer}`).then((response) =>
-        response.blob()
-      );
+      console.log('Before FormData creation');
       const formData = new FormData();
-      formData.append('image', imageBlob);
+      const blob = await (async () => {
+        return new Promise((resolve) => {
+          const binaryData = atob(base64Image);
+          const arrayBuffer = new ArrayBuffer(binaryData.length);
+          const uint8Array = new Uint8Array(arrayBuffer);
 
-      const response = await fetch(PREDICTION_API_URL, {
-        method: 'POST',
-        body: formData,
-      });
+          for (let i = 0; i < binaryData.length; i++) {
+            uint8Array[i] = binaryData.charCodeAt(i);
+          }
 
-      const data = await response.json();
-      if (data.error) {
-        setDiagnosis(`Error: ${JSON.stringify(data.error)}`);
+          const blob = new Blob([uint8Array], { type: "image/jpeg" });
+          resolve(blob);
+        });
+      })();
+      console.log('After FormData creation', formData);
+
+      if (blob instanceof Blob) {
+        formData.append("image", blob, "image.jpg");
+        console.log('Before axios.post');
+        const { data } = await axios.post(
+          "https://bonecancerml-2307992bf352.herokuapp.com/predict",
+          formData
+        );
+        console.log('After axios.post', data);
+        setPrediction(data.prediction);
       } else {
-        storePrediction(data, record._id);
-        const diagnosisMessage = data.prediction || 'No diagnosis available';
-        setDiagnosis(diagnosisMessage);
+        console.error("Invalid blob type");
+        throw new Error("Invalid blob type");
       }
     } catch (error) {
-      setDiagnosis(`Error: ${error.message}`);
+      console.error("Error during prediction:", error);
+      // Set prediction to null or handle differently based on your needs
+      setPrediction(null);
+    } finally {
+      setPredictionLoader(false);
     }
-  };
+  }
 
-  const storePrediction = async (result, id) => {
+  function renderPredictionCell() {
+    if (predictionLoader) {
+      return <div>Loading...</div>;
+    }
+
+    if (!prediction && boneData) {
+      return (
+        <button
+          className="predictButton"
+          onClick={() => predict(boneData.file.buffer)}
+          disabled={predictionLoader}
+        >
+          Predict
+        </button>
+      );
+    }
+
+    if (prediction !== undefined && prediction !== null) {
+      return <div>{prediction}</div>;
+    }
+
+    return null; // Return null if none of the conditions are met
+  }
+
+  async function savePrediction() {
     try {
-      const phoneNumber = location.state.MobileNumber;
-      const today = new Date().toISOString();
-      const variable = result.prediction === 'Patient has cancer' ? 1 : 0;
+      const url = `${BASE_URL}/boneData/${patientInfo.id}`;
+      const requestData = {
+        prediction: prediction,
+      };
 
-      const response = await axios.post(`${API_BASE_URL}/updateDisease`, {
-        phoneNumber,
-        disease: 'Bone Cancer',
-        date: today,
-        prediction: variable,
-        description: 'Bone Cancer Diagnosis',
-        accuracy: result.accuracy || null,
-        recordType: 'Bonecancer_Images',
-        recordId: id || null,
-      });
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-      const { data } = response;
-      if (data.error) {
-        setDiagnosis(`Error: ${JSON.stringify(data.error)}`);
-      } else {
-        setDiagnosis(data.success);
-      }
+      const response = await axios.post(url, requestData, config);
+      // Handle the response if needed
+      console.log("Prediction saved successfully:", response.data);
     } catch (error) {
-      setDiagnosis(`Error: ${error.message}`);
+      console.error("Error saving prediction:", error);
+      // Display an error message to the user
+      // For example: alert("Failed to save prediction. Please try again.")
     }
-  };
+  }
 
   return (
-    <div>
-      <h2>Bone Cancer Diagnosis</h2>
-      {diagnosis !== null && <div><strong>Diagnosis:</strong> {diagnosis}</div>}
-      <table>
+    <div className="bone-page">
+      <table className="bone-container">
         <thead>
           <tr>
-            <th>Image</th>
-            <th>Record Date</th>
-            <th>Action</th>
+            <th>Patient Information</th>
+            <th>X-Ray Image</th>
+            <th>Previous Prediction</th>
+            <th>Prediction</th>
           </tr>
         </thead>
-        <tbody>
-          {recordList.map(({ _id, file, RecordDate }, index) => (
-            <tr key={_id}>
-              <td>
-                <img src={`data:image/jpeg;base64,${file.buffer}`} alt="Patient Image" width="150" height="150" />
-              </td>
-              <td>{RecordDate}</td>
-              <td>
-                <button onClick={() => predict(index)}>Diagnose</button>
-              </td>
-            </tr>
-          ))}
+        <tbody className="table-contents">
+          <tr>
+            <td>
+              {patientInfo.FName} {patientInfo.MName} {patientInfo.LName}
+            </td>
+            <td>
+              {boneData && (
+                <img
+                  src={`data:image/jpeg;base64,${boneData.file.buffer}`}
+                  alt="X-Ray Image"
+                  width="150"
+                  height="150"
+                />
+              )}
+            </td>
+            <td>{boneData ? boneData.prediction : null}</td>
+            <td>{renderPredictionCell()}</td>
+          </tr>
         </tbody>
       </table>
+      {prediction ? (
+        <button className="saveButton" onClick={() => savePrediction()}>
+          Save
+        </button>
+      ) : null}
     </div>
   );
 }
 
-export default Bonecanceraml;
+export default Boneml;

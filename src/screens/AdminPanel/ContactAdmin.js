@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchContactUs } from '../redux/actions/userActions';
-import { fetchUsers, fetchPatientRegistration } from '../redux/actions/userActions';
-import '../styles/screens/ContactAdmin.css';
-import { Checkbox } from '@mui/material';
 import axios from 'axios'
-import { CheckBox } from '@mui/icons-material';
+import '../../styles/screens/ContactAdmin.css';
 
 
 function ContactAdmin() {
@@ -35,7 +30,7 @@ function ContactAdmin() {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Email</th>

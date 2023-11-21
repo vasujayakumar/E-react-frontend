@@ -2,11 +2,8 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useOutletContext } from "react-router-dom";
-import DocRecentPatients from '../components/DocRecentPatients';
 
-export default function Dashboard() {
-  const doctorId=useOutletContext();
+export default function AdminDashboard() {
   return (
           <Container maxWidth="xl" >
             <Grid container spacing={12}>
@@ -20,13 +17,9 @@ export default function Dashboard() {
                     height: 440,
                   }}
                 >
-                  <h3>Recent Patients</h3>
-                  <DocRecentPatients doctorId={doctorId}/>
+                  <h3>Welcome to Admin Page!</h3>
                 </Paper>
               </Grid>
-              {/* Some Chart */}
-    
-              {/* Tasks */}
               
             </Grid>
           </Container>
