@@ -67,7 +67,7 @@ import PatientLayout from './layout/PatientLayout.jsx';
 import {PatientPortal} from './screens/PatientPanel/PatientPortal.jsx'
 import { readLoginData, clearLoginData, isTempLogin, writeLoginData } from './loginData.js';
 import "./App.css";
-
+import SkinDiseasesMlPage from './screens/SkinDiseasesMlPage.js';
 
 class App extends Component {
   constructor() {
@@ -196,6 +196,7 @@ class App extends Component {
           <Route path="/searchpatient" element={<Searchpatient />} />
           <Route path="/skincancerml" element={<Skincancerml />} />
           <Route path="/skinCancerMLPage" element={<SkinCancerMlPage />} />
+          <Route path="/skinCancerDiseasesPage" element={ <SkinDiseasesMlPage/>} />
           <Route path="/Searchresult" element={<Searchresult />} />
           <Route path="/DoctorVideo" element={< DoctorVideo />} />
           <Route path="/DBConnection" element={<DBConnection />} />
