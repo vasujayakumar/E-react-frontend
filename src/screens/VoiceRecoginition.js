@@ -44,7 +44,7 @@ function VoiceRecognition() {
           setTimeout(() => speakThis(finalText), 100);
           openFile('http://localhost:8080/files/echocardiogram');
         },
-       
+        
         'open ultrasound scan': () => {
           const finalText = 'Opening ultrasound scan';
           setTranscript(finalText);
@@ -126,7 +126,7 @@ function VoiceRecognition() {
         alert('An error occurred while opening the file. Please try again later.');
       });
   };
- 
+
   const speakThis = (message) => {
     console.log('Speaking:', message);
     if ('speechSynthesis' in window) {
@@ -147,7 +147,7 @@ function VoiceRecognition() {
         <h1>OTTAWA E-HOSPITAL</h1>
         <p>I'm a Virtual Assistant, how can I help you</p>
       </div>
-     
+      
     <div className="input">
       <button className="talk">
         <i className="fas fa-microphone-alt"></i>
