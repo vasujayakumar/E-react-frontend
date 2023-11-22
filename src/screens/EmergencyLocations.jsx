@@ -80,7 +80,7 @@ function EmergencyLocations() {
       </div>
       <div className="emergency-locations__container">
         <LoadScript
-          googleMapsApiKey="AIzaSyD3cMM5gT7G3Gz1kVnuVb-6Yp4liQ2_-bM"
+          googleMapsApiKey
           libraries={libraries}
         >
           <GoogleMap
